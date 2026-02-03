@@ -1,0 +1,36 @@
+/* =====================
+   Overall Styles
+   ===================== */
+
+/* Variables */
+:root {
+  --primary: #191538; /* your base */
+  --accent: #6c63ff; /* soft violet */
+  --highlight: #b8b5ff; /* lavender */
+  --text: #edebff; /* off-white */
+  --muted: #8c8aae;
+}
+
+body {
+  background-color: var(--primary);
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  color: var(--text);
+  text-align: center;
+}
+
+p {
+  color: var(--text);
+  text-align: center;
+}
+
+button {
+  background-color: var(--highlight);
+  padding: 10px 20px;
+  border: none;
+  margin: 0% 48%;
+}
