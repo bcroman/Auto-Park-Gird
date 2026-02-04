@@ -1,79 +1,132 @@
-/* =====================
-   Overall Styles
-   ===================== */
-
 /* Variables */
 :root {
-  --primary: #191538; /* your base */
-  --accent: #6c63ff; /* soft violet */
-  --highlight: #b8b5ff; /* lavender */
-  --text: #edebff; /* off-white */
+  --primary: #191538;
+  --accent: #6c63ff;
+  --highlight: #b8b5ff;
+  --text: #edebff;
   --muted: #8c8aae;
+  --card: rgba(255, 255, 255, 0.06);
+  --border: rgba(255, 255, 255, 0.12);
 }
+
+* { box-sizing: border-box; }
 
 body {
-  background-color: var(--primary);
-  font-family: Arial, sans-serif;
   margin: 0;
-  padding: 0;
+  font-family: Arial, sans-serif;
+  background: radial-gradient(1200px 500px at 50% 0%, #24205a, var(--primary));
+  color: var(--text);
+  line-height: 1.7;
 }
 
+/* Page Layout */
+.page {
+  padding: 56px 18px 80px;
+}
+
+.content {
+  max-width: 72ch;
+  margin: 0 auto;
+  padding: 28px 26px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+}
+
+/* Typography */
 h1 {
-  color: var(--text);
   text-align: center;
+  margin: 0 0 14px;
+  font-size: 32px;
+  letter-spacing: 0.2px;
+}
+
+h2 {
+  margin: 26px 0 10px;
+  font-size: 20px;
 }
 
 p {
+  margin: 0 0 16px;
+  text-align: left; /* key change */
   color: var(--text);
+}
+
+.lead {
+  color: var(--muted);
+  font-size: 18px;
   text-align: center;
 }
 
-button {
-  background-color: var(--highlight);
-  padding: 10px 20px;
-  border: none;
-  margin: 0% 48%;
+/* Nav Bar */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: var(--accent);
 }
 
-/* =====================
-   Nav Bar
-   ===================== */
-
-nav{
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-}
-
-ul {
-  list-style-type: none;
+nav ul {
+  list-style: none;
   margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: var(--accent);
+  padding: 10px 14px;
   display: flex;
   justify-content: center;
+  gap: 15px;
 }
 
-li {
-  float: left;
-}
-
-li a,
-.dropbtn {
+nav a {
   display: inline-block;
   color: var(--text);
-  text-align: center;
-  padding: 14px 18px;
   text-decoration: none;
+  padding: 10px 14px;
+  border-radius: 12px;
   font-weight: 600;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: background-color 0.2s ease;
 }
 
-li a:hover,
-.dropdown:hover .dropbtn {
-  background-color: var(--accent);
-  color: var(--text)
+nav a:hover {
+  background: rgba(255, 255, 255, 0.16);
 }
 
+nav a.active {
+  background: rgba(255, 255, 255, 0.26);
+}
 
+/* BUTTON */
+.primary-btn,
+button {
+  background: var(--highlight);
+  color: #1b163a;
+  border: none;
+  padding: 12px 18px;
+  border-radius: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-block;
+  margin-top: 10px;
+}
+
+.primary-btn {
+  display: block;
+  margin: 18px auto 0; /* centers */
+}
+
+button:hover {
+  filter: brightness(1.05);
+}
+
+/* Footer */
+#footer {
+  margin-top: 26px;
+  text-align: center;
+  color: var(--muted);
+}
+
+#footer a {
+  color: var(--highlight);
+}
+
+#footer a:hover {
+  text-decoration: underline;
+}
