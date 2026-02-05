@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css//game_style.css" />
     <title>Auto Park Grid - Game</title>
 </head>
 
@@ -17,13 +18,40 @@
         </ul>
     </nav>
 
-    <main class="page">
-        <section class="content">
+    <section class="content">
+        <h1>Level 1 - Car Spaning</h1>
+        <p class="lead">Place the car into the highlighted parking space.</p>
+    </section>
 
-            <h1>Level 1 - Intro</h1>
+    <main class="page game-layout">
+        <!-- Level Instructions -->
+        <section class="instructions">
+            <h2>Concept - Spanning</h2>
+            <p>Look at W3Schools</p>
+        </section>
 
-            <p id="footer">Created by <a href="https://www.github.com/bcroman" target="_blank">Ben Collins</a></p>
+        <!-- User CSS Input -->
+        <section class="editor">
+            <h2>Write your CSS</h2>
+            <textarea id="cssInput"></textarea>
 
+            <div class="controls">
+                <button id="Check">Check</button>
+                <button id="reset">Reset</button>
+                <button id="hint">Hint</button>
+            </div>
+        </section>
+
+        <!-- Gird Preview -->
+        <section class="gird-preview">
+            <div class="grid">
+            </div>
+        </section>
+
+        <!-- Level Feedback -->
+        <section class="feedback">
+            <p class="success hidden">✔ Correct!</p>
+            <p class="error hidden">✖ Try again.</p>
         </section>
     </main>
 </body>
