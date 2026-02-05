@@ -1,4 +1,6 @@
-/* Variables */
+/* =====================
+   Variables & Global Styles
+   ===================== */
 :root {
   --primary: #191538;
   --accent: #6c63ff;
@@ -9,7 +11,9 @@
   --border: rgba(255, 255, 255, 0.12);
 }
 
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
 body {
   margin: 0;
@@ -19,7 +23,9 @@ body {
   line-height: 1.7;
 }
 
-/* Page Layout */
+/* =====================
+   Page Layout
+   ===================== */
 .page {
   padding: 56px 18px 80px;
 }
@@ -33,7 +39,9 @@ body {
   border-radius: 18px;
 }
 
-/* Typography */
+/* =====================
+   Typography
+   ===================== */
 h1 {
   text-align: center;
   margin: 0 0 14px;
@@ -48,7 +56,7 @@ h2 {
 
 p {
   margin: 0 0 16px;
-  text-align: left; /* key change */
+  text-align: left;
   color: var(--text);
 }
 
@@ -57,8 +65,9 @@ p {
   font-size: 18px;
   text-align: center;
 }
-
-/* Nav Bar */
+/* =====================
+   Navigation Bar
+   ===================== */
 nav {
   position: sticky;
   top: 0;
@@ -93,7 +102,9 @@ nav a.active {
   background: rgba(255, 255, 255, 0.26);
 }
 
-/* BUTTON */
+/* =====================
+   Buttoms
+   ===================== */
 .primary-btn,
 button {
   background: var(--highlight);
@@ -109,14 +120,16 @@ button {
 
 .primary-btn {
   display: block;
-  margin: 18px auto 0; /* centers */
+  margin: 18px auto 0;
 }
 
 button:hover {
   filter: brightness(1.05);
 }
 
-/* Footer */
+/* =====================
+   Footer
+   ===================== */
 #footer {
   margin-top: 26px;
   text-align: center;
