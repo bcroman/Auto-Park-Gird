@@ -110,7 +110,7 @@
 /* =====================
    Gird preview
    ===================== */
-.gird-preview {
+.grid-preview {
   display: flex;
   flex-direction: column;
   gap: 0px;

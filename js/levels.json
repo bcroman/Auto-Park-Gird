@@ -1,0 +1,143 @@
+{
+  "meta": {
+    "version": 1,
+    "gameId": "css-grid-tool",
+    "defaultGrid": {
+      "columns": 7,
+      "rows": 7
+    },
+    "validationDefaults": {
+      "tolerancePx": 2,
+      "minOverlapRatio": 0.98
+    }
+  },
+  "levels": [
+    {
+      "id": "L1",
+      "title": "Level 1 — Grid Lines",
+      "concept": {
+        "name": "grid-column / grid-row",
+        "explain": "Use grid-column and grid-row on the car to move it onto the highlighted parking spot."
+      },
+      "ui": {
+        "prompt": "Move the car onto the highlighted spot.",
+        "starterCss": "/* Level 1 */\n.car {\n  \n}\n",
+        "lockedCss": "/* Locked */\n.grid { display: grid; }\n",
+        "hints": [
+          "Try: grid-column: 3 / 4;",
+          "Try: grid-row: 2 / 3;"
+        ]
+      },
+      "grid": { "columns": 7, "rows": 7 },
+      "entities": [
+        {
+          "id": "car",
+          "type": "player",
+          "className": "car",
+          "baseCss": "border-radius: 10px;"
+        },
+        {
+          "id": "spot",
+          "type": "target",
+          "className": "spot",
+          "baseCss": "background: rgba(0, 200, 0, 0.22); outline: 2px dashed rgba(0, 200, 0, 0.8); border-radius: 10px;"
+        }
+      ],
+      "layout": {
+        "initial": {
+          "car": { "gridColumn": "1 / 2", "gridRow": "1 / 2" },
+          "spot": { "gridColumn": "3 / 4", "gridRow": "2 / 3" }
+        }
+      },
+      "winCondition": {
+        "type": "overlapEntity",
+        "movingEntityId": "car",
+        "targetEntityId": "spot",
+        "minOverlapRatio": 0.98,
+        "tolerancePx": 2
+      }
+    },
+
+    {
+      "id": "L2",
+      "title": "Level 2 — Spanning",
+      "concept": {
+        "name": "Spanning with grid lines",
+        "explain": "Some parking spots are bigger. Span the car across multiple columns using grid-column."
+      },
+      "ui": {
+        "prompt": "Span the car so it covers the whole highlighted spot.",
+        "starterCss": "/* Level 2 */\n.car {\n  \n}\n",
+        "lockedCss": "/* Locked */\n.grid { display: grid; }\n",
+        "hints": [
+          "Spanning example: grid-column: 2 / 5;",
+          "You can also span rows with grid-row."
+        ]
+      },
+      "grid": { "columns": 7, "rows": 7 },
+      "entities": [
+        { "id": "car", "type": "player", "className": "car", "baseCss": "border-radius: 10px;" },
+        {
+          "id": "spot",
+          "type": "target",
+          "className": "spot",
+          "baseCss": "background: rgba(0, 200, 0, 0.22); outline: 2px dashed rgba(0, 200, 0, 0.8); border-radius: 10px;"
+        }
+      ],
+      "layout": {
+        "initial": {
+          "car": { "gridColumn": "1 / 2", "gridRow": "1 / 2" },
+          "spot": { "gridColumn": "2 / 5", "gridRow": "4 / 5" }
+        }
+      },
+      "winCondition": {
+        "type": "overlapEntity",
+        "movingEntityId": "car",
+        "targetEntityId": "spot",
+        "minOverlapRatio": 0.98,
+        "tolerancePx": 2
+      }
+    },
+
+    {
+      "id": "L3",
+      "title": "Level 3 — Two-Axis Spanning",
+      "concept": {
+        "name": "Spanning rows + columns",
+        "explain": "This spot is larger in both directions. Use grid-column AND grid-row to match it."
+      },
+      "ui": {
+        "prompt": "Make the car cover the entire 2×2 spot.",
+        "starterCss": "/* Level 3 */\n.car {\n  \n}\n",
+        "lockedCss": "/* Locked */\n.grid { display: grid; }\n",
+        "hints": [
+          "Try spanning like: grid-column: 5 / 7;",
+          "And: grid-row: 2 / 4;"
+        ]
+      },
+      "grid": { "columns": 7, "rows": 7 },
+      "entities": [
+        { "id": "car", "type": "player", "className": "car", "baseCss": "border-radius: 10px;" },
+        {
+          "id": "spot",
+          "type": "target",
+          "className": "spot",
+          "baseCss": "background: rgba(0, 200, 0, 0.22); outline: 2px dashed rgba(0, 200, 0, 0.8); border-radius: 10px;"
+        }
+      ],
+      "layout": {
+        "initial": {
+          "car": { "gridColumn": "1 / 2", "gridRow": "1 / 2" },
+          "spot": { "gridColumn": "5 / 7", "gridRow": "2 / 4" }
+        }
+      },
+      "winCondition": {
+        "type": "overlapEntity",
+        "movingEntityId": "car",
+        "targetEntityId": "spot",
+        "minOverlapRatio": 0.98,
+        "tolerancePx": 2
+      }
+    }
+  ]
+}
