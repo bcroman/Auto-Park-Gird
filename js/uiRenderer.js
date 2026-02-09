@@ -2,32 +2,37 @@
 // Handles updating game UI from level data.
 
 // Game Page Elements
-const elements = {
+const selectors = {
     levelTitle: ".content h1",
     levelLead: ".content .lead",
     conceptTitle: ".instructions h2",
     conceptText: ".instructions p",
     cssInput: "#cssInput",
     gird: ".grid",
+    hintBtn: "#hint"
 }
 
 // Helper: Check for game page elements
-function must(elements) {
-    const el = document.querySelector(elements);
+function must(selectors) {
+    const el = document.querySelector(selectors);
     if (!el) {
-        console.error(`Element ${elements} not found!`);
-        throw new Error(`Element ${elements} not found!`);
+        console.error(`Element ${selectors} not found!`);
+        throw new Error(`Element ${selectors} not found!`);
     }
     return el;
 }
 
 // Function: Render Gird from level data
-export function renderGird(level) {
-    const gridEl = must(elements.gird);
+export function renderGrid(level) {
+    const gridEl = must(selectors.gird);
 
-    gridEl.innnerHTML = ""; // Clear existing grid
+    gridEl.innerHTML = ""; // Clear existing grid
 
-    for (const entity of entites) {
+    const entities = level?.entities ?? [];
+    const initialLayout = level?.layout?.initial ?? {};
+
+    // Create grid cells for each entity
+    for (const entity of entities) {
         const el = document.createElement("div");
 
         // Set class and data attributes
@@ -40,7 +45,7 @@ export function renderGird(level) {
         }
 
         // Apply Grid Placement
-        const pos = entity.id ? initalLayout[entity.id] : null;
+        const pos = entity.id ? initialLayout[entity.id] : null;
         if (pos?.gridColumn) el.style.gridColumn = pos.gridColumn;
         if (pos?.gridRow) el.style.gridRow = pos.gridRow;
 
@@ -51,30 +56,30 @@ export function renderGird(level) {
 // Function: Render level details
 export function renderLevel(level) {
     // Update level title and lead
-    must(elements.levelTitle).textContent = level.title ?? "Untitled Level";
-    must(elements.levelLead).textContent = level?.ui?.prompt ?? "";
+    must(selectors.levelTitle).textContent = level.title ?? "Untitled Level";
+    must(selectors.levelLead).textContent = level?.ui?.prompt ?? "";
 
     const conceptLabel = level?.concept?.name
         ? `Concept - ${level.concept.name}`
         : "Concept";
 
     // Update concept title and text
-    must(elements.conceptTitle).textContent = conceptLabel;
-    must(elements.conceptText).textContent = level?.concept?.explain ?? "";
+    must(selectors.conceptTitle).textContent = conceptLabel;
+    must(selectors.conceptText).textContent = level?.concept?.explain ?? "";
 
     // Update starter CSS input
-    must(elements.cssInput).value = level?.ui?.starterCss ?? "";
+    must(selectors.cssInput).value = level?.ui?.starterCss ?? "";
 
     renderGrid(level); // Build Grid Preview
 }
 
 // Function: Wire up hints
 export function wireHints(level) {
-    const btn = document.querySelector(elements);
+    const btn = document.querySelector(selectors.hintBtn);
     if (!btn) return; // No hint button, skip
 
-    const hintts = level?.ui?.hints ?? [];
-    btn.disabled = hintts.length === 0; // Disable if no hints
+    const hints = level?.ui?.hints ?? [];
+    btn.disabled = hints.length === 0; // Disable if no hints
 
     let hintIndex = 0;
 

@@ -33,7 +33,7 @@ function wireCheck() {
     };
 }
 
-// 
+// Update the DOM once it's fully loaded
 document.addEventListener("DOMContentLoaded", async () => {
     try {
         const packsURLs = [ // List of Level Packs
@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         };
 
         const state = { index: 0 };
-        
+
         // Get Current Level based on the state index 
         const getCurrentLevel = () =>
             levels[clamp(state.index, levels.length)];
@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         // Wire UI controls
         wireReset(getCurrentLevel);
-        wireCheckUIOnly();
+        wireCheck();
 
         // Debug access in DevTools
         window.__GAME__ = { levels, state, renderLevel };
