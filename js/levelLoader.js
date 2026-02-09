@@ -27,7 +27,7 @@ export async function loadLevelPack(url) {
 // Load Multiple Level Packs & Merge
 export async function loadAllLevelPacks(urls = []) {
     // Load all level packs concurrently
-    const packs = await Promise.all(urls.map(leadLevelPack));
+    const packs = await Promise.all(urls.map(loadLevelPack));
 
     // Merge all levels into a single array
     const allLevels = packs.flatMap(pack => pack.levels);

@@ -51,19 +51,19 @@ export function renderGird(level) {
 // Function: Render level details
 export function renderLevel(level) {
     // Update level title and lead
-    must(SELECTORS.levelTitle).textContent = level.title ?? "Untitled Level";
-    must(SELECTORS.levelLead).textContent = level?.ui?.prompt ?? "";
+    must(elements.levelTitle).textContent = level.title ?? "Untitled Level";
+    must(elements.levelLead).textContent = level?.ui?.prompt ?? "";
 
     const conceptLabel = level?.concept?.name
         ? `Concept - ${level.concept.name}`
         : "Concept";
 
     // Update concept title and text
-    must(SELECTORS.conceptTitle).textContent = conceptLabel;
-    must(SELECTORS.conceptText).textContent = level?.concept?.explain ?? "";
+    must(elements.conceptTitle).textContent = conceptLabel;
+    must(elements.conceptText).textContent = level?.concept?.explain ?? "";
 
     // Update starter CSS input
-    must(SELECTORS.cssInput).value = level?.ui?.starterCss ?? "";
+    must(elements.cssInput).value = level?.ui?.starterCss ?? "";
 
     renderGrid(level); // Build Grid Preview
 }
