@@ -11,6 +11,19 @@ function clamp(index, length) {
     return Math.max(0, Math.min(index, length - 1));
 }
 
+// Function: Render the current level based on the state index
+function renderCurrent(levels, state) {
+  const level = levels[clamp(state.index, levels.length)];
+  renderLevel(level);
+  wireHints(level);
+
+  // Disable prev/next when at ends of level list
+  const prevBtn = document.querySelector("#prev");
+  const nextBtn = document.querySelector("#next");
+  if (prevBtn) prevBtn.disabled = state.index <= 0;
+  if (nextBtn) nextBtn.disabled = state.index >= levels.length - 1;
+}
+
 // Function: Wire reset button to reset the level
 function wireReset(getCurrentLevel) {
     const resetBtn = document.querySelector("#reset");
@@ -18,7 +31,7 @@ function wireReset(getCurrentLevel) {
 
     resetBtn.onclick = () => {
         const level = getCurrentLevel();
-        renderLevel(level);
+        renderCurrent(levels, state);
         wireHints(level);
     };
 }
@@ -31,6 +44,28 @@ function wireCheck() {
     checkBtn.onclick = () => {
         alert("Check functionality is not implemented yet.");
     };
+}
+
+// Function: Wire the Previous and Next buttons to navigate levels
+function wirePrevNext(levels, state) {
+    const prevBtn = document.querySelector("#prev");
+    const nextBtn = document.querySelector("#next");
+
+    // Previous Button Click Handler
+    if (prevBtn) {
+        prevBtn.onclick = () => {
+            state.index = clamp(state.index - 1, levels.length);
+            renderCurrent(levels, state);
+        };
+    }
+
+    // Next Button Click Handler
+    if (nextBtn) {
+        nextBtn.onclick = () => {
+            state.index = clamp(state.index + 1, levels.length);
+            renderCurrent(levels, state);
+        };
+    }
 }
 
 // Update the DOM once it's fully loaded
@@ -54,12 +89,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         // Initial render
         const firstLevel = getCurrentLevel();
-        renderLevel(firstLevel);
-        wireHints(firstLevel);
+        renderCurrent(levels, state);
 
         // Wire UI controls
         wireReset(getCurrentLevel);
         wireCheck();
+        wirePrevNext(levels, state);
 
         // Debug access in DevTools
         window.__GAME__ = { levels, state, renderLevel };
