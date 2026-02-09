@@ -85,7 +85,6 @@
   border-color: rgba(184, 181, 255, 0.5);
 }
 
-
 .controls {
   display: flex;
   gap: 10px;
@@ -129,6 +128,21 @@
   background: rgba(0, 0, 0, 0.18);
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 16px;
+}
+
+/* =====================
+   Gird Items
+   ===================== */
+.car {
+  background: rgba(0, 200, 0, 0.22); 
+  outline: 2px dashed rgba(0, 200, 0, 0.8); 
+  border-radius: 10px;
+}
+
+.spot {
+  background: rgba(200, 0, 0, 0.22); 
+  outline: 2px dashed rgba(200, 0, 0, 0.8); 
+  border-radius: 10px;
 }
 
 /* =====================

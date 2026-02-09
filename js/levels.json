@@ -40,7 +40,7 @@
           "id": "spot",
           "type": "target",
           "className": "spot",
-          "baseCss": "background: rgba(0, 200, 0, 0.22); outline: 2px dashed rgba(0, 200, 0, 0.8); border-radius: 10px;"
+          "baseCss": "background: rgba(200, 0, 0, 0.22); outline: 2px dashed rgba(200, , 0, 0.8); border-radius: 10px;"
         }
       ],
       "layout": {
@@ -81,7 +81,7 @@
           "id": "spot",
           "type": "target",
           "className": "spot",
-          "baseCss": "background: rgba(0, 200, 0, 0.22); outline: 2px dashed rgba(0, 200, 0, 0.8); border-radius: 10px;"
+          "baseCss": "background: rgba(200, 0, 0, 0.22); outline: 2px dashed rgba(200, 0, 0, 0.8); border-radius: 10px;"
         }
       ],
       "layout": {
@@ -122,7 +122,7 @@
           "id": "spot",
           "type": "target",
           "className": "spot",
-          "baseCss": "background: rgba(0, 200, 0, 0.22); outline: 2px dashed rgba(0, 200, 0, 0.8); border-radius: 10px;"
+          "baseCss": "background: rgba(200, 0, 0, 0.22); outline: 2px dashed rgba(200, 0, 0, 0.8); border-radius: 10px;"
         }
       ],
       "layout": {

@@ -8,7 +8,7 @@ const selectors = {
     conceptTitle: ".instructions h2",
     conceptText: ".instructions p",
     cssInput: "#cssInput",
-    gird: ".grid",
+    grid: ".grid",
     hintBtn: "#hint"
 }
 
@@ -22,9 +22,9 @@ function must(selectors) {
     return el;
 }
 
-// Function: Render Gird from level data
+// Function: Render grid from level data
 export function renderGrid(level) {
-    const gridEl = must(selectors.gird);
+    const gridEl = must(selectors.grid);
 
     gridEl.innerHTML = ""; // Clear existing grid
 
@@ -36,7 +36,7 @@ export function renderGrid(level) {
         const el = document.createElement("div");
 
         // Set class and data attributes
-        el.className = entity.class || "";
+        el.className = entity.className || "";
         el.dataset.entityId = entity.id || "";
 
         // Apply base CSS if provided
