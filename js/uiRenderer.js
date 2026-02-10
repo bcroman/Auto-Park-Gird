@@ -46,8 +46,13 @@ export function renderGrid(level) {
 
         // Apply Grid Placement
         const pos = entity.id ? initialLayout[entity.id] : null;
-        if (pos?.gridColumn) el.style.gridColumn = pos.gridColumn;
-        if (pos?.gridRow) el.style.gridRow = pos.gridRow;
+
+        const isPlayer = entity.type === "player" || entity.id === "car";
+
+        if (!isPlayer) {
+            if (pos?.gridColumn) el.style.gridColumn = pos.gridColumn;
+            if (pos?.gridRow) el.style.gridRow = pos.gridRow;
+        }
 
         gridEl.appendChild(el);
     }
@@ -71,6 +76,8 @@ export function renderLevel(level) {
     must(selectors.cssInput).value = level?.ui?.starterCss ?? "";
 
     renderGrid(level); // Build Grid Preview
+
+    setupLivePreview(); // Setup live CSS preview
 }
 
 // Function: Wire up hints
@@ -88,4 +95,32 @@ export function wireHints(level) {
         alert(hints[hintIndex % hints.length]); // Show current hint
         hintIndex++;
     };
+}
+
+// Function: Apply CSS From User Input
+function applyCSS(css) {
+    let styleTag = document.getElementById("userStyles"); 
+    if (!styleTag) { 
+        styleTag = document.createElement("style");
+        styleTag.id = "userStyles";
+        document.head.appendChild(styleTag);
+    }
+    styleTag.textContent = css; 
+}
+
+// Function: Setup live CSS preview
+function setupLivePreview() {
+    // Get the CSS input element
+    const input = must(selectors.cssInput);
+
+    // Apply initial contents on load
+    applyCSS(input.value);
+
+    // Apply on every keystroke
+    input.addEventListener("input", () => {
+        applyCSS(input.value);
+        document.getElementById("result").textContent = "";
+    });
+
+    input.addEventListener("input", input._livePreviewHandler);
 }
