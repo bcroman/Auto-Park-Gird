@@ -44,11 +44,11 @@ export function renderGrid(level) {
             el.style.cssText = entity.baseCss;
         }
 
-        // Apply Grid Placement
+        // Position non-player entities based on initial layout
         const pos = entity.id ? initialLayout[entity.id] : null;
-
         const isPlayer = entity.type === "player" || entity.id === "car";
 
+        // Not PLayer Entities get Fix Grid Placement
         if (!isPlayer) {
             if (pos?.gridColumn) el.style.gridColumn = pos.gridColumn;
             if (pos?.gridRow) el.style.gridRow = pos.gridRow;
@@ -99,13 +99,16 @@ export function wireHints(level) {
 
 // Function: Apply CSS From User Input
 function applyCSS(css) {
-    let styleTag = document.getElementById("userStyles"); 
-    if (!styleTag) { 
+    // Find existing style tag or create a new one
+    let styleTag = document.getElementById("userStyles");
+
+    // Create style tag if it doesn't exist
+    if (!styleTag) {
         styleTag = document.createElement("style");
         styleTag.id = "userStyles";
         document.head.appendChild(styleTag);
     }
-    styleTag.textContent = css; 
+    styleTag.textContent = css;
 }
 
 // Function: Setup live CSS preview
@@ -119,7 +122,6 @@ function setupLivePreview() {
     // Apply on every keystroke
     input.addEventListener("input", () => {
         applyCSS(input.value);
-        document.getElementById("result").textContent = "";
     });
 
     input.addEventListener("input", input._livePreviewHandler);

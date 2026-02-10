@@ -25,14 +25,12 @@ function renderCurrent(levels, state) {
 }
 
 // Function: Wire reset button to reset the level
-function wireReset(getCurrentLevel) {
+function wireReset(levels, state) {
     const resetBtn = document.querySelector("#reset");
     if (!resetBtn) return;
 
     resetBtn.onclick = () => {
-        const level = getCurrentLevel();
         renderCurrent(levels, state);
-        wireHints(level);
     };
 }
 
@@ -92,9 +90,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         renderCurrent(levels, state);
 
         // Wire UI controls
-        wireReset(getCurrentLevel);
         wireCheck();
         wirePrevNext(levels, state);
+        wireReset(levels, state);
 
         // Debug access in DevTools
         window.__GAME__ = { levels, state, renderLevel };
