@@ -8,15 +8,11 @@ function area(r) {
 
 // Function: Calculate the intersection area of two DOMRects
 function intersectionArea(a, b) {
-    const left = Math.max(a.left, b.left);
-    const right = Math.min(a.right, b.right);
-    const top = Math.max(a.top, b.top);
-    const bottom = Math.min(a.bottom, b.bottom);
-
-    const width = Math.max(0, right - left);
-    const height = Math.max(0, bottom - top);
-
-    return { left, right, top, bottom, width, height };
+  const left = Math.max(a.left, b.left);
+  const right = Math.min(a.right, b.right);
+  const top = Math.max(a.top, b.top);
+  const bottom = Math.min(a.bottom, b.bottom);
+  return Math.max(0, right - left) * Math.max(0, bottom - top);
 }
 
 // Function: Calculate the Intersection over Union (IoU) of two DOMRects
@@ -31,18 +27,79 @@ function toRelativeRect(rect, containerRect) {
 // Function: Expand a DOMRect by a certain number of pixels in all directions
 function expandRect(r, px) {
   return {
-    left: r.left - px,
-    top: r.top - px,
-    right: r.right + px,
-    bottom: r.bottom + px,
-    width: r.width + px * 2,
-    height: r.height + px * 2
-  };
+    return {
+        left: r.left - px,
+        top: r.top - px,
+        right: r.right + px,
+        bottom: r.bottom + px,
+        width: r.width + px * 2,
+        height: r.height + px * 2
+    };
 }
 
 // Function: Validate the user's CSS input against the level's target using output-based validation (geometry)
 export function validateLevel(level) {
-    // Check for Elements 
+    // Validation Variables
+    const gridEl = document.querySelector(".grid");
+    const win = level?.winCondition;
+    const playerEl = gridEl.querySelector(`[data-entity-id="${win.movingEntityId}"]`);
+    const targetEl = gridEl.querySelector(`[data-entity-id="${win.targetEntityId}"]`);
+
+    // Basic Validation Checks
+    if (!gridEl) {
+        console.log("Grid element not found!");
+        return false;
+    }
+    if (!win) {
+        console.log("No winCondition Found!");
+        return false;
+    }
+    if (win.type !== "overlapEntity") {
+        console.log("Unsupported winCondition type:", win.type);
+        return false;
+    }
+    if (!playerEl) {
+        console.log("Player element not found:", win.movingEntityId);
+        return false;
+    }
+    if (!targetEl) {
+        console.log("Target element not found:", win.targetEntityId);
+        return false;
+    }
+
+    const containerRect = gridEl.getBoundingClientRect();
+    const movingRect = toRelativeRect(playerEl.getBoundingClientRect(), containerRect);
+    const targetRectRaw = toRelativeRect(targetEl.getBoundingClientRect(), containerRect);
+
+    const tolerancePx = Number(win.tolerancePx ?? level?.validationDefaults?.tolerancePx ?? 2);
+    const minOverlapRatio = Number(win.minOverlapRatio ?? level?.validationDefaults?.minOverlapRatio ?? 0.98);
+
+    // Expand target slightly to tolerate rounding / gaps
+    const targetRectForHitTest = expandRect(targetRectRaw, tolerancePx);
+
+    const interA = intersectionArea(movingRect, targetRectForHitTest);
+
+    const targetA = area(targetRectRaw);
+    const movingA = area(movingRect);
+
+    // Coverage: how much of target is covered
+    const coverage = targetA > 0 ? interA / targetA : 0;
+
+    // Spill-safe: how much of moving element lies on target
+    const spillSafe = movingA > 0 ? interA / movingA : 0;
+
+    console.log("⚙️ Settings:", { tolerancePx, minOverlapRatio });
+    console.log("📐 Results:", { interA, targetA, movingA, coverage, spillSafe });
+
+    const ok = coverage >= minOverlapRatio && spillSafe >= minOverlapRatio;
+
+    return ok;
 }
 
-
+// Function: Provide Level Validation Feedback
+export function provideFeedback(isValid) {
+    alert(isValid
+        ? "Correct Answer!, Level Completed."
+        : "Not correct!, Check the hints and try again."
+    );
+}

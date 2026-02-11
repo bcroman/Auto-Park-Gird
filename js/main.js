@@ -4,6 +4,7 @@
 //Import Functions
 import { loadAllLevelPacks } from "./levelLoader.js";
 import { renderLevel, wireHints } from "./uiRenderer.js";
+import { validateLevel, provideFeedback } from "./validation.js";
 
 // Function: Initialize the game
 function clamp(index, length) {
@@ -13,15 +14,15 @@ function clamp(index, length) {
 
 // Function: Render the current level based on the state index
 function renderCurrent(levels, state) {
-  const level = levels[clamp(state.index, levels.length)];
-  renderLevel(level);
-  wireHints(level);
+    const level = levels[clamp(state.index, levels.length)];
+    renderLevel(level);
+    wireHints(level);
 
-  // Disable prev/next when at ends of level list
-  const prevBtn = document.querySelector("#prev");
-  const nextBtn = document.querySelector("#next");
-  if (prevBtn) prevBtn.disabled = state.index <= 0;
-  if (nextBtn) nextBtn.disabled = state.index >= levels.length - 1;
+    // Disable prev/next when at ends of level list
+    const prevBtn = document.querySelector("#prev");
+    const nextBtn = document.querySelector("#next");
+    if (prevBtn) prevBtn.disabled = state.index <= 0;
+    if (nextBtn) nextBtn.disabled = state.index >= levels.length - 1;
 }
 
 // Function: Wire reset button to reset the level
@@ -35,12 +36,15 @@ function wireReset(levels, state) {
 }
 
 // Function: Wire the Check Button
-function wireCheck() {
+function wireCheck(levels, state) {
     const checkBtn = document.querySelector("#check");
     if (!checkBtn) return;
 
     checkBtn.onclick = () => {
-        alert("Check functionality is not implemented yet.");
+        //alert("Check functionality is not implemented yet.");
+        const isValid = validateLevel(levels[state.index]);
+        provideFeedback(isValid);
+        window.__GAME__ = { levels, state, renderLevel, validateLevel, provideFeedback };
     };
 }
 
@@ -90,7 +94,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         renderCurrent(levels, state);
 
         // Wire UI controls
-        wireCheck();
+        wireCheck(levels, state);
         wirePrevNext(levels, state);
         wireReset(levels, state);
 
