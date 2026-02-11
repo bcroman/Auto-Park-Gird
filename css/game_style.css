@@ -54,7 +54,6 @@
    ===================== */
 .editor {
   text-align: left;
-  height: 480px;
 }
 
 .editor h2 {
@@ -163,6 +162,29 @@
   color: #cc1515;
   margin: 0;
   font-weight: 700;
+}
+
+/* =====================
+   Hint Panel
+   ===================== */
+.hint-panel {
+  margin-top: 12px;
+  padding: 10px 14px;
+  background: rgba(108, 99, 255, 0.12);
+  border-left: 4px solid var(--highlight);
+  border-radius: 10px;
+  font-size: 14px;
+  color: var(--highlight);
+  max-width: 100%;
+}
+
+/* .hint-panel.hidden {
+  display: none;
+} */
+
+.hint-text {
+  margin: 0;
+  font-family: "Courier New", monospace;
 }
 
 /* =====================
