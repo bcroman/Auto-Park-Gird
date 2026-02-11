@@ -82,18 +82,36 @@ export function renderLevel(level) {
 
 // Function: Wire up hints
 export function wireHints(level) {
-    const btn = document.querySelector(selectors.hintBtn);
-    if (!btn) return; // No hint button, skip
+    const btn = document.getElementById("hint");
+    const hintPanel = document.getElementById("hintPanel");
+    const hintText = document.getElementById("hintText");
+
+    if (!btn || !hintPanel || !hintText) return;
 
     const hints = level?.ui?.hints ?? [];
-    btn.disabled = hints.length === 0; // Disable if no hints
+
+    // Disable button if no hints
+    btn.disabled = hints.length === 0;
 
     let hintIndex = 0;
 
+    // Reset panel on level load
+    hintPanel.classList.add("hidden");
+    hintText.textContent = "";
+
+    // Show hints on button click
     btn.onclick = () => {
         if (!hints.length) return;
-        alert(hints[hintIndex % hints.length]); // Show current hint
-        hintIndex++;
+
+        // Show current hint
+        hintText.textContent = `Hint ${hintIndex + 1} of ${hints.length}: ${hints[hintIndex]}`;
+
+        hintPanel.classList.remove("hidden");
+
+        // Move to next hint (but stop at last one)
+        if (hintIndex < hints.length - 1) {
+            hintIndex++;
+        }
     };
 }
 

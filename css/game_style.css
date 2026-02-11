@@ -178,9 +178,9 @@
   max-width: 100%;
 }
 
-/* .hint-panel.hidden {
+.hint-panel.hidden {
   display: none;
-} */
+}
 
 .hint-text {
   margin: 0;
