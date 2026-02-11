@@ -50,11 +50,8 @@
         }
       },
       "winCondition": {
-        "type": "overlapEntity",
         "movingEntityId": "car",
-        "targetEntityId": "spot",
-        "minOverlapRatio": 0.98,
-        "tolerancePx": 2
+        "targetEntityId": "spot"
       }
     },
 
@@ -91,11 +88,8 @@
         }
       },
       "winCondition": {
-        "type": "overlapEntity",
         "movingEntityId": "car",
-        "targetEntityId": "spot",
-        "minOverlapRatio": 0.98,
-        "tolerancePx": 2
+        "targetEntityId": "spot"
       }
     },
 
@@ -132,11 +126,8 @@
         }
       },
       "winCondition": {
-        "type": "overlapEntity",
         "movingEntityId": "car",
-        "targetEntityId": "spot",
-        "minOverlapRatio": 0.98,
-        "tolerancePx": 2
+        "targetEntityId": "spot"
       }
     }
   ]

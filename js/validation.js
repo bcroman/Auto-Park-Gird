@@ -1,6 +1,13 @@
 // Validation.js
 // Handles the validation of user CSS input against level target base on output-based validation (geometry), allows multiples correct answers
 
+// Validation Settings
+const DEFAULT_VALIDATION = {
+    type: "overlapEntity",
+    minOverlapRatio: 0.98,
+    tolerancePx: 2
+};
+
 // Function: Calculate the area of a DOMRect
 function area(r) {
     return Math.max(0, r.width) * Math.max(0, r.height);
@@ -8,11 +15,11 @@ function area(r) {
 
 // Function: Calculate the intersection area of two DOMRects
 function intersectionArea(a, b) {
-  const left = Math.max(a.left, b.left);
-  const right = Math.min(a.right, b.right);
-  const top = Math.max(a.top, b.top);
-  const bottom = Math.min(a.bottom, b.bottom);
-  return Math.max(0, right - left) * Math.max(0, bottom - top);
+    const left = Math.max(a.left, b.left);
+    const right = Math.min(a.right, b.right);
+    const top = Math.max(a.top, b.top);
+    const bottom = Math.min(a.bottom, b.bottom);
+    return Math.max(0, right - left) * Math.max(0, bottom - top);
 }
 
 // Function: Calculate the Intersection over Union (IoU) of two DOMRects
@@ -26,7 +33,6 @@ function toRelativeRect(rect, containerRect) {
 
 // Function: Expand a DOMRect by a certain number of pixels in all directions
 function expandRect(r, px) {
-  return {
     return {
         left: r.left - px,
         top: r.top - px,
@@ -41,7 +47,10 @@ function expandRect(r, px) {
 export function validateLevel(level) {
     // Validation Variables
     const gridEl = document.querySelector(".grid");
-    const win = level?.winCondition;
+    const win = {
+        ...DEFAULT_VALIDATION,
+        ...(level?.winCondition || {})
+    };
     const playerEl = gridEl.querySelector(`[data-entity-id="${win.movingEntityId}"]`);
     const targetEl = gridEl.querySelector(`[data-entity-id="${win.targetEntityId}"]`);
 
@@ -67,27 +76,27 @@ export function validateLevel(level) {
         return false;
     }
 
+    // Get bounding rects relative to grid container
     const containerRect = gridEl.getBoundingClientRect();
     const movingRect = toRelativeRect(playerEl.getBoundingClientRect(), containerRect);
     const targetRectRaw = toRelativeRect(targetEl.getBoundingClientRect(), containerRect);
 
-    const tolerancePx = Number(win.tolerancePx ?? level?.validationDefaults?.tolerancePx ?? 2);
-    const minOverlapRatio = Number(win.minOverlapRatio ?? level?.validationDefaults?.minOverlapRatio ?? 0.98);
+    // Validation Settings
+    const tolerancePx = Number(win.tolerancePx);
+    const minOverlapRatio = Number(win.minOverlapRatio);
 
-    // Expand target slightly to tolerate rounding / gaps
+    // Expand target rect by tolerance for hit testing
     const targetRectForHitTest = expandRect(targetRectRaw, tolerancePx);
-
     const interA = intersectionArea(movingRect, targetRectForHitTest);
 
+    // Areas for coverage and spill calculations
     const targetA = area(targetRectRaw);
     const movingA = area(movingRect);
 
-    // Coverage: how much of target is covered
-    const coverage = targetA > 0 ? interA / targetA : 0;
+    const coverage = targetA > 0 ? interA / targetA : 0; // How much of target is covered?
+    const spillSafe = movingA > 0 ? interA / movingA : 0; // How much of moving element lies on target?
 
-    // Spill-safe: how much of moving element lies on target
-    const spillSafe = movingA > 0 ? interA / movingA : 0;
-
+    // Debug Logs
     console.log("⚙️ Settings:", { tolerancePx, minOverlapRatio });
     console.log("📐 Results:", { interA, targetA, movingA, coverage, spillSafe });
 
