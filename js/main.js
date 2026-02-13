@@ -41,8 +41,8 @@ function wireCheck(levels, state) {
     if (!checkBtn) return;
 
     checkBtn.onclick = () => {
-        const isValid = validateLevel(levels[state.index]);
-        provideFeedback(isValid);
+        const result = validateLevel(levels[state.index]);
+        provideFeedback(result);
         window.__GAME__ = { levels, state, renderLevel, validateLevel, provideFeedback };
     };
 }

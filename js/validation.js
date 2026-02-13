@@ -106,9 +106,36 @@ export function validateLevel(level) {
 }
 
 // Function: Provide Level Validation Feedback
-export function provideFeedback(isValid) {
-    alert(isValid
-        ? "Correct Answer!, Level Completed."
-        : "Not correct!, Check the hints and try again."
-    );
+export function provideFeedback(result) {
+    const feedbackEl = document.querySelector("#feedback");
+    const successEl = document.querySelector("#feedbackSuccess");
+    const errorEl = document.querySelector("#feedbackError");
+    const listEl = document.querySelector("#feedbackList");
+
+    // Check if Feedback Elements there?
+    if (!feedbackEl || !successEl || !errorEl || !listEl) {
+        alert(result?.ok ? "Correct!" : "Try again."); // Fall back Message
+        return;
+    }
+
+    // Show feedback section 
+    feedbackEl.classList.remove("hidden");
+
+    // Toggle success/error headline
+    if (result.ok) {
+        successEl.classList.remove("hidden");
+        errorEl.classList.add("hidden");
+    } else {
+        successEl.classList.add("hidden");
+        errorEl.classList.remove("hidden");
+    }
+
+    // Fill the message list
+    listEl.innerHTML = "";
+    const messages = result.messages?.length ? result.messages : [result.title || "Try again."];
+    for (const msg of messages) {
+        const li = document.createElement("li");
+        li.textContent = msg;
+        listEl.appendChild(li);
+    }
 }
