@@ -51,35 +51,60 @@ export function validateLevel(level) {
         ...DEFAULT_VALIDATION,
         ...(level?.winCondition || {})
     };
+
+    // Missing Grid Section
+    if (!gridEl) {
+        return {
+            ok: false,
+            code: "MISSING_GRID",
+            title: "Grid not found",
+            messages: ["The .grid element is missing from the page."]
+        };
+    }
+
+    // Entite Varibles
     const playerEl = gridEl.querySelector(`[data-entity-id="${win.movingEntityId}"]`);
     const targetEl = gridEl.querySelector(`[data-entity-id="${win.targetEntityId}"]`);
 
-    // Basic Validation Checks
-    if (!gridEl) {
-        console.log("Grid element not found!");
-        return false;
-    }
-    if (!win) {
-        console.log("No winCondition Found!");
-        return false;
-    }
-    if (win.type !== "overlapEntity") {
-        console.log("Unsupported winCondition type:", win.type);
-        return false;
-    }
-    if (!playerEl) {
-        console.log("Player element not found:", win.movingEntityId);
-        return false;
-    }
-    if (!targetEl) {
-        console.log("Target element not found:", win.targetEntityId);
-        return false;
+    // Missing Entite Varibles
+    if (!playerEl || !targetEl) {
+        return {
+            ok: false,
+            code: "MISSING_ELEMENTS",
+            title: "Level setup issue",
+            messages: [
+                !playerEl ? `Missing moving entity: ${win.movingEntityId}` : null,
+                !targetEl ? `Missing target entity: ${win.targetEntityId}` : null
+            ].filter(Boolean)
+        };
     }
 
     // Get bounding rects relative to grid container
     const containerRect = gridEl.getBoundingClientRect();
     const movingRect = toRelativeRect(playerEl.getBoundingClientRect(), containerRect);
     const targetRectRaw = toRelativeRect(targetEl.getBoundingClientRect(), containerRect);
+
+    // Check Items Sizes (Out of Grid Error)
+    const containerWidth = containerRect.width;
+    const containerHeight = containerRect.height;
+
+    const isOutOfBounds =
+        movingRect.left < 0 ||
+        movingRect.top < 0 ||
+        movingRect.right > containerWidth ||
+        movingRect.bottom > containerHeight;
+
+    if (isOutOfBounds) {
+        return {
+            ok: false,
+            code: "OUT_OF_BOUNDS",
+            title: "Out of bounds",
+            messages: [
+                "Your vehicle is outside the parking grid.",
+                "The grid size is 7 x 7."
+            ]
+        };
+    }
 
     // Validation Settings
     const tolerancePx = Number(win.tolerancePx);
@@ -144,7 +169,7 @@ export function provideFeedback(result) {
     errorEl.classList.add("hidden");
     listEl.innerHTML = "";
 
-    // Toggle success/error headline
+    // Toggle success/error messages
     if (result.ok) {
         successEl.classList.remove("hidden");
         listEl.innerHTML = "";
