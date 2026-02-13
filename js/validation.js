@@ -101,7 +101,7 @@ export function validateLevel(level) {
             title: "Out of bounds",
             messages: [
                 "Your vehicle is outside the parking grid.",
-                "The grid size is 7 x 7."
+                `The grid size is ${level.grid?.cols ?? "?"} x ${level.grid?.rows ?? "?"}.`
             ]
         };
     }
@@ -164,26 +164,28 @@ export function provideFeedback(result) {
     // Show feedback section
     feedbackEl.style.display = "block";
 
-    // Reset Txts
+    // Reset
     successEl.classList.add("hidden");
     errorEl.classList.add("hidden");
     listEl.innerHTML = "";
 
+    // Hide/show list cleanly
+    listEl.style.display = result.ok ? "none" : "block";
+
     // Toggle success/error messages
     if (result.ok) {
         successEl.classList.remove("hidden");
-        listEl.innerHTML = "";
+        return;
+    }
 
-    } else {
-        errorEl.classList.remove("hidden");
+    // Error Message
+    errorEl.classList.remove("hidden");
 
-        // Fill the message list
-        listEl.innerHTML = "";
-        const messages = result.messages?.length ? result.messages : [result.title || "Try again."];
-        for (const msg of messages) {
-            const li = document.createElement("li");
-            li.textContent = msg;
-            listEl.appendChild(li);
-        }
+    // Fill the message list
+    const messages = result.messages?.length ? result.messages : [result.title || "Try again."];
+    for (const msg of messages) {
+        const li = document.createElement("li");
+        li.textContent = msg;
+        listEl.appendChild(li);
     }
 }
