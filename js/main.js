@@ -41,7 +41,6 @@ function wireCheck(levels, state) {
     if (!checkBtn) return;
 
     checkBtn.onclick = () => {
-        //alert("Check functionality is not implemented yet.");
         const isValid = validateLevel(levels[state.index]);
         provideFeedback(isValid);
         window.__GAME__ = { levels, state, renderLevel, validateLevel, provideFeedback };
