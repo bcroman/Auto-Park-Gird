@@ -96,20 +96,38 @@ export function validateLevel(level) {
     const coverage = targetA > 0 ? interA / targetA : 0; // How much of target is covered?
     const spillSafe = movingA > 0 ? interA / movingA : 0; // How much of moving element lies on target?
 
-    // Debug Logs
-    console.log("⚙️ Settings:", { tolerancePx, minOverlapRatio });
-    console.log("📐 Results:", { interA, targetA, movingA, coverage, spillSafe });
-
     const ok = coverage >= minOverlapRatio && spillSafe >= minOverlapRatio;
 
-    return ok;
+    // Valid Message
+    if (ok) {
+        return {
+            ok: true,
+            code: "OK",
+            title: "Correct!",
+            messages: ["Perfect placement — level completed."]
+        };
+    }
+
+    // Hint Error Messages
+    const txt = ["Not quite in the highlighted spot yet."];
+    if (coverage < minOverlapRatio) txt.push("You’re not covering enough of the target space.");
+    if (spillSafe < minOverlapRatio) txt.push("Too much of the vehicle is spilling outside the target.");
+
+    // Error Message
+    return {
+        ok: false,
+        code: "NOT_CORRECT",
+        title: "Try again",
+        messages: txt,
+        debug: { coverage, spillSafe, minOverlapRatio, tolerancePx }
+    };
 }
 
 // Function: Provide Level Validation Feedback
 export function provideFeedback(result) {
     const feedbackEl = document.querySelector("#feedback");
-    const successEl = document.querySelector("#feedbackSuccess");
-    const errorEl = document.querySelector("#feedbackError");
+    const successEl = document.querySelector("#success");
+    const errorEl = document.querySelector("#error");
     const listEl = document.querySelector("#feedbackList");
 
     // Check if Feedback Elements there?
@@ -125,6 +143,7 @@ export function provideFeedback(result) {
     if (result.ok) {
         successEl.classList.remove("hidden");
         errorEl.classList.add("hidden");
+        listEl.innerHTML = "";
     } else {
         successEl.classList.add("hidden");
         errorEl.classList.remove("hidden");
