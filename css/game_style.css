@@ -160,7 +160,7 @@
    ===================== */
 .feedback {
   text-align: center;
-  display: block;
+  display: none;
 }
 
 .success {

@@ -136,25 +136,29 @@ export function provideFeedback(result) {
         return;
     }
 
-    // Show feedback section 
-    feedbackEl.classList.remove("hidden");
+    // Show feedback section
+    feedbackEl.style.display = "block";
+
+    // Reset Txts
+    successEl.classList.add("hidden");
+    errorEl.classList.add("hidden");
+    listEl.innerHTML = "";
 
     // Toggle success/error headline
     if (result.ok) {
         successEl.classList.remove("hidden");
-        errorEl.classList.add("hidden");
         listEl.innerHTML = "";
-    } else {
-        successEl.classList.add("hidden");
-        errorEl.classList.remove("hidden");
-    }
 
-    // Fill the message list
-    listEl.innerHTML = "";
-    const messages = result.messages?.length ? result.messages : [result.title || "Try again."];
-    for (const msg of messages) {
-        const li = document.createElement("li");
-        li.textContent = msg;
-        listEl.appendChild(li);
+    } else {
+        errorEl.classList.remove("hidden");
+
+        // Fill the message list
+        listEl.innerHTML = "";
+        const messages = result.messages?.length ? result.messages : [result.title || "Try again."];
+        for (const msg of messages) {
+            const li = document.createElement("li");
+            li.textContent = msg;
+            listEl.appendChild(li);
+        }
     }
 }
