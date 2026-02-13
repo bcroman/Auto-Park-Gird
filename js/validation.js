@@ -84,27 +84,27 @@ export function validateLevel(level) {
     const movingRect = toRelativeRect(playerEl.getBoundingClientRect(), containerRect);
     const targetRectRaw = toRelativeRect(targetEl.getBoundingClientRect(), containerRect);
 
-    // Check Items Sizes (Out of Grid Error)
-    const containerWidth = containerRect.width;
-    const containerHeight = containerRect.height;
+    // Check Items Sizes (Out of Bounds Error)
+    // const containerWidth = containerRect.width;
+    // const containerHeight = containerRect.height;
 
-    const isOutOfBounds =
-        movingRect.left < 0 ||
-        movingRect.top < 0 ||
-        movingRect.right > containerWidth ||
-        movingRect.bottom > containerHeight;
+    // const isOutOfBounds =
+    //     movingRect.left < 0 ||
+    //     movingRect.top < 0 ||
+    //     movingRect.right > containerWidth ||
+    //     movingRect.bottom > containerHeight;
 
-    if (isOutOfBounds) {
-        return {
-            ok: false,
-            code: "OUT_OF_BOUNDS",
-            title: "Out of bounds",
-            messages: [
-                "Your vehicle is outside the parking grid.",
-                `The grid size is ${level.grid?.cols ?? "?"} x ${level.grid?.rows ?? "?"}.`
-            ]
-        };
-    }
+    // if (isOutOfBounds) {
+    //     return {
+    //         ok: false,
+    //         code: "OUT_OF_BOUNDS",
+    //         title: "Out of bounds",
+    //         messages: [
+    //             "Your vehicle is outside the parking grid.",
+    //             `The grid size is ${level.grid?.cols ?? "?"} x ${level.grid?.rows ?? "?"}.`
+    //         ]
+    //     };
+    // }
 
     // Validation Settings
     const tolerancePx = Number(win.tolerancePx);
@@ -169,6 +169,10 @@ export function provideFeedback(result) {
     errorEl.classList.add("hidden");
     listEl.innerHTML = "";
 
+    // Always set headline text fresh
+    successEl.textContent = `✔ ${result.title || "Correct!"}`;
+    errorEl.textContent = `✖ ${result.title || "Try again."}`;
+
     // Hide/show list cleanly
     listEl.style.display = result.ok ? "none" : "block";
 
@@ -180,6 +184,7 @@ export function provideFeedback(result) {
 
     // Error Message
     errorEl.classList.remove("hidden");
+    listEl.style.display = "block";
 
     // Fill the message list
     const messages = result.messages?.length ? result.messages : [result.title || "Try again."];

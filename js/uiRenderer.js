@@ -141,6 +141,4 @@ function setupLivePreview() {
     input.addEventListener("input", () => {
         applyCSS(input.value);
     });
-
-    input.addEventListener("input", input._livePreviewHandler);
 }

@@ -32,11 +32,13 @@ function wireReset(levels, state) {
 
     resetBtn.onclick = () => {
         renderCurrent(levels, state);
+        clearFeedback()
     };
 }
 
 // Function: Wire the Check Button
 function wireCheck(levels, state) {
+    clearFeedback()
     const checkBtn = document.querySelector("#check");
     if (!checkBtn) return;
 
@@ -57,6 +59,7 @@ function wirePrevNext(levels, state) {
         prevBtn.onclick = () => {
             state.index = clamp(state.index - 1, levels.length);
             renderCurrent(levels, state);
+            clearFeedback()
         };
     }
 
@@ -65,7 +68,33 @@ function wirePrevNext(levels, state) {
         nextBtn.onclick = () => {
             state.index = clamp(state.index + 1, levels.length);
             renderCurrent(levels, state);
+            clearFeedback()
         };
+    }
+}
+
+// Helper: Reset Feedback Section
+function clearFeedback() {
+    const feedbackEl = document.querySelector("#feedback");
+    const successEl = document.querySelector("#success");
+    const errorEl = document.querySelector("#error");
+    const listEl = document.querySelector("#feedbackList");
+
+    if (!feedbackEl) return;
+
+    // Hide whole panel again
+    feedbackEl.style.display = "none";
+
+    // Reset message visibility + content
+    if (successEl) {
+        successEl.classList.add("hidden");
+    }
+    if (errorEl) {
+        errorEl.classList.add("hidden");
+    }
+    if (listEl) {
+        listEl.innerHTML = "";
+        listEl.style.display = "none";
     }
 }
 
