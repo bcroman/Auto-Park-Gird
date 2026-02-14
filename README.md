@@ -1,2 +1,36 @@
-# Auto-Park-Gird
-Dissertation Project Source Code
+# Auto Park Grid
+Auto Park Grid is an educational web application designed to teach CSS Grid concepts through interactive gameplay.  
+Users control the placement of a vehicle within a parking grid by writing CSS. The system validates solutions based on the resulting layout geometry rather than text matching, allowing multiple correct answers.
+
+## Features
+- Live CSS Preview
+- Output-based Validation (Geometry Comparison)
+- Multiple Correct Answer Support
+- Structured Feedback System
+- Level Hints
+- Level Progressionn
+
+## Installation
+### Requirements
+- Modern Web Browser
+- Web Server
+
+### Steps
+1. Clone the repository:  `git clone https://github.com/bcroman/Auto-Park-Gird.git`
+2. Navigate into the project directory:  `cd Auto-Park-Grid`  
+3. Run a local server like VC Code Server  
+4. Open: `http://127.0.0.1:5500/index.html`
+
+### How to Use
+1. Open the game page.
+2. Read the level instructions.
+3. Write CSS in the editor to position the vehicle.
+4. Click Check to validate.
+5. Use feedback to adjust your solution.
+6. Progress through levels.
+
+## Credits
+Author: Ben Collins  
+Module: Dissertation
+Version: 0.5.0  
+Date: 14/02/2026  
