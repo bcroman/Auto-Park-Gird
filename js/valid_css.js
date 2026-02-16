@@ -90,6 +90,27 @@ function isDangerousSelector(selector) {
     return true;
 }
 
+// Helper: Check if grid dimensions are within 7x7 bounds
+function isGridInBounds(property, value) {
+    const GRID_MIN = 1;
+    const GRID_MAX = 7;
+
+    // Get all numeric values from the property value
+    const numbers = value.match(/\d+/g);
+    if (!numbers) return true; // No numbers found
+
+    // Check each numeric value is within grid bounds
+    for (const num of numbers) {
+        const gridPos = parseInt(num, 10);
+        // Verify position is within 7x7 grid (1-7 for start/end positions)
+        if (gridPos < GRID_MIN || gridPos > GRID_MAX) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
 // Helper: Validate a single property-value pair
 function validateProperty(property, value) {
     const errors = [];
@@ -108,6 +129,13 @@ function validateProperty(property, value) {
     // Check if property is in the safe whitelist
     if (!SAFE_PROPERTIES.has(property)) {
         errors.push(`Property "${property}" is not allowed`);
+    }
+
+    // Validate grid properties are within 7x7 bounds
+    if (property.includes('grid-')) {
+        if (!isGridInBounds(property, value)) {
+            errors.push(`${property} value must be within 7x7 grid (1-7). Got: ${value}`);
+        }
     }
 
     return errors;
