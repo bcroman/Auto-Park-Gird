@@ -1,6 +1,8 @@
 // UI Renderer.js
 // Handles updating game UI from level data.
 
+import { validateCSS } from "./valid_css.js";
+
 // Game Page Elements
 const selectors = {
     levelTitle: ".content h1",
@@ -117,6 +119,43 @@ export function wireHints(level) {
 
 // Function: Apply CSS From User Input
 function applyCSS(css) {
+    // Validate CSS first
+    const validation = validateCSS(css);
+
+    const feedbackEl = document.querySelector("#feedback");
+    const errorEl = document.querySelector("#error");
+    const listEl = document.querySelector("#feedbackList");
+
+    if (!validation.valid) {
+        // Show validation errors in feedback section
+        if (feedbackEl && errorEl && listEl) {
+            feedbackEl.style.display = "block";
+            errorEl.classList.remove("hidden");
+            errorEl.textContent = "✖ CSS Validation Errors";
+
+            // Clear and populate error list
+            listEl.innerHTML = "";
+            listEl.style.display = "block";
+            validation.errors.forEach(err => {
+                const li = document.createElement("li");
+                li.textContent = err;
+                listEl.appendChild(li);
+            });
+        } else {
+            console.warn("CSS Validation Error:", validation.errors);
+        }
+        // Don't apply invalid CSS
+        return;
+    }
+
+    // Hide error message if CSS is valid
+    if (feedbackEl && errorEl && listEl) {
+        feedbackEl.style.display = "none";
+        errorEl.classList.add("hidden");
+        listEl.innerHTML = "";
+        listEl.style.display = "none";
+    }
+
     // Find existing style tag or create a new one
     let styleTag = document.getElementById("userStyles");
 
