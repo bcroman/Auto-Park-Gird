@@ -21,7 +21,7 @@
       },
       "ui": {
         "prompt": "Move the car onto the highlighted spot.",
-        "starterCss": "/* Level 1 */\n.car {\n  \n}\n",
+        "starterCss": ".car {\n  \n}\n",
         "lockedCss": "/* Locked */\n.grid { display: grid; }\n",
         "hints": [
           "Try: grid-column: 3 / 4;",
@@ -64,7 +64,7 @@
       },
       "ui": {
         "prompt": "Span the car so it covers the whole highlighted spot.",
-        "starterCss": "/* Level 2 */\n.car {\n  \n}\n",
+        "starterCss": ".car {\n  \n}\n",
         "lockedCss": "/* Locked */\n.grid { display: grid; }\n",
         "hints": [
           "Spanning example: grid-column: 2 / 5;",
@@ -102,7 +102,7 @@
       },
       "ui": {
         "prompt": "Make the car cover the entire 2×2 spot.",
-        "starterCss": "/* Level 3 */\n.car {\n  \n}\n",
+        "starterCss": ".car {\n  \n}\n",
         "lockedCss": "/* Locked */\n.grid { display: grid; }\n",
         "hints": [
           "Try spanning like: grid-column: 5 / 7;",

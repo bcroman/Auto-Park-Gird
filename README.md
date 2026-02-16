@@ -9,6 +9,7 @@ Users control the placement of a vehicle within a parking grid by writing CSS. T
 - Structured Feedback System
 - Level Hints
 - Level Progressionn
+- CSS Input Validation of Control Tags and Out of Bounds
 
 ## Installation
 ### Requirements
@@ -31,6 +32,6 @@ Users control the placement of a vehicle within a parking grid by writing CSS. T
 
 ## Credits
 Author: Ben Collins  
-Module: Dissertation
+Module: Dissertation  
 Version: 0.5.0  
 Date: 14/02/2026  
