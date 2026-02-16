@@ -1,4 +1,4 @@
-// Validation.js
+// valid_grid.js
 // Handles the validation of user CSS input against level target base on output-based validation (geometry), allows multiples correct answers
 
 // Validation Settings

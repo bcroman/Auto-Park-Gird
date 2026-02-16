@@ -1,4 +1,4 @@
-//Level Loader.js
+// level_loader.js
 // Handles Loading and storing into an array
 
 export async function loadLevelPack(url) {

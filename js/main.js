@@ -2,9 +2,9 @@
 // Handles the main game logic and initialization
 
 //Import Functions
-import { loadAllLevelPacks } from "./levelLoader.js";
-import { renderLevel, wireHints } from "./uiRenderer.js";
-import { validateLevel, provideFeedback } from "./validation.js";
+import { loadAllLevelPacks } from "./level_loader.js";
+import { renderLevel, wireHints } from "./ui_renderer.js";
+import { validateLevel, provideFeedback } from "./valid_grid.js";
 
 // Function: Initialize the game
 function clamp(index, length) {

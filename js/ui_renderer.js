@@ -1,4 +1,4 @@
-// UI Renderer.js
+//ui_renderer.js
 // Handles updating game UI from level data.
 
 import { validateCSS } from "./valid_css.js";
