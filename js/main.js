@@ -1,10 +1,11 @@
 // Main.js
 // Handles the main game logic and initialization
 
-//Import Functions
+// Import Files and Functions
 import { loadAllLevelPacks } from "./level_loader.js";
 import { renderLevel, wireHints } from "./ui_renderer.js";
-import { validateLevel, provideFeedback } from "./valid_grid.js";
+import { validateLevel } from "./valid_grid.js";
+import { clearFeedback, showFeedback } from "./ui_feedback.js";
 
 // Function: Initialize the game
 function clamp(index, length) {
@@ -32,20 +33,20 @@ function wireReset(levels, state) {
 
     resetBtn.onclick = () => {
         renderCurrent(levels, state);
-        clearFeedback()
+        clearFeedback();
     };
 }
 
 // Function: Wire the Check Button
 function wireCheck(levels, state) {
-    clearFeedback()
+    clearFeedback();
     const checkBtn = document.querySelector("#check");
     if (!checkBtn) return;
 
     checkBtn.onclick = () => {
         const result = validateLevel(levels[state.index]);
-        provideFeedback(result);
-        window.__GAME__ = { levels, state, renderLevel, validateLevel, provideFeedback };
+        showFeedback(result);
+        window.__GAME__ = { levels, state, renderLevel, validateLevel, showFeedback };
     };
 }
 
@@ -59,7 +60,7 @@ function wirePrevNext(levels, state) {
         prevBtn.onclick = () => {
             state.index = clamp(state.index - 1, levels.length);
             renderCurrent(levels, state);
-            clearFeedback()
+            clearFeedback();
         };
     }
 
@@ -68,33 +69,8 @@ function wirePrevNext(levels, state) {
         nextBtn.onclick = () => {
             state.index = clamp(state.index + 1, levels.length);
             renderCurrent(levels, state);
-            clearFeedback()
+            clearFeedback();
         };
-    }
-}
-
-// Helper: Reset Feedback Section
-function clearFeedback() {
-    const feedbackEl = document.querySelector("#feedback");
-    const successEl = document.querySelector("#success");
-    const errorEl = document.querySelector("#error");
-    const listEl = document.querySelector("#feedbackList");
-
-    if (!feedbackEl) return;
-
-    // Hide whole panel again
-    feedbackEl.style.display = "none";
-
-    // Reset message visibility + content
-    if (successEl) {
-        successEl.classList.add("hidden");
-    }
-    if (errorEl) {
-        errorEl.classList.add("hidden");
-    }
-    if (listEl) {
-        listEl.innerHTML = "";
-        listEl.style.display = "none";
     }
 }
 

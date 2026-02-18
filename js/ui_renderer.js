@@ -1,7 +1,9 @@
 //ui_renderer.js
 // Handles updating game UI from level data.
 
+// Import Files and Functions
 import { validateCSS } from "./valid_css.js";
+import { clearFeedback, showCssErrors } from "./ui_feedback.js";
 
 // Game Page Elements
 const selectors = {
@@ -126,21 +128,10 @@ function applyCSS(css) {
     const errorEl = document.querySelector("#error");
     const listEl = document.querySelector("#feedbackList");
 
+    // If CSS is invalid, show errors and don't apply
     if (!validation.valid) {
-        // Show validation errors in feedback section
         if (feedbackEl && errorEl && listEl) {
-            feedbackEl.style.display = "block";
-            errorEl.classList.remove("hidden");
-            errorEl.textContent = "✖ CSS Validation Errors";
-
-            // Clear and populate error list
-            listEl.innerHTML = "";
-            listEl.style.display = "block";
-            validation.errors.forEach(err => {
-                const li = document.createElement("li");
-                li.textContent = err;
-                listEl.appendChild(li);
-            });
+            showCssErrors(validation.errors);
         } else {
             console.warn("CSS Validation Error:", validation.errors);
         }
@@ -150,10 +141,7 @@ function applyCSS(css) {
 
     // Hide error message if CSS is valid
     if (feedbackEl && errorEl && listEl) {
-        feedbackEl.style.display = "none";
-        errorEl.classList.add("hidden");
-        listEl.innerHTML = "";
-        listEl.style.display = "none";
+        clearFeedback();
     }
 
     // Find existing style tag or create a new one
