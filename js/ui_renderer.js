@@ -3,7 +3,8 @@
 
 // Import Files and Functions
 import { validateCSS } from "./valid_css.js";
-import { clearFeedback, showCssErrors } from "./ui_feedback.js";
+import { validateLevel } from "./valid_grid.js";
+import { showFeedback, showCssErrors } from "./ui_feedback.js";
 
 // Game Page Elements
 const selectors = {
@@ -81,7 +82,7 @@ export function renderLevel(level) {
 
     renderGrid(level); // Build Grid Preview
 
-    setupLivePreview(); // Setup live CSS preview
+    setupLivePreview(level); // Setup live CSS preview
 }
 
 // Function: Wire up hints
@@ -120,7 +121,7 @@ export function wireHints(level) {
 }
 
 // Function: Apply CSS From User Input
-function applyCSS(css) {
+function applyCSS(css, level) {
     // Validate CSS first
     const validation = validateCSS(css);
 
@@ -139,11 +140,6 @@ function applyCSS(css) {
         return;
     }
 
-    // Hide error message if CSS is valid
-    if (feedbackEl && errorEl && listEl) {
-        clearFeedback();
-    }
-
     // Find existing style tag or create a new one
     let styleTag = document.getElementById("userStyles");
 
@@ -154,18 +150,24 @@ function applyCSS(css) {
         document.head.appendChild(styleTag);
     }
     styleTag.textContent = css;
+
+    // Validate level automatically after applying valid CSS
+    if (level) {
+        const result = validateLevel(level);
+        showFeedback(result);
+    }
 }
 
 // Function: Setup live CSS preview
-function setupLivePreview() {
+function setupLivePreview(level) {
     // Get the CSS input element
     const input = must(selectors.cssInput);
 
     // Apply initial contents on load
-    applyCSS(input.value);
+    applyCSS(input.value, level);
 
     // Apply on every keystroke
-    input.addEventListener("input", () => {
-        applyCSS(input.value);
-    });
+    input.oninput = () => {
+        applyCSS(input.value, level);
+    };
 }

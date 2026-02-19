@@ -4,8 +4,8 @@
 // Import Files and Functions
 import { loadAllLevelPacks } from "./level_loader.js";
 import { renderLevel, wireHints } from "./ui_renderer.js";
-import { validateLevel } from "./valid_grid.js";
-import { clearFeedback, showFeedback } from "./ui_feedback.js";
+// import { validateLevel } from "./valid_grid.js";
+import { clearFeedback } from "./ui_feedback.js";
 
 // Function: Initialize the game
 function clamp(index, length) {
@@ -34,19 +34,6 @@ function wireReset(levels, state) {
     resetBtn.onclick = () => {
         renderCurrent(levels, state);
         clearFeedback();
-    };
-}
-
-// Function: Wire the Check Button
-function wireCheck(levels, state) {
-    clearFeedback();
-    const checkBtn = document.querySelector("#check");
-    if (!checkBtn) return;
-
-    checkBtn.onclick = () => {
-        const result = validateLevel(levels[state.index]);
-        showFeedback(result);
-        window.__GAME__ = { levels, state, renderLevel, validateLevel, showFeedback };
     };
 }
 
@@ -94,11 +81,9 @@ document.addEventListener("DOMContentLoaded", async () => {
             levels[clamp(state.index, levels.length)];
 
         // Initial render
-        const firstLevel = getCurrentLevel();
         renderCurrent(levels, state);
 
         // Wire UI controls
-        wireCheck(levels, state);
         wirePrevNext(levels, state);
         wireReset(levels, state);
 

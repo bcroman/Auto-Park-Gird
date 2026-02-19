@@ -128,8 +128,8 @@ export function validateLevel(level) {
         messages = ["Too much of the vehicle is spilling outside the target."];
         // Check if the user is both not covering enough and covering too much
     } else if (notCoveringEnough && coveringTooMuch) {
-        title = "Not covering enough and covering too much";
-        messages = ["You’re not covering enough of the target space and too much of the vehicle is spilling outside the target."];
+        title = "Try again";
+        messages = ["Adjust the vehicle placement and try again."];
     }
 
     // Error Message
