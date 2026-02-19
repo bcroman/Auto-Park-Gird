@@ -111,17 +111,33 @@ export function validateLevel(level) {
         };
     }
 
-    // Hint Error Messages
-    const txt = ["Not quite in the highlighted spot yet."];
-    if (coverage < minOverlapRatio) txt.push("You’re not covering enough of the target space.");
-    if (spillSafe < minOverlapRatio) txt.push("Too much of the vehicle is spilling outside the target.");
+    const notCoveringEnough = coverage < minOverlapRatio;
+    const coveringTooMuch = spillSafe < minOverlapRatio;
+
+    // Default Error Message
+    let title = "Try again";
+    let messages = ["Adjust the vehicle placement and try again."];
+
+    // Check if the user is not covering enough of the target
+    if (notCoveringEnough && !coveringTooMuch) {
+        title = "Not covering enough";
+        messages = ["You’re not covering enough of the target space."];
+        // Check if the user is covering too much of the target
+    } else if (coveringTooMuch && !notCoveringEnough) {
+        title = "Covering too much";
+        messages = ["Too much of the vehicle is spilling outside the target."];
+        // Check if the user is both not covering enough and covering too much
+    } else if (notCoveringEnough && coveringTooMuch) {
+        title = "Not covering enough and covering too much";
+        messages = ["You’re not covering enough of the target space and too much of the vehicle is spilling outside the target."];
+    }
 
     // Error Message
     return {
         ok: false,
         code: "NOT_CORRECT",
-        title: "Try again",
-        messages: txt,
+        title,
+        messages,
         debug: { coverage, spillSafe, minOverlapRatio, tolerancePx }
     };
 }
