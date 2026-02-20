@@ -91,6 +91,7 @@ export function validateLevel(level) {
     // Expand target rect by tolerance for hit testing
     const targetRectForHitTest = expandRect(targetRectRaw, tolerancePx);
     const interA = intersectionArea(movingRect, targetRectForHitTest);
+    const hasContact = interA > 0;
 
     // Areas for coverage and spill calculations
     const targetA = area(targetRectRaw);
@@ -107,7 +108,8 @@ export function validateLevel(level) {
             ok: true,
             code: "OK",
             title: "Correct!",
-            messages: ["Perfect placement — level completed."]
+            messages: ["Perfect placement — level completed."],
+            hasContact
         };
     }
 
@@ -138,6 +140,7 @@ export function validateLevel(level) {
         code: "NOT_CORRECT",
         title,
         messages,
+        hasContact,
         debug: { coverage, spillSafe, minOverlapRatio, tolerancePx }
     };
 }

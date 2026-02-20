@@ -4,7 +4,7 @@
 // Import Files and Functions
 import { validateCSS } from "./valid_css.js";
 import { validateLevel } from "./valid_grid.js";
-import { showFeedback, showCssErrors } from "./ui_feedback.js";
+import { clearFeedback, showCssErrors, showFeedback } from "./ui_feedback.js";
 
 // Game Page Elements
 const selectors = {
@@ -154,7 +154,13 @@ function applyCSS(css, level) {
     // Validate level automatically after applying valid CSS
     if (level) {
         const result = validateLevel(level);
-        showFeedback(result);
+
+        // Only show grid validation feedback after player first overlaps target area
+        if (result.ok || result.hasContact) {
+            showFeedback(result);
+        } else {
+            clearFeedback();
+        }
     }
 }
 
