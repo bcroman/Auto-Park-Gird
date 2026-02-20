@@ -10,6 +10,7 @@ Users control the placement of a vehicle within a parking grid by writing CSS. T
 - Level Hints
 - Level Progressionn
 - CSS Input Validation of Control Tags and Out of Bounds
+- Load the Newest Unlock Level
 
 ## Installation
 ### Requirements
@@ -26,12 +27,12 @@ Users control the placement of a vehicle within a parking grid by writing CSS. T
 1. Open the game page.
 2. Read the level instructions.
 3. Write CSS in the editor to position the vehicle.
-4. Click Check to validate.
+4. Check the CSS and grid validation feedback.
 5. Use feedback to adjust your solution.
 6. Progress through levels.
 
 ## Credits
 Author: Ben Collins  
 Module: Dissertation  
-Version: 0.5.0  
-Date: 14/02/2026  
+Version: 0.8.0  
+Date: 20/02/2026  
