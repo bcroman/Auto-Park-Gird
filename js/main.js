@@ -5,6 +5,7 @@
 import { loadAllLevelPacks } from "./level_loader.js";
 import { renderLevel, wireHints } from "./ui_renderer.js";
 import { clearFeedback } from "./ui_feedback.js";
+import { loadProgress, saveProgress } from "./progress_store.js";
 
 // Function: Initialize the game
 function clamp(index, length) {
@@ -105,6 +106,7 @@ function wireLevelUnlocking(levels, state) {
         // Unlock the next level
         const unlockedUpTo = Math.min(levels.length - 1, state.index + 1);
         state.highestUnlockedIndex = Math.max(state.highestUnlockedIndex, unlockedUpTo);
+        saveProgress(levels, state.highestUnlockedIndex, state.gameId);
         updateNavigationButtons(levels, state);
     });
 }
@@ -117,12 +119,21 @@ document.addEventListener("DOMContentLoaded", async () => {
         ];
 
         // Load all level packs
-        const { levels } = await loadAllLevelPacks(packsURLs);
+        const { levels, packs } = await loadAllLevelPacks(packsURLs);
         if (!levels.length) { //Error handling for no levels found
             throw new Error("No levels founds!");
         };
 
-        const state = { index: 0, highestUnlockedIndex: 0 };
+        // Determine game ID for progress storage
+        const gameId = packs?.[0]?.meta?.gameId || "css-grid-tool";
+        const progress = loadProgress(levels, gameId); // Load progress from localStorage
+        
+        // Initialize game state
+        const state = {
+            index: 0,
+            highestUnlockedIndex: progress.highestUnlockedIndex,
+            gameId
+        };
 
         // Get Current Level based on the state index 
         const getCurrentLevel = () =>
