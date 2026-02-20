@@ -117,8 +117,8 @@
 }
 
 /* =====================
-   Gird preview
-   ===================== */
+   Grid Preview
+   ==================== */
 .grid-preview {
   display: flex;
   flex-direction: column;
@@ -141,7 +141,7 @@
 }
 
 /* =====================
-   Gird Items
+   Grid Items
    ===================== */
 .car {
   background: rgba(0, 200, 0, 0.22);
@@ -187,6 +187,26 @@
 
 .hidden {
   display: none;
+}
+/* =====================
+   Next Button
+   ===================== */
+
+#next.next-locked {
+  background: var(--muted);
+  color: var(--text);
+  opacity: 0.85;
+  cursor: not-allowed;
+}
+
+#next.next-locked:hover {
+  filter: none;
+}
+
+#next.next-unlocked {
+  background: var(--highlight);
+  color: #1b163a;
+  opacity: 1;
 }
 
 /* =====================

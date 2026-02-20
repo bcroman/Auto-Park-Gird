@@ -154,6 +154,15 @@ function applyCSS(css, level) {
     // Validate level automatically after applying valid CSS
     if (level) {
         const result = validateLevel(level);
+        const levelKey = level?.id ?? level?.title ?? "";
+
+        // Dispatch custom event with validation result and level key
+        window.dispatchEvent(new CustomEvent("level-validation", {
+            detail: {
+                ok: result.ok,
+                levelKey
+            }
+        }));
 
         // Only show grid validation feedback after player first overlaps target area
         if (result.ok || result.hasContact) {
