@@ -127,10 +127,11 @@ document.addEventListener("DOMContentLoaded", async () => {
         // Determine game ID for progress storage
         const gameId = packs?.[0]?.meta?.gameId || "css-grid-tool";
         const progress = loadProgress(levels, gameId); // Load progress from localStorage
+        const startIndex = clamp(progress.highestUnlockedIndex ?? 0, levels.length);
         
         // Initialize game state
         const state = {
-            index: 0,
+            index: startIndex,
             highestUnlockedIndex: progress.highestUnlockedIndex,
             gameId
         };
