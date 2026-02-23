@@ -7,6 +7,8 @@ import { renderLevel, wireHints } from "./ui_renderer.js";
 import { clearFeedback } from "./ui_feedback.js";
 import { loadProgress, saveProgress } from "./progress_store.js";
 
+const STORAGE_PREFIX = "apg.progress.";
+
 // Function: Initialize the game
 function clamp(index, length) {
     if (length <= 0) return 0;
@@ -46,12 +48,29 @@ function updateNavigationButtons(levels, state) {
     }
 }
 
+// Function: Update the level progress bar and text
+function updateProgressUI(levels, state) {
+    const progressText = document.querySelector("#progressText");
+    const progressFill = document.querySelector("#progressFill");
+    const progressTrack = document.querySelector(".progress-track");
+
+    if (!progressText || !progressFill || !progressTrack || !levels.length) return;
+
+    const completedCount = Math.max(0, Math.min(levels.length, state.highestUnlockedIndex ?? 0));
+    const percent = Math.round((completedCount / levels.length) * 100);
+
+    progressText.textContent = `Progress: ${completedCount}/${levels.length} (${percent}%)`;
+    progressFill.style.width = `${percent}%`;
+    progressTrack.setAttribute("aria-valuenow", String(percent));
+}
+
 // Function: Render the current level based on the state index
 function renderCurrent(levels, state) {
     const level = levels[clamp(state.index, levels.length)];
     renderLevel(level);
     wireHints(level);
     updateNavigationButtons(levels, state);
+    updateProgressUI(levels, state);
 }
 
 // Function: Wire reset button to reset the level
@@ -108,6 +127,7 @@ function wireLevelUnlocking(levels, state) {
         state.highestUnlockedIndex = Math.max(state.highestUnlockedIndex, unlockedUpTo);
         saveProgress(levels, state.highestUnlockedIndex, state.gameId);
         updateNavigationButtons(levels, state);
+        updateProgressUI(levels, state);
     });
 }
 
