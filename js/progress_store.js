@@ -50,7 +50,7 @@ function unlockedIdsToHighestIndex(levels, unlockedIds) {
 export function loadProgress(levels, gameId) {
     // Validate levels input
     if (!Array.isArray(levels) || levels.length === 0) {
-        return { unlockedIds: [], highestUnlockedIndex: 0 };
+        return { unlockedIds: [], highestUnlockedIndex: 0, completedCount: 0 };
     }
 
     const key = storageKey(gameId);
@@ -60,23 +60,31 @@ export function loadProgress(levels, gameId) {
         const raw = localStorage.getItem(key);
         const data = raw ? safeParse(raw) : null;
         const unlockedIds = normalizeUnlockedIds(levels, data?.unlockedIds);
+        const highestUnlockedIndex = unlockedIdsToHighestIndex(levels, unlockedIds);
+
+        const parsedCompleted = Number(data?.completedCount);
+        const completedCount = Number.isFinite(parsedCompleted)
+            ? Math.max(0, Math.min(parsedCompleted, levels.length))
+            : Math.max(0, Math.min(highestUnlockedIndex, levels.length));
 
         return {
             unlockedIds,
-            highestUnlockedIndex: unlockedIdsToHighestIndex(levels, unlockedIds)
+            highestUnlockedIndex,
+            completedCount
         };
     } catch {
         // On error, default to unlocking the first level
         const firstId = levels[0]?.id ?? levels[0]?.title ?? "";
         return {
             unlockedIds: firstId ? [firstId] : [],
-            highestUnlockedIndex: 0
+            highestUnlockedIndex: 0,
+            completedCount: 0
         };
     }
 }
 
 // Function: Save progress to localStorage
-export function saveProgress(levels, highestUnlockedIndex, gameId) {
+export function saveProgress(levels, highestUnlockedIndex, gameId, completedCount) {
     if (!Array.isArray(levels) || levels.length === 0) return;
 
     const key = storageKey(gameId);
@@ -91,6 +99,7 @@ export function saveProgress(levels, highestUnlockedIndex, gameId) {
     // Create the payload to save
     const payload = {
         unlockedIds,
+        completedCount: Math.max(0, Math.min(Number(completedCount) || 0, levels.length)),
         updatedAt: new Date().toISOString()
     };
 

@@ -56,7 +56,7 @@ function updateProgressUI(levels, state) {
 
     if (!progressText || !progressFill || !progressTrack || !levels.length) return;
 
-    const completedCount = Math.max(0, Math.min(levels.length, state.highestUnlockedIndex ?? 0));
+    const completedCount = Math.max(0, Math.min(levels.length, state.completedCount ?? 0));
     const percent = Math.round((completedCount / levels.length) * 100);
 
     progressText.textContent = `Progress: ${completedCount}/${levels.length} (${percent}%)`;
@@ -125,7 +125,14 @@ function wireLevelUnlocking(levels, state) {
         // Unlock the next level
         const unlockedUpTo = Math.min(levels.length - 1, state.index + 1);
         state.highestUnlockedIndex = Math.max(state.highestUnlockedIndex, unlockedUpTo);
-        saveProgress(levels, state.highestUnlockedIndex, state.gameId);
+        state.completedCount = Math.max(state.completedCount, state.index + 1);
+
+        saveProgress(
+            levels,
+            state.highestUnlockedIndex,
+            state.gameId,
+            state.completedCount
+        );
         updateNavigationButtons(levels, state);
         updateProgressUI(levels, state);
     });
@@ -153,6 +160,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         const state = {
             index: startIndex,
             highestUnlockedIndex: progress.highestUnlockedIndex,
+            completedCount: progress.completedCount,
             gameId
         };
 
