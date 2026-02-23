@@ -126,6 +126,9 @@
   border-color: rgba(184, 181, 255, 0.5);
 }
 
+/* =====================
+   Controls Buttons
+   ===================== */
 .controls {
   display: flex;
   gap: 10px;
@@ -144,6 +147,19 @@
 .controls .hint {
   background: rgba(255, 255, 255, 0.14);
   color: var(--text);
+}
+
+/* =====================
+   Danger Button
+   ===================== */
+.controls .danger {
+  background: rgba(200, 30, 30, 0.18);
+  color: var(--text);
+  border: 1px solid rgba(200, 30, 30, 0.4);
+}
+
+.controls .danger:hover {
+  filter: brightness(1.08);
 }
 
 /* =====================
@@ -218,6 +234,7 @@
 .hidden {
   display: none;
 }
+
 /* =====================
    Next Button
    ===================== */

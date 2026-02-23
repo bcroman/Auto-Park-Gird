@@ -56,9 +56,11 @@ function updateProgressUI(levels, state) {
 
     if (!progressText || !progressFill || !progressTrack || !levels.length) return;
 
+    // Calculate completed count and percentage
     const completedCount = Math.max(0, Math.min(levels.length, state.completedCount ?? 0));
     const percent = Math.round((completedCount / levels.length) * 100);
 
+    // Update progress text and bar
     progressText.textContent = `Progress: ${completedCount}/${levels.length} (${percent}%)`;
     progressFill.style.width = `${percent}%`;
     progressTrack.setAttribute("aria-valuenow", String(percent));
@@ -138,6 +140,38 @@ function wireLevelUnlocking(levels, state) {
     });
 }
 
+// Function: Wire reset progress button to clear saved progress and return to level 1
+function wireResetProgress(levels, state) {
+    const btn = document.querySelector("#resetProgress");
+    if (!btn) return;
+
+    btn.onclick = () => {
+        // Confirm with the user before resetting progress
+        const shouldReset = window.confirm("Reset all progress? This will lock levels again and return to Level 1.");
+        if (!shouldReset) return;
+
+        // Clear saved progress from localStorage
+        try {
+            localStorage.removeItem(`${STORAGE_PREFIX}${state.gameId || "default"}`);
+        } catch {
+            console.warn("Failed to clear saved progress.");
+        }
+
+        state.highestUnlockedIndex = 0;
+        state.completedCount = 0;
+        state.index = 0;
+
+        saveProgress(
+            levels,
+            state.highestUnlockedIndex,
+            state.gameId,
+            state.completedCount
+        );
+        renderCurrent(levels, state);
+        clearFeedback();
+    };
+}
+
 // Update the DOM once it's fully loaded
 document.addEventListener("DOMContentLoaded", async () => {
     try {
@@ -174,6 +208,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         // Wire UI controls
         wirePrevNext(levels, state);
         wireReset(levels, state);
+        wireResetProgress(levels, state);
         wireLevelUnlocking(levels, state);
 
         // Debug access in DevTools
