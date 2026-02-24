@@ -181,13 +181,13 @@ function wireResetProgress(levels, state) {
 document.addEventListener("DOMContentLoaded", async () => {
     try {
         const packsURLs = [ // List of Level Packs
-            new URL("levels.json", import.meta.url).href
+            new URL("levels/pack-1.json", import.meta.url).href
         ];
 
         // Load all level packs
         const { levels, packs } = await loadAllLevelPacks(packsURLs);
         if (!levels.length) { //Error handling for no levels found
-            throw new Error("No levels founds!");
+            throw new Error("No levels found!");
         };
 
         // Determine game ID for progress storage

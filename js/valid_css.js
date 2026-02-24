@@ -3,19 +3,37 @@
 
 // Allowed CSS Properties
 const SAFE_PROPERTIES = new Set([
+    "display",
     "grid-column",
     "grid-row",
     "grid-area",
     "grid-column-start",
     "grid-column-end",
     "grid-row-start",
-    "grid-row-end"
+    "grid-row-end",
+    "grid-template-columns",
+    "grid-template-rows",
+    "grid-auto-columns",
+    "grid-auto-rows",
+    "grid-auto-flow",
+    "justify-items",
+    "align-items",
+    "place-items",
+    "justify-content",
+    "align-content",
+    "place-content",
+    "justify-self",
+    "align-self",
+    "place-self",
+    "gap",
+    "column-gap",
+    "row-gap"
 ]);
 
 // Blocked CSS Properties
 const DANGEROUS_PROPERTIES = new Set([
     "position", "top", "bottom", "left", "right", "z-index",
-    "display: none", "visibility", 
+    "visibility",
     "overflow", "overflow-x", "overflow-y",
     "transform", "transform-origin", "perspective", "clip", "clip-path",
     "@import", "@font-face", "@keyframes"
@@ -32,9 +50,21 @@ const DANGEROUS_SELECTORS = [
 
 // Allowed Selectors (Whitelist)
 const ALLOWED_SELECTOR_PATTERNS = [
+    /^\s*\.grid\s*$/,
+    /^\s*\.grid\s*:/,
     /^\s*\.car\s*$/,
     /^\s*\.car\s*:/
 ];
+
+const GRID_PLACEMENT_PROPERTIES = new Set([
+    "grid-column",
+    "grid-row",
+    "grid-area",
+    "grid-column-start",
+    "grid-column-end",
+    "grid-row-start",
+    "grid-row-end"
+]);
 
 // Helper: Parse CSS rules from input
 function parseCSSRules(css) {
@@ -91,9 +121,9 @@ function isDangerousSelector(selector) {
 }
 
 // Helper: Check if grid dimensions are within 7x7 bounds
-function isGridInBounds(property, value) {
+function isGridInBounds(property, value, maxLine = 7) {
     const GRID_MIN = 1;
-    const GRID_MAX = 7;
+    const GRID_MAX = maxLine;
 
     // Get all numeric values from the property value
     const numbers = value.match(/\d+/g);
@@ -112,7 +142,7 @@ function isGridInBounds(property, value) {
 }
 
 // Helper: Validate a single property-value pair
-function validateProperty(property, value) {
+function validateProperty(property, value, maxLine = 7) {
     const errors = [];
 
     // Check if value uses !important flag (not allowed)
@@ -126,15 +156,19 @@ function validateProperty(property, value) {
         return errors;
     }
 
+    if (property === "display" && value.trim().toLowerCase() !== "grid") {
+        errors.push('Only "display: grid" is allowed for display property');
+    }
+
     // Check if property is in the safe whitelist
     if (!SAFE_PROPERTIES.has(property)) {
         errors.push(`Property "${property}" is not allowed`);
     }
 
     // Validate grid properties are within 7x7 bounds
-    if (property.includes('grid-')) {
-        if (!isGridInBounds(property, value)) {
-            errors.push(`${property} value must be within 7x7 grid (1-7). Got: ${value}`);
+    if (GRID_PLACEMENT_PROPERTIES.has(property)) {
+        if (!isGridInBounds(property, value, maxLine)) {
+            errors.push(`${property} value must be within grid lines (1-${maxLine}). Got: ${value}`);
         }
     }
 
@@ -155,6 +189,7 @@ export function validateCSS(css) {
         errors.push("External imports and URLs are not allowed");
     }
 
+    const maxLine = 12; // Max grid lines (7 for grid + 5 for implicit tracks)
     const rules = parseCSSRules(css);
 
     // Ensure at least one CSS rule was found
@@ -166,13 +201,13 @@ export function validateCSS(css) {
     for (const rule of rules) {
         // Check if selector is allowed
         if (isDangerousSelector(rule.selector)) {
-            errors.push(`Selector "${rule.selector}" is not allowed. Only .car selector is permitted.`);
+            errors.push(`Selector "${rule.selector}" is not allowed. Only .car and .grid selectors are permitted.`);
         }
 
         const properties = parseDeclarations(rule.declarations);
         // Loop through each property in the rule
         for (const prop of properties) {
-            const propErrors = validateProperty(prop.property, prop.value);
+            const propErrors = validateProperty(prop.property, prop.value, maxLine);
             errors.push(...propErrors);
         }
     }

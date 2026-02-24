@@ -33,6 +33,12 @@ export function renderGrid(level) {
 
     gridEl.innerHTML = ""; // Clear existing grid
 
+    // Default to 7x7 grid 
+    const columns = Number(level?.grid?.columns) || 7;
+    const rows = Number(level?.grid?.rows) || 7;
+    gridEl.style.gridTemplateColumns = `repeat(${columns}, 60px)`;
+    gridEl.style.gridTemplateRows = `repeat(${rows}, 60px)`;
+
     const entities = level?.entities ?? [];
     const initialLayout = level?.layout?.initial ?? {};
 
