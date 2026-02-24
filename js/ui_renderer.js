@@ -17,6 +17,8 @@ const selectors = {
     hintBtn: "#hint"
 }
 
+const DEFAULT_GRID_SIZE = 7;
+
 // Helper: Check for game page elements
 function must(selectors) {
     const el = document.querySelector(selectors);
@@ -25,6 +27,102 @@ function must(selectors) {
         throw new Error(`Element ${selectors} not found!`);
     }
     return el;
+}
+
+// Helper: Count track sizes in a computed grid-template-* string
+function countTracks(trackList) {
+    if (!trackList || trackList === "none") return 0;
+
+    let depth = 0;
+    let inToken = false;
+    let count = 0;
+
+    // Loop through each character to count tracks while ignoring nested functions
+    for (const ch of trackList) {
+        if (ch === "(") depth++;
+        if (ch === ")") depth = Math.max(0, depth - 1);
+
+        // Check for space outside of nested functions
+        const isSpace = /\s/.test(ch);
+        if (isSpace && depth === 0) {
+            if (inToken) {
+                count++;
+                inToken = false;
+            }
+            continue;
+        }
+
+        inToken = true;
+    }
+
+    if (inToken) count++;
+    return count;
+}
+
+// Helper: Keep visual parking surface matched to actual computed grid tracks
+function syncGridSurface(gridEl, fallbackColumns = 7, fallbackRows = 7) {
+    const bgLayer = gridEl.querySelector(".grid-surface");
+    if (!bgLayer) return;
+
+    // Get computed styles to determine actual grid layout
+    const styles = getComputedStyle(gridEl);
+    const templateColumns = styles.gridTemplateColumns;
+    const templateRows = styles.gridTemplateRows;
+    const gap = styles.gap;
+
+    // Apply grid layout to background layer
+    bgLayer.style.gridTemplateColumns = templateColumns;
+    bgLayer.style.gridTemplateRows = templateRows;
+    bgLayer.style.gap = gap;
+
+    // Count tracks to determine how many background cells are needed
+    let columns = countTracks(templateColumns);
+    let rows = countTracks(templateRows);
+
+    // Fallback to default if counting fails
+    if (columns <= 0) columns = fallbackColumns;
+    if (rows <= 0) rows = fallbackRows;
+
+    // Determine total number of background cells needed
+    const totalCells = Math.min(900, columns * rows);
+    const currentCells = bgLayer.children.length;
+
+    // Add or remove background cells to match total needed
+    if (currentCells < totalCells) {
+        for (let i = currentCells; i < totalCells; i++) {
+            const bgCell = document.createElement("div");
+            bgCell.className = "grid-cell";
+            bgLayer.appendChild(bgCell);
+        }
+        // Remove excess cells if grid shrinks
+    } else if (currentCells > totalCells) {
+        for (let i = currentCells - 1; i >= totalCells; i--) {
+            bgLayer.children[i].remove();
+        }
+    }
+}
+
+// Helper: Enforce minimum grid size for learning tasks
+function getGridSizeError(gridEl, minColumns = 5, minRows = 5) {
+    const styles = getComputedStyle(gridEl);
+    const columns = countTracks(styles.gridTemplateColumns);
+    const rows = countTracks(styles.gridTemplateRows);
+
+    // Check if grid meets minimum size requirements
+    if (columns < minColumns || rows < minRows) {
+        return `Grid is too small (${columns} x ${rows}). Use at least ${minColumns} x ${minRows}.`;
+    }
+
+    return null;
+}
+
+// Helper: Reset preview grid to a safe default size
+function resetGridToDefault(gridEl) {
+    gridEl.style.gridTemplateColumns = "";
+    gridEl.style.gridTemplateRows = "";
+    gridEl.style.setProperty("--level-grid-columns", `repeat(${DEFAULT_GRID_SIZE}, 60px)`);
+    gridEl.style.setProperty("--level-grid-rows", `repeat(${DEFAULT_GRID_SIZE}, 60px)`);
+    syncGridSurface(gridEl, DEFAULT_GRID_SIZE, DEFAULT_GRID_SIZE);
 }
 
 // Function: Render grid from level data
@@ -40,6 +138,13 @@ export function renderGrid(level) {
     gridEl.style.gridTemplateRows = "";
     gridEl.style.setProperty("--level-grid-columns", `repeat(${columns}, 60px)`);
     gridEl.style.setProperty("--level-grid-rows", `repeat(${rows}, 60px)`);
+
+    // Add visual-only background layer (does not affect item placement)
+    const bgLayer = document.createElement("div");
+    bgLayer.className = "grid-surface";
+    bgLayer.setAttribute("aria-hidden", "true");
+
+    gridEl.appendChild(bgLayer);
 
     const entities = level?.entities ?? [];
     const initialLayout = level?.layout?.initial ?? {};
@@ -61,7 +166,7 @@ export function renderGrid(level) {
         const pos = entity.id ? initialLayout[entity.id] : null;
         const isPlayer = entity.type === "player" || entity.id === "car";
 
-        // Not PLayer Entities get Fix Grid Placement
+        // Not Player Entities get Fix Grid Placement
         if (!isPlayer) {
             if (pos?.gridColumn) el.style.gridColumn = pos.gridColumn;
             if (pos?.gridRow) el.style.gridRow = pos.gridRow;
@@ -69,6 +174,8 @@ export function renderGrid(level) {
 
         gridEl.appendChild(el);
     }
+
+    syncGridSurface(gridEl, columns, rows);
 }
 
 // Function: Render level details
@@ -142,9 +249,14 @@ function applyCSS(css, level) {
     const feedbackEl = document.querySelector("#feedback");
     const errorEl = document.querySelector("#error");
     const listEl = document.querySelector("#feedbackList");
+    const gridEl = must(selectors.grid);
 
     // If CSS is invalid, show errors and don't apply
     if (!validation.valid) {
+        const existingStyleTag = document.getElementById("userStyles");
+        if (existingStyleTag) existingStyleTag.textContent = "";
+        resetGridToDefault(gridEl);
+
         if (feedbackEl && errorEl && listEl) {
             showCssErrors(validation.errors);
         } else {
@@ -164,6 +276,18 @@ function applyCSS(css, level) {
         document.head.appendChild(styleTag);
     }
     styleTag.textContent = css;
+
+    // Sync grid surface to match any changes in grid layout from CSS
+    syncGridSurface(gridEl);
+
+    // Check for grid size issues and show feedback if too small
+    const gridSizeError = getGridSizeError(gridEl, 5, 5);
+    if (gridSizeError) {
+        styleTag.textContent = "";
+        resetGridToDefault(gridEl);
+        showCssErrors([gridSizeError]);
+        return;
+    }
 
     // Validate level automatically after applying valid CSS
     if (level) {
