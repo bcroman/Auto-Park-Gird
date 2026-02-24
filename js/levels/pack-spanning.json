@@ -14,18 +14,18 @@
   "levels": [
     {
       "id": "L1",
-      "title": "Level 1 — Grid Lines",
+      "title": "Level 1 — Grid Columns",
       "concept": {
-        "name": "grid-column / grid-row",
-        "explain": "Use grid-column and grid-row on the car to move it onto the highlighted parking spot."
+        "name": "grid-column start and end",
+        "explain": "Parking spots are defined by grid lines. Use grid-column to position the car between the correct column lines, and keep the row fixed."
       },
       "ui": {
-        "prompt": "Move the car onto the highlighted spot.",
-        "starterCss": ".car {\n  \n}\n",
+        "prompt": "Move the car into the highlighted spot using grid-column, while keeping it on row 1.",
+        "starterCss": ".car {\n grid-row: 1 / 2;\n}\n",
         "lockedCss": "/* Locked */\n.grid { display: grid; }\n",
         "hints": [
           "Try: grid-column: 3 / 4;",
-          "Try: grid-row: 2 / 3;"
+          "Also set: grid-row: 1 / 2;"
         ]
       },
       "grid": { "columns": 7, "rows": 7 },
@@ -40,13 +40,13 @@
           "id": "spot",
           "type": "target",
           "className": "spot",
-          "baseCss": "background: rgba(200, 0, 0, 0.22); outline: 2px dashed rgba(200, , 0, 0.8); border-radius: 10px;"
+          "baseCss": "background: rgba(200, 0, 0, 0.22); outline: 2px dashed rgba(200, 0, 0, 0.8); border-radius: 10px;"
         }
       ],
       "layout": {
         "initial": {
           "car": { "gridColumn": "1 / 2", "gridRow": "1 / 2" },
-          "spot": { "gridColumn": "3 / 4", "gridRow": "2 / 3" }
+          "spot": { "gridColumn": "3 / 4", "gridRow": "1 / 2" }
         }
       },
       "winCondition": {
@@ -57,18 +57,18 @@
 
     {
       "id": "L2",
-      "title": "Level 2 — Spanning",
+      "title": "Level 2 — Grid Rows",
       "concept": {
-        "name": "Spanning with grid lines",
-        "explain": "Some parking spots are bigger. Span the car across multiple columns using grid-column."
+        "name": "grid-row start and end",
+        "explain": "Use grid-row to move and span the car vertically between row lines."
       },
       "ui": {
-        "prompt": "Span the car so it covers the whole highlighted spot.",
-        "starterCss": ".car {\n  \n}\n",
+        "prompt": "Move the car vertically and make it span the full highlighted spot using grid-row.",
+        "starterCss": ".car {\n grid-column: 1 / 2;\n}\n",
         "lockedCss": "/* Locked */\n.grid { display: grid; }\n",
         "hints": [
-          "Spanning example: grid-column: 2 / 5;",
-          "You can also span rows with grid-row."
+          "Try: grid-row: 3 / span 3;",
+          "Keep the same column and focus on vertical placement."
         ]
       },
       "grid": { "columns": 7, "rows": 7 },
@@ -84,7 +84,7 @@
       "layout": {
         "initial": {
           "car": { "gridColumn": "1 / 2", "gridRow": "1 / 2" },
-          "spot": { "gridColumn": "2 / 5", "gridRow": "4 / 5" }
+          "spot": { "gridColumn": "1 / 2", "gridRow": "3 / 6" }
         }
       },
       "winCondition": {
@@ -97,16 +97,16 @@
       "id": "L3",
       "title": "Level 3 — Two-Axis Spanning",
       "concept": {
-        "name": "Spanning rows + columns",
-        "explain": "This spot is larger in both directions. Use grid-column AND grid-row to match it."
+        "name": "combine grid-column and grid-row",
+        "explain": "This spot is larger in both directions. Combine horizontal and vertical spanning to match it exactly."
       },
       "ui": {
-        "prompt": "Make the car cover the entire 2×2 spot.",
-        "starterCss": ".car {\n  \n}\n",
+        "prompt": "Use both grid-column and grid-row so the car covers the entire 2×2 spot.",
+        "starterCss": ".car {\n \n}\n",
         "lockedCss": "/* Locked */\n.grid { display: grid; }\n",
         "hints": [
-          "Try spanning like: grid-column: 5 / 7;",
-          "And: grid-row: 2 / 4;"
+          "Try: grid-column: 5 / 7;",
+          "Then add: grid-row: 2 / 4;"
         ]
       },
       "grid": { "columns": 7, "rows": 7 },

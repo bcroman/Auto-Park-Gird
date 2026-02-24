@@ -181,7 +181,7 @@ function wireResetProgress(levels, state) {
 document.addEventListener("DOMContentLoaded", async () => {
     try {
         const packsURLs = [ // List of Level Packs
-            new URL("levels/pack-1.json", import.meta.url).href
+            new URL("levels/pack-spanning.json", import.meta.url).href
         ];
 
         // Load all level packs
