@@ -97,6 +97,7 @@ export function wireHints(level) {
 
     // Disable button if no hints
     btn.disabled = hints.length === 0;
+    btn.textContent = hints.length === 0 ? "No Hints" : "Show Hint";
 
     let hintIndex = 0;
 
@@ -116,7 +117,12 @@ export function wireHints(level) {
         // Move to next hint (but stop at last one)
         if (hintIndex < hints.length - 1) {
             hintIndex++;
+            btn.textContent = "Show Next Hint";
+            return;
         }
+
+        btn.textContent = "No More Hints";
+        btn.disabled = true;
     };
 }
 

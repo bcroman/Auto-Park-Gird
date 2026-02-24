@@ -150,10 +150,15 @@
 }
 
 /* =====================
-   Danger Button
+   Reset Progress Button
    ===================== */
+#resetProgress {
+  margin-left: auto;
+  flex: 0 0 auto;
+}
+
 .controls .danger {
-    background: rgba(200, 30, 30, 0.18);
+  background: rgba(200, 30, 30, 0.18);
   color: var(--text);
   border: 1px solid rgba(200, 30, 30, 0.4);
 }
