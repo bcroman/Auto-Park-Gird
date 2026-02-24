@@ -24,6 +24,7 @@ function levelKey(level) {
 function updateNavigationButtons(levels, state) {
     const prevBtn = document.querySelector("#prev");
     const nextBtn = document.querySelector("#next");
+    const levelTxt = document.querySelector("#levelTxt");
 
     const atStart = state.index <= 0;
     const atEnd = state.index >= levels.length - 1;
@@ -31,6 +32,10 @@ function updateNavigationButtons(levels, state) {
 
     // Disable Previous Button if at the start
     if (prevBtn) prevBtn.disabled = atStart;
+
+    if (levelTxt) {
+        levelTxt.textContent = `Level ${state.index + 1}`;
+    }
 
     // Disable Next Button if at the end or next level is locked
     if (nextBtn) {

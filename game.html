@@ -48,9 +48,9 @@
 
             <!-- Control Btns -->
             <div class="controls">
-                <button id="reset">Reset</button>
-                <button id="hint">Hint</button>
-                <button id="resetProgress" class="danger">Reset Progress</button>
+                <button id="reset">Reset Level</button>
+                <button id="hint">Show Hint</button>
+                <button id="resetProgress" class="danger">Reset All Progress</button>
             </div>
 
             <!-- Hints Panel -->
@@ -60,14 +60,16 @@
 
         </div>
 
-        <!-- Gird Preview -->
+        <!-- Grid Preview -->
         <div class="grid-preview">
             <div class="grid">
             </div>
 
+            <!-- Level Navigation -->
             <div class="level-nav">
-                <button id="prev">Previous</button>
-                <button id="next">Next</button>
+                <button id="prev" class="nav-arrow">←</button>
+                <span class="level-txt" id="levelTxt">Level 1</span>
+                <button id="next" class="nav-arrow">→</button>
             </div>
         </div>
 
