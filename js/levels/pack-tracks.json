@@ -1,0 +1,142 @@
+{
+  "meta": {
+    "version": 1,
+    "gameId": "css-grid-tool",
+    "defaultGrid": {
+      "columns": 7,
+      "rows": 7
+    },
+    "validationDefaults": {
+      "tolerancePx": 2,
+      "minOverlapRatio": 0.98
+    }
+  },
+  "levels": [
+    {
+      "id": "T1",
+      "title": "Level 7 — Column Tracks",
+      "concept": {
+        "name": "grid-template-columns",
+        "explain": "Track sizing controls the width of each column. Resize the first column track so the car matches the highlighted bay."
+      },
+      "ui": {
+        "prompt": "Keep the car in column 1, row 2 and resize column tracks so it fully fills the highlighted wide bay.",
+        "starterCss": ".car {\n grid-column: 1 / 2;\n grid-row: 2 / 3;\n}\n\n.grid {\n \n}\n",
+        "lockedCss": "/* Locked */\n.grid { display: grid; }\n",
+        "hints": [
+          "Try: grid-template-columns: 180px repeat(6, 60px);",
+          "Keep .car placement unchanged and adjust only the track widths."
+        ]
+      },
+      "grid": { "columns": 7, "rows": 7 },
+      "entities": [
+        {
+          "id": "car",
+          "type": "player",
+          "className": "car",
+          "baseCss": "border-radius: 10px;"
+        },
+        {
+          "id": "spot",
+          "type": "target",
+          "className": "spot",
+          "baseCss": "background: rgba(200, 0, 0, 0.22); outline: 2px dashed rgba(200, 0, 0, 0.8); border-radius: 10px; min-width: 180px; justify-self: start;"
+        }
+      ],
+      "layout": {
+        "initial": {
+          "car": { "gridColumn": "1 / 2", "gridRow": "1 / 2" },
+          "spot": { "gridColumn": "1 / 2", "gridRow": "2 / 3" }
+        }
+      },
+      "winCondition": {
+        "movingEntityId": "car",
+        "targetEntityId": "spot"
+      }
+    },
+    {
+      "id": "T2",
+      "title": "Level 8 — Row Tracks",
+      "concept": {
+        "name": "grid-template-rows",
+        "explain": "Track sizing also controls row height. Resize the second row track so the car matches the tall highlighted bay."
+      },
+      "ui": {
+        "prompt": "Keep the car in column 3, row 2 and resize row tracks so it fully fills the highlighted tall bay.",
+        "starterCss": ".car {\n grid-column: 3 / 4;\n grid-row: 2 / 3;\n}\n\n.grid {\n \n}\n",
+        "lockedCss": "/* Locked */\n.grid { display: grid; }\n",
+        "hints": [
+          "Try: grid-template-rows: 60px 170px repeat(5, 60px);",
+          "Leave .car grid-column and grid-row as they are."
+        ]
+      },
+      "grid": { "columns": 7, "rows": 7 },
+      "entities": [
+        {
+          "id": "car",
+          "type": "player",
+          "className": "car",
+          "baseCss": "border-radius: 10px;"
+        },
+        {
+          "id": "spot",
+          "type": "target",
+          "className": "spot",
+          "baseCss": "background: rgba(200, 0, 0, 0.22); outline: 2px dashed rgba(200, 0, 0, 0.8); border-radius: 10px; min-height: 170px; align-self: start;"
+        }
+      ],
+      "layout": {
+        "initial": {
+          "car": { "gridColumn": "1 / 2", "gridRow": "1 / 2" },
+          "spot": { "gridColumn": "3 / 4", "gridRow": "2 / 3" }
+        }
+      },
+      "winCondition": {
+        "movingEntityId": "car",
+        "targetEntityId": "spot"
+      }
+    },
+    {
+      "id": "T3",
+      "title": "Level 9 — Two-Axis Tracks",
+      "concept": {
+        "name": "combine columns and rows",
+        "explain": "Use both grid-template-columns and grid-template-rows to size one parking bay in both directions."
+      },
+      "ui": {
+        "prompt": "Keep the car in column 2, row 2 and resize both column and row tracks to match the larger highlighted bay.",
+        "starterCss": ".car {\n grid-column: 2 / 3;\n grid-row: 2 / 3;\n}\n\n.grid {\n \n}\n",
+        "lockedCss": "/* Locked */\n.grid { display: grid; }\n",
+        "hints": [
+          "Try columns: 60px 150px repeat(5, 60px);",
+          "Then rows: 60px 150px repeat(5, 60px);"
+        ]
+      },
+      "grid": { "columns": 7, "rows": 7 },
+      "entities": [
+        {
+          "id": "car",
+          "type": "player",
+          "className": "car",
+          "baseCss": "border-radius: 10px;"
+        },
+        {
+          "id": "spot",
+          "type": "target",
+          "className": "spot",
+          "baseCss": "background: rgba(200, 0, 0, 0.22); outline: 2px dashed rgba(200, 0, 0, 0.8); border-radius: 10px; min-width: 150px; min-height: 150px; justify-self: start; align-self: start;"
+        }
+      ],
+      "layout": {
+        "initial": {
+          "car": { "gridColumn": "1 / 2", "gridRow": "1 / 2" },
+          "spot": { "gridColumn": "2 / 3", "gridRow": "2 / 3" }
+        }
+      },
+      "winCondition": {
+        "movingEntityId": "car",
+        "targetEntityId": "spot"
+      }
+    }
+  ]
+}

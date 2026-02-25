@@ -13,6 +13,7 @@ const SAFE_PROPERTIES = new Set([
     "grid-row-end",
     "grid-template-columns",
     "grid-template-rows",
+    "grid-template-areas",
     "grid-auto-columns",
     "grid-auto-rows",
     "grid-auto-flow",

@@ -1,6 +1,7 @@
 # Auto Park Grid
 Auto Park Grid is an educational web application designed to teach CSS Grid concepts through interactive gameplay.  
-Users control the placement of a vehicle within a parking grid by writing CSS. The system validates solutions based on the resulting layout geometry rather than text matching, allowing multiple correct answers.
+Users control the placement of a vehicle within a parking grid by writing CSS. The system validates solutions based on the resulting layout geometry rather than text matching, allowing multiple correct answers.  
+This tool teach the user about topics of CSS grid: tracks, spanning, iten alignment, implicit vs explicit grid, auto-fill/auto-fit, gaps, grid alignment, are content templates. 
 
 ## Features
 - Live CSS Preview

@@ -134,8 +134,17 @@ export function renderGrid(level) {
     // Default to 7x7 grid 
     const columns = Number(level?.grid?.columns) || 7;
     const rows = Number(level?.grid?.rows) || 7;
+    const fixedWidthPx = Number(level?.preview?.fixedWidthPx);
+    const fixedHeightPx = Number(level?.preview?.fixedHeightPx);
+    const hasFixedPreview = Number.isFinite(fixedWidthPx) && fixedWidthPx > 0 && Number.isFinite(fixedHeightPx) && fixedHeightPx > 0;
+
+    // Set grid styles based on level data, with fallbacks
     gridEl.style.gridTemplateColumns = "";
     gridEl.style.gridTemplateRows = "";
+    gridEl.style.maxWidth = "100%";
+    gridEl.style.width = hasFixedPreview ? `${fixedWidthPx}px` : "";
+    gridEl.style.height = hasFixedPreview ? `${fixedHeightPx}px` : "";
+    gridEl.style.justifyContent = hasFixedPreview ? "start" : "";
     gridEl.style.setProperty("--level-grid-columns", `repeat(${columns}, 60px)`);
     gridEl.style.setProperty("--level-grid-rows", `repeat(${rows}, 60px)`);
 

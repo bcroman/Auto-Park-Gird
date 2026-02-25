@@ -1,0 +1,151 @@
+{
+  "meta": {
+    "version": 1,
+    "gameId": "css-grid-tool",
+    "defaultGrid": {
+      "columns": 5,
+      "rows": 5
+    },
+    "validationDefaults": {
+      "tolerancePx": 8,
+      "minOverlapRatio": 0.9
+    }
+  },
+  "levels": [
+    {
+      "id": "C1",
+      "title": "Level 19 — Justify Content",
+      "concept": {
+        "name": "justify-content",
+        "explain": "justify-content aligns the whole grid horizontally inside the container when extra space exists."
+      },
+      "ui": {
+        "prompt": "Set horizontal content alignment so the car reaches the highlighted target on the right.",
+        "starterCss": ".car {\n grid-column: 1 / 2;\n grid-row: 1 / 2;\n}\n",
+        "lockedCss": "/* Locked */\n.grid { display: grid; }\n",
+        "hints": [
+          "Try: .grid { justify-content: end; }",
+          "Keep the car placement unchanged."
+        ]
+      },
+      "preview": { "fixedWidthPx": 500, "fixedHeightPx": 500 },
+      "grid": { "columns": 5, "rows": 5 },
+      "entities": [
+        {
+          "id": "car",
+          "type": "player",
+          "className": "car",
+          "baseCss": "border-radius: 10px;"
+        },
+        {
+          "id": "spot",
+          "type": "target",
+          "className": "spot",
+          "baseCss": "position: absolute; left: 193px; top: 5px; width: 60px; height: 60px; background: rgba(200, 0, 0, 0.22); outline: 2px dashed rgba(200, 0, 0, 0.8); border-radius: 10px;"
+        }
+      ],
+      "layout": {
+        "initial": {
+          "car": { "gridColumn": "1 / 2", "gridRow": "1 / 2" },
+          "spot": { "gridColumn": "1 / 2", "gridRow": "1 / 2" }
+        }
+      },
+      "winCondition": {
+        "movingEntityId": "car",
+        "targetEntityId": "spot",
+        "tolerancePx": 8,
+        "minOverlapRatio": 0.9
+      }
+    },
+    {
+      "id": "C2",
+      "title": "Level 20 — Align Content",
+      "concept": {
+        "name": "align-content",
+        "explain": "align-content aligns the whole grid vertically when there is extra space in the container."
+      },
+      "ui": {
+        "prompt": "Set vertical content alignment so the car reaches the highlighted target at the bottom.",
+        "starterCss": ".car {\n grid-column: 2 / 3;\n grid-row: 1 / 2;\n}\n",
+        "lockedCss": "/* Locked */\n.grid { display: grid; }\n",
+        "hints": [
+          "Try: .grid { align-content: end; }",
+          "Keep the car placement unchanged."
+        ]
+      },
+      "preview": { "fixedWidthPx": 500, "fixedHeightPx": 500 },
+      "grid": { "columns": 5, "rows": 5 },
+      "entities": [
+        {
+          "id": "car",
+          "type": "player",
+          "className": "car",
+          "baseCss": "border-radius: 10px;"
+        },
+        {
+          "id": "spot",
+          "type": "target",
+          "className": "spot",
+          "baseCss": "position: absolute; left: 68px; top: 193px; width: 60px; height: 60px; background: rgba(200, 0, 0, 0.22); outline: 2px dashed rgba(200, 0, 0, 0.8); border-radius: 10px;"
+        }
+      ],
+      "layout": {
+        "initial": {
+          "car": { "gridColumn": "1 / 2", "gridRow": "1 / 2" },
+          "spot": { "gridColumn": "1 / 2", "gridRow": "1 / 2" }
+        }
+      },
+      "winCondition": {
+        "movingEntityId": "car",
+        "targetEntityId": "spot",
+        "tolerancePx": 8,
+        "minOverlapRatio": 0.9
+      }
+    },
+    {
+      "id": "C3",
+      "title": "Level 21 — Place Content",
+      "concept": {
+        "name": "place-content",
+        "explain": "place-content sets align-content and justify-content together in one shorthand."
+      },
+      "ui": {
+        "prompt": "Center the grid content so the car matches the highlighted center target.",
+        "starterCss": ".car {\n grid-column: 3 / 4;\n grid-row: 3 / 4;\n}\n",
+        "lockedCss": "/* Locked */\n.grid { display: grid; }\n",
+        "hints": [
+          "Try: .grid { place-content: center; }",
+          "Equivalent to justify-content: center; and align-content: center;"
+        ]
+      },
+      "preview": { "fixedWidthPx": 500, "fixedHeightPx": 500 },
+      "grid": { "columns": 5, "rows": 5 },
+      "entities": [
+        {
+          "id": "car",
+          "type": "player",
+          "className": "car",
+          "baseCss": "border-radius: 10px;"
+        },
+        {
+          "id": "spot",
+          "type": "target",
+          "className": "spot",
+          "baseCss": "position: absolute; left: 225px; top: 225px; width: 60px; height: 60px; background: rgba(200, 0, 0, 0.22); outline: 2px dashed rgba(200, 0, 0, 0.8); border-radius: 10px;"
+        }
+      ],
+      "layout": {
+        "initial": {
+          "car": { "gridColumn": "1 / 2", "gridRow": "1 / 2" },
+          "spot": { "gridColumn": "1 / 2", "gridRow": "1 / 2" }
+        }
+      },
+      "winCondition": {
+        "movingEntityId": "car",
+        "targetEntityId": "spot",
+        "tolerancePx": 8,
+        "minOverlapRatio": 0.9
+      }
+    }
+  ]
+}

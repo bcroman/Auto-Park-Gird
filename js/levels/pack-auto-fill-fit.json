@@ -1,0 +1,145 @@
+{
+  "meta": {
+    "version": 1,
+    "gameId": "css-grid-tool",
+    "defaultGrid": {
+      "columns": 7,
+      "rows": 7
+    },
+    "validationDefaults": {
+      "tolerancePx": 2,
+      "minOverlapRatio": 0.98
+    }
+  },
+  "levels": [
+    {
+      "id": "AF1",
+      "title": "Level 13 — Auto-Fill Columns",
+      "concept": {
+        "name": "repeat(auto-fill, minmax())",
+        "explain": "Use auto-fill to create as many explicit columns as can fit, each with a minimum track size."
+      },
+      "ui": {
+        "prompt": "Keep the car in column 1 / row 2 and resize tracks using auto-fill so it matches the highlighted wider bay.",
+        "starterCss": ".car {\n grid-column: 1 / 2;\n grid-row: 2 / 3;\n}\n\n.grid {\n \n}\n",
+        "lockedCss": "/* Locked */\n.grid { display: grid; }\n",
+        "hints": [
+          "Try: .grid { grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); }",
+          "Keep the car placement the same and adjust only track sizing."
+        ]
+      },
+      "preview": { "fixedWidthPx": 450, "fixedHeightPx": 450 },
+      "grid": { "columns": 7, "rows": 7 },
+      "entities": [
+        {
+          "id": "car",
+          "type": "player",
+          "className": "car",
+          "baseCss": "border-radius: 10px;"
+        },
+        {
+          "id": "spot",
+          "type": "target",
+          "className": "spot",
+          "baseCss": "background: rgba(200, 0, 0, 0.22); outline: 2px dashed rgba(200, 0, 0, 0.8); border-radius: 10px; min-width: 80px; justify-self: stretch;"
+        }
+      ],
+      "layout": {
+        "initial": {
+          "car": { "gridColumn": "1 / 2", "gridRow": "1 / 2" },
+          "spot": { "gridColumn": "1 / 2", "gridRow": "2 / 3" }
+        }
+      },
+      "winCondition": {
+        "movingEntityId": "car",
+        "targetEntityId": "spot"
+      }
+    },
+    {
+      "id": "AF2",
+      "title": "Level 14 — Auto-Fill Rows",
+      "concept": {
+        "name": "auto-fill with row tracks",
+        "explain": "Auto-fill can also be used for row tracks so rows are generated with a minimum size."
+      },
+      "ui": {
+        "prompt": "Keep the car in column 3 / row 1 and use auto-fill on rows so it matches the highlighted taller bay.",
+        "starterCss": ".car {\n grid-column: 3 / 4;\n grid-row: 1 / 2;\n}\n\n.grid {\n \n}\n",
+        "lockedCss": "/* Locked */\n.grid { display: grid; }\n",
+        "hints": [
+          "Try: .grid { grid-template-rows: repeat(auto-fill, minmax(80px, 1fr)); }",
+          "You can keep default columns and focus on row sizing."
+        ]
+      },
+      "preview": { "fixedWidthPx": 450, "fixedHeightPx": 450 },
+      "grid": { "columns": 7, "rows": 7 },
+      "entities": [
+        {
+          "id": "car",
+          "type": "player",
+          "className": "car",
+          "baseCss": "border-radius: 10px;"
+        },
+        {
+          "id": "spot",
+          "type": "target",
+          "className": "spot",
+          "baseCss": "background: rgba(200, 0, 0, 0.22); outline: 2px dashed rgba(200, 0, 0, 0.8); border-radius: 10px; min-height: 80px; align-self: stretch;"
+        }
+      ],
+      "layout": {
+        "initial": {
+          "car": { "gridColumn": "1 / 2", "gridRow": "1 / 2" },
+          "spot": { "gridColumn": "3 / 4", "gridRow": "1 / 2" }
+        }
+      },
+      "winCondition": {
+        "movingEntityId": "car",
+        "targetEntityId": "spot"
+      }
+    },
+    {
+      "id": "AF3",
+      "title": "Level 15 — Auto-Fit vs Auto-Fill",
+      "concept": {
+        "name": "auto-fit behavior",
+        "explain": "Auto-fit collapses unused tracks while auto-fill keeps empty tracks. Both can be used with minmax for responsive tracks."
+      },
+      "ui": {
+        "prompt": "Keep the car in column 2 / row 2 and size both axes responsively to match the highlighted bay. Try auto-fit on columns and rows.",
+        "starterCss": ".car {\n grid-column: 2 / 3;\n grid-row: 2 / 3;\n}\n\n.grid {\n \n}\n",
+        "lockedCss": "/* Locked */\n.grid { display: grid; }\n",
+        "hints": [
+          "Try: grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));",
+          "Then: grid-template-rows: repeat(auto-fit, minmax(80px, 1fr));"
+        ]
+      },
+      "preview": { "fixedWidthPx": 450, "fixedHeightPx": 450 },
+      "grid": { "columns": 7, "rows": 7 },
+      "entities": [
+        {
+          "id": "car",
+          "type": "player",
+          "className": "car",
+          "baseCss": "border-radius: 10px;"
+        },
+        {
+          "id": "spot",
+          "type": "target",
+          "className": "spot",
+          "baseCss": "background: rgba(200, 0, 0, 0.22); outline: 2px dashed rgba(200, 0, 0, 0.8); border-radius: 10px; min-width: 80px; min-height: 80px; justify-self: stretch; align-self: stretch;"
+        }
+      ],
+      "layout": {
+        "initial": {
+          "car": { "gridColumn": "1 / 2", "gridRow": "1 / 2" },
+          "spot": { "gridColumn": "2 / 3", "gridRow": "2 / 3" }
+        }
+      },
+      "winCondition": {
+        "movingEntityId": "car",
+        "targetEntityId": "spot"
+      }
+    }
+  ]
+}

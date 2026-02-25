@@ -1,0 +1,142 @@
+{
+  "meta": {
+    "version": 1,
+    "gameId": "css-grid-tool",
+    "defaultGrid": {
+      "columns": 7,
+      "rows": 7
+    },
+    "validationDefaults": {
+      "tolerancePx": 2,
+      "minOverlapRatio": 0.98
+    }
+  },
+  "levels": [
+    {
+      "id": "A1",
+      "title": "Level 4 — Horizontal Alignment",
+      "concept": {
+        "name": "justify-self",
+        "explain": "Use justify-self to align the car horizontally inside its assigned grid area without changing that area."
+      },
+      "ui": {
+        "prompt": "Keep the car in the same 3×2 area, then align it to the right edge using justify-self.",
+        "starterCss": ".car {\n grid-column: 2 / 5;\n grid-row: 2 / 4;\n}\n",
+        "lockedCss": "/* Locked */\n.grid { display: grid; }\n",
+        "hints": [
+          "Try: justify-self: end;",
+          "Do not change grid-column or grid-row."
+        ]
+      },
+      "grid": { "columns": 7, "rows": 7 },
+      "entities": [
+        {
+          "id": "car",
+          "type": "player",
+          "className": "car",
+          "baseCss": "border-radius: 10px;"
+        },
+        {
+          "id": "spot",
+          "type": "target",
+          "className": "spot",
+          "baseCss": "background: rgba(200, 0, 0, 0.22); outline: 2px dashed rgba(200, 0, 0, 0.8); border-radius: 10px; min-width: 24px; justify-self: end;"
+        }
+      ],
+      "layout": {
+        "initial": {
+          "car": { "gridColumn": "1 / 2", "gridRow": "1 / 2" },
+          "spot": { "gridColumn": "2 / 5", "gridRow": "2 / 4" }
+        }
+      },
+      "winCondition": {
+        "movingEntityId": "car",
+        "targetEntityId": "spot"
+      }
+    },
+    {
+      "id": "A2",
+      "title": "Level 5 — Vertical Alignment",
+      "concept": {
+        "name": "align-self",
+        "explain": "Use align-self to align the car vertically inside its grid area while keeping the same placement lines."
+      },
+      "ui": {
+        "prompt": "Keep the car in the same 2×3 area, then align it to the bottom edge using align-self.",
+        "starterCss": ".car {\n grid-column: 4 / 6;\n grid-row: 2 / 5;\n}\n",
+        "lockedCss": "/* Locked */\n.grid { display: grid; }\n",
+        "hints": [
+          "Try: align-self: end;",
+          "Leave grid-column and grid-row unchanged."
+        ]
+      },
+      "grid": { "columns": 7, "rows": 7 },
+      "entities": [
+        {
+          "id": "car",
+          "type": "player",
+          "className": "car",
+          "baseCss": "border-radius: 10px;"
+        },
+        {
+          "id": "spot",
+          "type": "target",
+          "className": "spot",
+          "baseCss": "background: rgba(200, 0, 0, 0.22); outline: 2px dashed rgba(200, 0, 0, 0.8); border-radius: 10px; min-height: 24px; align-self: end;"
+        }
+      ],
+      "layout": {
+        "initial": {
+          "car": { "gridColumn": "1 / 2", "gridRow": "1 / 2" },
+          "spot": { "gridColumn": "4 / 6", "gridRow": "2 / 5" }
+        }
+      },
+      "winCondition": {
+        "movingEntityId": "car",
+        "targetEntityId": "spot"
+      }
+    },
+    {
+      "id": "A3",
+      "title": "Level 6 — Two-Axis Alignment",
+      "concept": {
+        "name": "place-self",
+        "explain": "Use place-self to control both horizontal and vertical alignment inside the same grid area."
+      },
+      "ui": {
+        "prompt": "Match the target by centering the car inside the same 3×3 area using place-self.",
+        "starterCss": ".car {\n grid-column: 3 / 6;\n grid-row: 3 / 6;\n}\n",
+        "lockedCss": "/* Locked */\n.grid { display: grid; }\n",
+        "hints": [
+          "Try: place-self: center;",
+          "You should not need to change grid-column or grid-row."
+        ]
+      },
+      "grid": { "columns": 7, "rows": 7 },
+      "entities": [
+        {
+          "id": "car",
+          "type": "player",
+          "className": "car",
+          "baseCss": "border-radius: 10px;"
+        },
+        {
+          "id": "spot",
+          "type": "target",
+          "className": "spot",
+          "baseCss": "background: rgba(200, 0, 0, 0.22); outline: 2px dashed rgba(200, 0, 0, 0.8); border-radius: 10px; min-width: 24px; min-height: 24px; place-self: center;"
+        }
+      ],
+      "layout": {
+        "initial": {
+          "car": { "gridColumn": "1 / 2", "gridRow": "1 / 2" },
+          "spot": { "gridColumn": "3 / 6", "gridRow": "3 / 6" }
+        }
+      },
+      "winCondition": {
+        "movingEntityId": "car",
+        "targetEntityId": "spot"
+      }
+    }
+  ]
+}

@@ -1,0 +1,142 @@
+{
+  "meta": {
+    "version": 1,
+    "gameId": "css-grid-tool",
+    "defaultGrid": {
+      "columns": 7,
+      "rows": 7
+    },
+    "validationDefaults": {
+      "tolerancePx": 2,
+      "minOverlapRatio": 0.98
+    }
+  },
+  "levels": [
+    {
+      "id": "IE1",
+      "title": "Level 10 — Implicit Rows",
+      "concept": {
+        "name": "implicit grid row creation",
+        "explain": "Placing an item outside the explicit row tracks makes Grid create implicit rows automatically."
+      },
+      "ui": {
+        "prompt": "Move the car to the highlighted bay on row 8. Use an implicit row while keeping it in column 2.",
+        "starterCss": ".car {\n grid-column: 2 / 3;\n}\n",
+        "lockedCss": "/* Locked */\n.grid { display: grid; }\n",
+        "hints": [
+          "Try: grid-row: 8 / 9;",
+          "Line 8 is beyond the 7-row explicit template, so Grid creates an implicit row."
+        ]
+      },
+      "grid": { "columns": 7, "rows": 7 },
+      "entities": [
+        {
+          "id": "car",
+          "type": "player",
+          "className": "car",
+          "baseCss": "border-radius: 10px;"
+        },
+        {
+          "id": "spot",
+          "type": "target",
+          "className": "spot",
+          "baseCss": "background: rgba(200, 0, 0, 0.22); outline: 2px dashed rgba(200, 0, 0, 0.8); border-radius: 10px;"
+        }
+      ],
+      "layout": {
+        "initial": {
+          "car": { "gridColumn": "1 / 2", "gridRow": "1 / 2" },
+          "spot": { "gridColumn": "2 / 3", "gridRow": "8 / 9" }
+        }
+      },
+      "winCondition": {
+        "movingEntityId": "car",
+        "targetEntityId": "spot"
+      }
+    },
+    {
+      "id": "IE2",
+      "title": "Level 11 — Implicit Columns",
+      "concept": {
+        "name": "implicit grid column creation",
+        "explain": "Placing an item outside explicit columns creates implicit columns on demand."
+      },
+      "ui": {
+        "prompt": "Move the car to the highlighted bay on column 8. Keep it on row 4.",
+        "starterCss": ".car {\n grid-row: 4 / 5;\n}\n",
+        "lockedCss": "/* Locked */\n.grid { display: grid; }\n",
+        "hints": [
+          "Try: grid-column: 8 / 9;",
+          "Column line 8 extends beyond the explicit 7 columns, creating an implicit column."
+        ]
+      },
+      "grid": { "columns": 7, "rows": 7 },
+      "entities": [
+        {
+          "id": "car",
+          "type": "player",
+          "className": "car",
+          "baseCss": "border-radius: 10px;"
+        },
+        {
+          "id": "spot",
+          "type": "target",
+          "className": "spot",
+          "baseCss": "background: rgba(200, 0, 0, 0.22); outline: 2px dashed rgba(200, 0, 0, 0.8); border-radius: 10px;"
+        }
+      ],
+      "layout": {
+        "initial": {
+          "car": { "gridColumn": "1 / 2", "gridRow": "1 / 2" },
+          "spot": { "gridColumn": "8 / 9", "gridRow": "4 / 5" }
+        }
+      },
+      "winCondition": {
+        "movingEntityId": "car",
+        "targetEntityId": "spot"
+      }
+    },
+    {
+      "id": "IE3",
+      "title": "Level 12 — Explicit Template Expansion",
+      "concept": {
+        "name": "explicit vs implicit tracks",
+        "explain": "Explicit tracks are declared with grid-template-columns and grid-template-rows; implicit tracks are created automatically when needed."
+      },
+      "ui": {
+        "prompt": "Park in the highlighted bay at row 8 / column 8, then define an explicit 8×8 template on .grid.",
+        "starterCss": ".car {\n \n}\n\n.grid {\n \n}\n",
+        "lockedCss": "/* Locked */\n.grid { display: grid; }\n",
+        "hints": [
+          "Set car position: grid-column: 8 / 9; and grid-row: 8 / 9;",
+          "Then declare explicit tracks, for example: grid-template-columns: repeat(8, 60px); grid-template-rows: repeat(8, 60px);"
+        ]
+      },
+      "grid": { "columns": 7, "rows": 7 },
+      "entities": [
+        {
+          "id": "car",
+          "type": "player",
+          "className": "car",
+          "baseCss": "border-radius: 10px;"
+        },
+        {
+          "id": "spot",
+          "type": "target",
+          "className": "spot",
+          "baseCss": "background: rgba(200, 0, 0, 0.22); outline: 2px dashed rgba(200, 0, 0, 0.8); border-radius: 10px;"
+        }
+      ],
+      "layout": {
+        "initial": {
+          "car": { "gridColumn": "1 / 2", "gridRow": "1 / 2" },
+          "spot": { "gridColumn": "8 / 9", "gridRow": "8 / 9" }
+        }
+      },
+      "winCondition": {
+        "movingEntityId": "car",
+        "targetEntityId": "spot"
+      }
+    }
+  ]
+}
