@@ -186,9 +186,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             new URL("levels/pack-gaps.json", import.meta.url).href,
             new URL("levels/pack-alignment.json", import.meta.url).href,
             new URL("levels/pack-implicit-explicit.json", import.meta.url).href,
-            new URL("levels/pack-auto-fill-fit.json", import.meta.url).href,
-            new URL("levels/pack-align-content.json", import.meta.url).href,
-            new URL("levels/pack-template-areas.json", import.meta.url).href
+            new URL("levels/pack-auto-fill-fit.json", import.meta.url).href
         ];
 
         // Load all level packs
