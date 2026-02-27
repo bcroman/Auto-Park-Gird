@@ -90,6 +90,10 @@
   font-size: 18px;
 }
 
+.instructions p {
+  white-space: pre-line;
+}
+
 /* =====================
    CSS Editor
    ===================== */
