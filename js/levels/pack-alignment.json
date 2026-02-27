@@ -14,7 +14,7 @@
   "levels": [
     {
       "id": "A1",
-      "title": "Level 4 — Horizontal Alignment",
+      "title": "Level 10 — Horizontal Alignment",
       "concept": {
         "name": "justify-self",
         "explain": "Use justify-self to align the car horizontally inside its assigned grid area without changing that area."
@@ -56,7 +56,7 @@
     },
     {
       "id": "A2",
-      "title": "Level 5 — Vertical Alignment",
+      "title": "Level 11 — Vertical Alignment",
       "concept": {
         "name": "align-self",
         "explain": "Use align-self to align the car vertically inside its grid area while keeping the same placement lines."
@@ -98,7 +98,7 @@
     },
     {
       "id": "A3",
-      "title": "Level 6 — Two-Axis Alignment",
+      "title": "Level 12 — Two-Axis Alignment",
       "concept": {
         "name": "place-self",
         "explain": "Use place-self to control both horizontal and vertical alignment inside the same grid area."

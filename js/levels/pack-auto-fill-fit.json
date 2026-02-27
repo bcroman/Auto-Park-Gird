@@ -14,7 +14,7 @@
   "levels": [
     {
       "id": "AF1",
-      "title": "Level 13 — Auto-Fill Columns",
+      "title": "Level 16 — Auto-Fill Columns",
       "concept": {
         "name": "repeat(auto-fill, minmax())",
         "explain": "Use auto-fill to create as many explicit columns as can fit, each with a minimum track size."
@@ -57,7 +57,7 @@
     },
     {
       "id": "AF2",
-      "title": "Level 14 — Auto-Fill Rows",
+      "title": "Level 17 — Auto-Fill Rows",
       "concept": {
         "name": "auto-fill with row tracks",
         "explain": "Auto-fill can also be used for row tracks so rows are generated with a minimum size."
@@ -100,7 +100,7 @@
     },
     {
       "id": "AF3",
-      "title": "Level 15 — Auto-Fit vs Auto-Fill",
+      "title": "Level 18 — Auto-Fit vs Auto-Fill",
       "concept": {
         "name": "auto-fit behavior",
         "explain": "Auto-fit collapses unused tracks while auto-fill keeps empty tracks. Both can be used with minmax for responsive tracks."

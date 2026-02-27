@@ -14,14 +14,14 @@
   "levels": [
     {
       "id": "G1",
-      "title": "Level 16 — Column Gap",
+      "title": "Level 7 — Column Gap",
       "concept": {
         "name": "column-gap",
         "explain": "Column gaps add space between grid columns. When an item spans columns, that gap becomes part of its final width."
       },
       "ui": {
         "prompt": "Keep the car spanning columns 2 to 4 on row 2, then adjust the horizontal gap so it matches the highlighted bay.",
-        "starterCss": ".car {\n grid-column: 2 / 4;\n grid-row: 2 / 3;\n}\n",
+        "starterCss": ".car {\n grid-column: 2 / 4;\n grid-row: 2 / 3;\n}\n\n.grid {\n \n}\n",
         "lockedCss": "/* Locked */\n.grid { display: grid; }\n",
         "hints": [
           "Try: column-gap: 12px;",
@@ -56,14 +56,14 @@
     },
     {
       "id": "G2",
-      "title": "Level 17 — Row Gap",
+      "title": "Level 8 — Row Gap",
       "concept": {
         "name": "row-gap",
         "explain": "Row gaps add vertical space between rows. When an item spans rows, that gap is included in the item’s total height."
       },
       "ui": {
         "prompt": "Keep the car spanning rows 3 to 5 in column 3, then adjust the vertical gap to match the highlighted bay.",
-        "starterCss": ".car {\n grid-column: 3 / 4;\n grid-row: 3 / 5;\n}\n",
+        "starterCss": ".car {\n grid-column: 3 / 4;\n grid-row: 3 / 5;\n}\n\n.grid {\n \n}\n",
         "lockedCss": "/* Locked */\n.grid { display: grid; }\n",
         "hints": [
           "Try: row-gap: 14px;",
@@ -98,14 +98,14 @@
     },
     {
       "id": "G3",
-      "title": "Level 18 — Row + Column Gaps",
+      "title": "Level 9 — Row + Column Gaps",
       "concept": {
         "name": "gap shorthand",
         "explain": "Use gap shorthand to set row-gap and column-gap together: gap: <row-gap> <column-gap>."
       },
       "ui": {
         "prompt": "Keep the car spanning a 2×2 area at columns 4 to 6 and rows 4 to 6, then tune both gaps to match the highlighted bay.",
-        "starterCss": ".car {\n grid-column: 4 / 6;\n grid-row: 4 / 6;\n}\n",
+        "starterCss": ".car {\n grid-column: 4 / 6;\n grid-row: 4 / 6;\n}\n\n.grid {\n \n}\n",
         "lockedCss": "/* Locked */\n.grid { display: grid; }\n",
         "hints": [
           "Try: gap: 16px 10px;",

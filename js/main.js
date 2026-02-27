@@ -182,11 +182,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     try {
         const packsURLs = [ // List of Level Packs
             new URL("levels/pack-spanning.json", import.meta.url).href,
-            new URL("levels/pack-alignment.json", import.meta.url).href,
             new URL("levels/pack-tracks.json", import.meta.url).href,
+            new URL("levels/pack-gaps.json", import.meta.url).href,
+            new URL("levels/pack-alignment.json", import.meta.url).href,
             new URL("levels/pack-implicit-explicit.json", import.meta.url).href,
             new URL("levels/pack-auto-fill-fit.json", import.meta.url).href,
-            new URL("levels/pack-gaps.json", import.meta.url).href,
             new URL("levels/pack-align-content.json", import.meta.url).href,
             new URL("levels/pack-template-areas.json", import.meta.url).href
         ];

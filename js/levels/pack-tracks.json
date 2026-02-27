@@ -14,7 +14,7 @@
   "levels": [
     {
       "id": "T1",
-      "title": "Level 7 — Column Tracks",
+      "title": "Level 4 — Column Tracks",
       "concept": {
         "name": "grid-template-columns",
         "explain": "Track sizing controls the width of each column. Resize the first column track so the car matches the highlighted bay."
@@ -56,7 +56,7 @@
     },
     {
       "id": "T2",
-      "title": "Level 8 — Row Tracks",
+      "title": "Level 5 — Row Tracks",
       "concept": {
         "name": "grid-template-rows",
         "explain": "Track sizing also controls row height. Resize the second row track so the car matches the tall highlighted bay."
@@ -98,7 +98,7 @@
     },
     {
       "id": "T3",
-      "title": "Level 9 — Two-Axis Tracks",
+      "title": "Level 6 — Two-Axis Tracks",
       "concept": {
         "name": "combine columns and rows",
         "explain": "Use both grid-template-columns and grid-template-rows to size one parking bay in both directions."

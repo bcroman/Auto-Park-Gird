@@ -14,7 +14,7 @@
   "levels": [
     {
       "id": "IE1",
-      "title": "Level 10 — Implicit Rows",
+      "title": "Level 13 — Implicit Rows",
       "concept": {
         "name": "implicit grid row creation",
         "explain": "Placing an item outside the explicit row tracks makes Grid create implicit rows automatically."
@@ -56,7 +56,7 @@
     },
     {
       "id": "IE2",
-      "title": "Level 11 — Implicit Columns",
+      "title": "Level 14 — Implicit Columns",
       "concept": {
         "name": "implicit grid column creation",
         "explain": "Placing an item outside explicit columns creates implicit columns on demand."
@@ -98,7 +98,7 @@
     },
     {
       "id": "IE3",
-      "title": "Level 12 — Explicit Template Expansion",
+      "title": "Level 15 — Explicit Template Expansion",
       "concept": {
         "name": "explicit vs implicit tracks",
         "explain": "Explicit tracks are declared with grid-template-columns and grid-template-rows; implicit tracks are created automatically when needed."
