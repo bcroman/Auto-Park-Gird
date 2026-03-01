@@ -63,7 +63,7 @@
       },
       "ui": {
         "prompt": "Move the car vertically and make it span the full highlighted spot using grid-row.",
-        "starterCss": ".car {\n grid-column: 1 / 2;\n}\n",
+        "starterCss": ".car {\n grid-column: 1 / 2;\n \n}\n",
         "lockedCss": "/* Locked */\n.grid { display: grid; }\n",
         "hints": [
           "Try: grid-row: 3 / span 3;"

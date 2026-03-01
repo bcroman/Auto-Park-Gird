@@ -17,7 +17,7 @@
       "title": "Level 7 — Column Gap",
       "concept": {
         "name": "column-gap",
-        "explain": "Column gaps add space between grid columns. When an item spans columns, that gap becomes part of its final width."
+        "explain": "The 'column-gap' property specifies the gap between the columns in a grid.\n Adjust the horizontal gap between columns so the car matches the highlighted bay."
       },
       "ui": {
         "prompt": "Keep the car spanning columns 2 to 4 on row 2, then adjust the horizontal gap so it matches the highlighted bay.",
@@ -25,7 +25,7 @@
         "lockedCss": "/* Locked */\n.grid { display: grid; }\n",
         "hints": [
           "Try: column-gap: 12px;",
-          "You can also use: gap: 3px 12px;"
+          "Also use: gap: 3px 12px;"
         ]
       },
       "grid": { "columns": 7, "rows": 7 },
@@ -59,7 +59,7 @@
       "title": "Level 8 — Row Gap",
       "concept": {
         "name": "row-gap",
-        "explain": "Row gaps add vertical space between rows. When an item spans rows, that gap is included in the item’s total height."
+        "explain": "The 'row-gap' property specifies the gap between the rows in a grid.\n Adjust the vertical gap between rows so the car matches the highlighted bay."
       },
       "ui": {
         "prompt": "Keep the car spanning rows 3 to 5 in column 3, then adjust the vertical gap to match the highlighted bay.",
@@ -67,7 +67,7 @@
         "lockedCss": "/* Locked */\n.grid { display: grid; }\n",
         "hints": [
           "Try: row-gap: 14px;",
-          "You can also use: gap: 14px 3px;"
+          "Also use: gap: 14px 3px;"
         ]
       },
       "grid": { "columns": 7, "rows": 7 },
@@ -101,7 +101,7 @@
       "title": "Level 9 — Row + Column Gaps",
       "concept": {
         "name": "gap shorthand",
-        "explain": "Use gap shorthand to set row-gap and column-gap together: gap: <row-gap> <column-gap>."
+        "explain": "The 'gap' property is a shorthand for setting both 'row-gap' and 'column-gap' in a grid.\nUse this property to adjust both horizontal and vertical gaps simultaneously."
       },
       "ui": {
         "prompt": "Keep the car spanning a 2×2 area at columns 4 to 6 and rows 4 to 6, then tune both gaps to match the highlighted bay.",

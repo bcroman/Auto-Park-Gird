@@ -17,15 +17,15 @@
       "title": "Level 13 — Implicit Rows",
       "concept": {
         "name": "implicit grid row creation",
-        "explain": "Placing an item outside the explicit row tracks makes Grid create implicit rows automatically."
+        "explain": "The 'grid-row' property can be used to place an item in a row that doesn't exist yet.\nGrid will automatically create an implicit row to accommodate the item."
       },
       "ui": {
         "prompt": "Move the car to the highlighted bay on row 8. Use an implicit row while keeping it in column 2.",
-        "starterCss": ".car {\n grid-column: 2 / 3;\n}\n",
+        "starterCss": ".car {\n grid-column: 2 / 3;\n \n}\n",
         "lockedCss": "/* Locked */\n.grid { display: grid; }\n",
         "hints": [
           "Try: grid-row: 8 / 9;",
-          "Line 8 is beyond the 7-row explicit template, so Grid creates an implicit row."
+          "Do not change grid-column."
         ]
       },
       "grid": { "columns": 7, "rows": 7 },
@@ -59,15 +59,15 @@
       "title": "Level 14 — Implicit Columns",
       "concept": {
         "name": "implicit grid column creation",
-        "explain": "Placing an item outside explicit columns creates implicit columns on demand."
+        "explain": "The 'grid-column' property can be used to place an item in a column that doesn't exist yet.\nGrid will automatically create an implicit column to accommodate the item."
       },
       "ui": {
         "prompt": "Move the car to the highlighted bay on column 8. Keep it on row 4.",
-        "starterCss": ".car {\n grid-row: 4 / 5;\n}\n",
+        "starterCss": ".car {\n grid-row: 4 / 5;\n \n}\n",
         "lockedCss": "/* Locked */\n.grid { display: grid; }\n",
         "hints": [
           "Try: grid-column: 8 / 9;",
-          "Column line 8 extends beyond the explicit 7 columns, creating an implicit column."
+          "Do not change grid-row."
         ]
       },
       "grid": { "columns": 7, "rows": 7 },
@@ -101,15 +101,15 @@
       "title": "Level 15 — Explicit Template Expansion",
       "concept": {
         "name": "explicit vs implicit tracks",
-        "explain": "Explicit tracks are declared with grid-template-columns and grid-template-rows; implicit tracks are created automatically when needed."
+        "explain": "When you place an item in an implicit row or column, that track will automatically expand to fit the item.\nHowever, if you define an explicit track that overlaps with the implicit one, the explicit track will take precedence and the item will be sized to fit it instead."
       },
       "ui": {
         "prompt": "Park in the highlighted bay at row 8 / column 8, then define an explicit 8×8 template on .grid.",
         "starterCss": ".car {\n \n}\n\n.grid {\n \n}\n",
         "lockedCss": "/* Locked */\n.grid { display: grid; }\n",
         "hints": [
-          "Set car position: grid-column: 8 / 9; and grid-row: 8 / 9;",
-          "Then declare explicit tracks, for example: grid-template-columns: repeat(8, 60px); grid-template-rows: repeat(8, 60px);"
+          "Try: grid-column: 8 / 9; and grid-row: 8 / 9;",
+          "Then declare explicit tracks, try: grid-template-columns: repeat(8, 60px); grid-template-rows: repeat(8, 60px);"
         ]
       },
       "grid": { "columns": 7, "rows": 7 },

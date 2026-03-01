@@ -17,11 +17,11 @@
       "title": "Level 10 — Horizontal Alignment",
       "concept": {
         "name": "justify-self",
-        "explain": "Use justify-self to align the car horizontally inside its assigned grid area without changing that area."
+        "explain": "The 'justify-self' property is used to align a grid item within its grid cell in the inline direction.\nUse this property to adjust the horizontal alignment of the car without changing its grid area."
       },
       "ui": {
         "prompt": "Keep the car in the same 3×2 area, then align it to the right edge using justify-self.",
-        "starterCss": ".car {\n grid-column: 2 / 5;\n grid-row: 2 / 4;\n}\n",
+        "starterCss": ".car {\n grid-column: 2 / 5;\n grid-row: 2 / 4;\n \n}\n",
         "lockedCss": "/* Locked */\n.grid { display: grid; }\n",
         "hints": [
           "Try: justify-self: end;",
@@ -59,15 +59,15 @@
       "title": "Level 11 — Vertical Alignment",
       "concept": {
         "name": "align-self",
-        "explain": "Use align-self to align the car vertically inside its grid area while keeping the same placement lines."
+        "explain": "The 'align-self' property is used to align a grid item within its grid cell in the block direction.\nUse this property to adjust the vertical alignment of the car without changing its grid area."
       },
       "ui": {
         "prompt": "Keep the car in the same 2×3 area, then align it to the bottom edge using align-self.",
-        "starterCss": ".car {\n grid-column: 4 / 6;\n grid-row: 2 / 5;\n}\n",
+        "starterCss": ".car {\n grid-column: 4 / 6;\n grid-row: 2 / 5;\n \n}\n",
         "lockedCss": "/* Locked */\n.grid { display: grid; }\n",
         "hints": [
           "Try: align-self: end;",
-          "Leave grid-column and grid-row unchanged."
+          "Do not change grid-column or grid-row."
         ]
       },
       "grid": { "columns": 7, "rows": 7 },
@@ -101,15 +101,15 @@
       "title": "Level 12 — Two-Axis Alignment",
       "concept": {
         "name": "place-self",
-        "explain": "Use place-self to control both horizontal and vertical alignment inside the same grid area."
+        "explain": "The 'place-self' property is a shorthand for 'align-self' and 'justify-self'.\nUse this property to adjust both horizontal and vertical alignment of the car without changing its grid area."
       },
       "ui": {
         "prompt": "Match the target by centering the car inside the same 3×3 area using place-self.",
-        "starterCss": ".car {\n grid-column: 3 / 6;\n grid-row: 3 / 6;\n}\n",
+        "starterCss": ".car {\n grid-column: 3 / 6;\n grid-row: 3 / 6;\n \n}\n",
         "lockedCss": "/* Locked */\n.grid { display: grid; }\n",
         "hints": [
           "Try: place-self: center;",
-          "You should not need to change grid-column or grid-row."
+          "Do not change grid-column or grid-row."
         ]
       },
       "grid": { "columns": 7, "rows": 7 },

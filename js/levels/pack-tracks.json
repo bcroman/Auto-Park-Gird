@@ -17,7 +17,7 @@
       "title": "Level 4 — Column Tracks",
       "concept": {
         "name": "grid-template-columns",
-        "explain": "Track sizing controls the width of each column. Resize the first column track so the car matches the highlighted bay."
+        "explain": "The grid-template-columns property defines the number and width of the columns in the grid.\nThe value is a space-separated-list, where each value defines the height of the respective column.\nResize the first column track so the car matches the wide highlighted bay."
       },
       "ui": {
         "prompt": "Keep the car in column 1, row 2 and resize column tracks so it fully fills the highlighted wide bay.",
@@ -59,7 +59,7 @@
       "title": "Level 5 — Row Tracks",
       "concept": {
         "name": "grid-template-rows",
-        "explain": "Track sizing also controls row height. Resize the second row track so the car matches the tall highlighted bay."
+        "explain": "The grid-template-rows property defines the number and height of the rows in the grid.\nThe value is a space-separated-list, where each value defines the height of the respective row.\nResize the second row track so the car matches the tall highlighted bay."
       },
       "ui": {
         "prompt": "Keep the car in column 3, row 2 and resize row tracks so it fully fills the highlighted tall bay.",
@@ -109,7 +109,7 @@
         "lockedCss": "/* Locked */\n.grid { display: grid; }\n",
         "hints": [
           "Try columns: 60px 150px repeat(5, 60px);",
-          "Then rows: 60px 150px repeat(5, 60px);"
+          "Try rows: 60px 150px repeat(5, 60px);"
         ]
       },
       "grid": { "columns": 7, "rows": 7 },
