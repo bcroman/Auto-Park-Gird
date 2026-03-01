@@ -10,8 +10,8 @@ This tool teach the user about topics of CSS grid: tracks, spanning, iten alignm
 - Structured Feedback System
 - Level Hints
 - Level Progressionn
-- CSS Input Validation of Control Tags and Out of Bounds
-- Load the Newest Unlock Level
+- CSS Input Validation
+- Progression Save/Load
 
 ## Installation
 ### Requirements
@@ -30,10 +30,10 @@ This tool teach the user about topics of CSS grid: tracks, spanning, iten alignm
 3. Write CSS in the editor to position the vehicle.
 4. Check the CSS and grid validation feedback.
 5. Use feedback to adjust your solution.
-6. Progress through levels.
+6. Progress through all the levels.
 
 ## Credits
 Author: Ben Collins  
 Module: Dissertation  
-Version: 0.8.0  
+Version: 1.0.0  
 Date: 20/02/2026  

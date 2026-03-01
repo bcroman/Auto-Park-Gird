@@ -8,6 +8,8 @@ import { clearFeedback } from "./ui_feedback.js";
 import { loadProgress, saveProgress } from "./progress_store.js";
 
 const STORAGE_PREFIX = "apg.progress.";
+const ACHIEVEMENT_FLASH_DURATION_MS = 5000;
+let achievementFlashTimer = null;
 
 // Function: Initialize the game
 function clamp(index, length) {
@@ -18,6 +20,72 @@ function clamp(index, length) {
 // Function: Build a stable key per level
 function levelKey(level) {
     return level?.id ?? level?.title ?? "";
+}
+
+// Function: Get achievement flash elements
+function getAchievementElements() {
+    const flash = document.querySelector("#achievementFlash");
+    const percentText = document.querySelector("#achievementPercent");
+
+    if (!flash || !percentText) return null;
+    return { flash, percentText };
+}
+
+// Function: Hide achievement flash
+function hideAchievementFlash() {
+    const elements = getAchievementElements();
+    if (!elements) return;
+
+    elements.flash.classList.add("hidden");
+    elements.flash.setAttribute("aria-hidden", "true");
+}
+
+// Function: Show achievement flash for 100% completion
+function showAchievementFlash(levels, state) {
+    const elements = getAchievementElements();
+    if (!elements || !levels.length) return;
+
+    const completedCount = Math.max(0, Math.min(levels.length, state.completedCount ?? 0));
+    const percent = Math.round((completedCount / levels.length) * 100);
+
+    if (percent < 100) return;
+
+    elements.percentText.textContent = `Progress: ${percent}%`;
+    elements.flash.classList.remove("hidden");
+    elements.flash.setAttribute("aria-hidden", "false");
+
+    if (achievementFlashTimer) {
+        clearTimeout(achievementFlashTimer);
+    }
+
+    // achievementFlashTimer = setTimeout(() => {
+    //     hideAchievementFlash();
+    // }, ACHIEVEMENT_FLASH_DURATION_MS);
+}
+
+// Function: Reset all progress, lock levels, and return to level 1
+function resetAllProgress(levels, state) {
+    // Clear saved progress from localStorage
+    try {
+        localStorage.removeItem(`${STORAGE_PREFIX}${state.gameId || "default"}`);
+    } catch {
+        console.warn("Failed to clear saved progress.");
+    }
+
+    state.highestUnlockedIndex = 0;
+    state.completedCount = 0;
+    state.index = 0;
+
+    saveProgress(
+        levels,
+        state.highestUnlockedIndex,
+        state.gameId,
+        state.completedCount
+    );
+
+    hideAchievementFlash();
+    renderCurrent(levels, state);
+    clearFeedback();
 }
 
 // Function: Update navigation state (including lock/unlock state for next button)
@@ -123,6 +191,7 @@ function wireLevelUnlocking(levels, state) {
         const detail = event?.detail || {};
         const currentLevel = levels[clamp(state.index, levels.length)];
         const currentKey = levelKey(currentLevel);
+        const wasComplete = (state.completedCount ?? 0) >= levels.length;
 
         // Only unlock next level if validation is successful and for the current level
         if (!detail.ok || detail.levelKey !== currentKey) {
@@ -142,39 +211,27 @@ function wireLevelUnlocking(levels, state) {
         );
         updateNavigationButtons(levels, state);
         updateProgressUI(levels, state);
+
+        const isComplete = (state.completedCount ?? 0) >= levels.length;
+        if (!wasComplete && isComplete) {
+            showAchievementFlash(levels, state);
+        }
     });
 }
 
 // Function: Wire reset progress button to clear saved progress and return to level 1
 function wireResetProgress(levels, state) {
     const btn = document.querySelector("#resetProgress");
-    if (!btn) return;
+    const flashBtn = document.querySelector("#achievementResetProgress");
 
-    btn.onclick = () => {
-        // Confirm with the user before resetting progress
+    const handleReset = () => {
         const shouldReset = window.confirm("Reset all progress? This will lock levels again and return to Level 1.");
         if (!shouldReset) return;
-
-        // Clear saved progress from localStorage
-        try {
-            localStorage.removeItem(`${STORAGE_PREFIX}${state.gameId || "default"}`);
-        } catch {
-            console.warn("Failed to clear saved progress.");
-        }
-
-        state.highestUnlockedIndex = 0;
-        state.completedCount = 0;
-        state.index = 0;
-
-        saveProgress(
-            levels,
-            state.highestUnlockedIndex,
-            state.gameId,
-            state.completedCount
-        );
-        renderCurrent(levels, state);
-        clearFeedback();
+        resetAllProgress(levels, state);
     };
+
+    if (btn) btn.onclick = handleReset;
+    if (flashBtn) flashBtn.onclick = handleReset;
 }
 
 // Update the DOM once it's fully loaded
@@ -220,6 +277,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         wireReset(levels, state);
         wireResetProgress(levels, state);
         wireLevelUnlocking(levels, state);
+
+        if ((state.completedCount ?? 0) >= levels.length) {
+            showAchievementFlash(levels, state);
+        }
 
         // Debug access in DevTools
         window.__GAME__ = { levels, state, renderLevel };
