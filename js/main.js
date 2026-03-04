@@ -57,10 +57,6 @@ function showAchievementFlash(levels, state) {
     if (achievementFlashTimer) {
         clearTimeout(achievementFlashTimer);
     }
-
-    // achievementFlashTimer = setTimeout(() => {
-    //     hideAchievementFlash();
-    // }, ACHIEVEMENT_FLASH_DURATION_MS);
 }
 
 // Function: Reset all progress, lock levels, and return to level 1
