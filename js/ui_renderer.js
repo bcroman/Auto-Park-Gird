@@ -194,7 +194,7 @@ export function renderLevel(level) {
     must(selectors.levelLead).textContent = level?.ui?.prompt ?? "";
 
     const conceptLabel = level?.concept?.name
-        ? `Concept - ${level.concept.name}`
+        ? `Concept: ${level.concept.name}`
         : "Concept";
 
     // Update concept title and text

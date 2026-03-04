@@ -11,6 +11,18 @@ const STORAGE_PREFIX = "apg.progress.";
 const ACHIEVEMENT_FLASH_DURATION_MS = 5000;
 let achievementFlashTimer = null;
 
+// Function: Keep game page anchored to top on load
+function ensureStartAtTop() {
+    if ("scrollRestoration" in history) {
+        history.scrollRestoration = "manual";
+    }
+
+    const scrollTop = () => window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+
+    scrollTop();
+    requestAnimationFrame(scrollTop);
+}
+
 // Function: Initialize the game
 function clamp(index, length) {
     if (length <= 0) return 0;
@@ -165,6 +177,7 @@ function wirePrevNext(levels, state) {
         prevBtn.onclick = () => {
             state.index = clamp(state.index - 1, levels.length);
             renderCurrent(levels, state);
+            ensureStartAtTop();
             clearFeedback();
         };
     }
@@ -175,6 +188,7 @@ function wirePrevNext(levels, state) {
             if (nextBtn.disabled) return;
             state.index = clamp(state.index + 1, levels.length);
             renderCurrent(levels, state);
+            ensureStartAtTop();
             clearFeedback();
         };
     }
@@ -232,14 +246,16 @@ function wireResetProgress(levels, state) {
 
 // Update the DOM once it's fully loaded
 document.addEventListener("DOMContentLoaded", async () => {
+    ensureStartAtTop();
+
     try {
         const packsURLs = [ // List of Level Packs
             new URL("levels/pack-spanning.json", import.meta.url).href,
+            new URL("levels/pack-alignment.json", import.meta.url).href,
             new URL("levels/pack-tracks.json", import.meta.url).href,
             new URL("levels/pack-gaps.json", import.meta.url).href,
-            new URL("levels/pack-alignment.json", import.meta.url).href,
-            new URL("levels/pack-implicit-explicit.json", import.meta.url).href,
-            new URL("levels/pack-auto-fill-fit.json", import.meta.url).href
+            new URL("levels/pack-auto-fill-fit.json", import.meta.url).href,
+            new URL("levels/pack-implicit-explicit.json", import.meta.url).href
         ];
 
         // Load all level packs
@@ -284,4 +300,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         console.error(err);
         alert(`Failed to start game: ${err.message}`);
     }
+});
+
+window.addEventListener("pageshow", () => {
+    ensureStartAtTop();
 });

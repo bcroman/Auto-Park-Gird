@@ -14,10 +14,10 @@
   "levels": [
     {
       "id": "A1",
-      "title": "Level 10 — Horizontal Alignment",
+      "title": "Level 4 — Horizontal Alignment",
       "concept": {
         "name": "justify-self",
-        "explain": "The 'justify-self' property is used to align a grid item within its grid cell in the inline direction.\nUse this property to adjust the horizontal alignment of the car without changing its grid area."
+        "explain": "The 'justify-self' property is used to align a grid item within its grid cell in the inline direction.\nThis property can have one of the following values: auto (default), normal, stretch, start, left, center, end, right.\nNote: For this property to have any alignment effect, the grid item needs available space around itself in the inline direction.\nExample: justify-self: start;\n\nUse this property to adjust the horizontal alignment of the car without changing its grid area."
       },
       "ui": {
         "prompt": "Keep the car in the same 3×2 area, then align it to the right edge using justify-self.",
@@ -56,10 +56,10 @@
     },
     {
       "id": "A2",
-      "title": "Level 11 — Vertical Alignment",
+      "title": "Level 5 — Vertical Alignment",
       "concept": {
         "name": "align-self",
-        "explain": "The 'align-self' property is used to align a grid item within its grid cell in the block direction.\nUse this property to adjust the vertical alignment of the car without changing its grid area."
+        "explain": "The 'align-self' property is used to align a grid item within its grid cell in the block direction.\nThis property can have one of the following values: auto (default), normal, stretch, start, end, center.\nNote: For this property to have any alignment effect, the grid item needs available space around itself in the block direction.\nExample: align-self: left;\n\nUse this property to adjust the vertical alignment of the car without changing its grid area."
       },
       "ui": {
         "prompt": "Keep the car in the same 2×3 area, then align it to the bottom edge using align-self.",
@@ -98,10 +98,10 @@
     },
     {
       "id": "A3",
-      "title": "Level 12 — Two-Axis Alignment",
+      "title": "Level 6 — Two-Axis Alignment",
       "concept": {
         "name": "place-self",
-        "explain": "The 'place-self' property is a shorthand for 'align-self' and 'justify-self'.\nUse this property to adjust both horizontal and vertical alignment of the car without changing its grid area."
+        "explain": "The 'place-self' property is a shorthand for 'align-self' and 'justify-self'.\nThis property can have one of the following values: auto (default), normal, stretch, start, end, center.\nNote: For this property to have any alignment effect, the grid item needs available space around itself in both the inline and block directions.\nExample: place-self: start;\n\nUse this property to adjust both horizontal and vertical alignment of the car without changing its grid area."
       },
       "ui": {
         "prompt": "Match the target by centering the car inside the same 3×3 area using place-self.",

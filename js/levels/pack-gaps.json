@@ -14,10 +14,10 @@
   "levels": [
     {
       "id": "G1",
-      "title": "Level 7 — Column Gap",
+      "title": "Level 10 — Column Gap",
       "concept": {
         "name": "column-gap",
-        "explain": "The 'column-gap' property specifies the gap between the columns in a grid.\n Adjust the horizontal gap between columns so the car matches the highlighted bay."
+        "explain": "The 'column-gap' property specifies the gap between the columns in a grid.\nExample: column-gap: 20px;\n\nKeep the car spanning columns 2 to 4 on row 2, then adjust the horizontal gap so it matches the highlighted bay."
       },
       "ui": {
         "prompt": "Keep the car spanning columns 2 to 4 on row 2, then adjust the horizontal gap so it matches the highlighted bay.",
@@ -56,10 +56,10 @@
     },
     {
       "id": "G2",
-      "title": "Level 8 — Row Gap",
+      "title": "Level 11 — Row Gap",
       "concept": {
         "name": "row-gap",
-        "explain": "The 'row-gap' property specifies the gap between the rows in a grid.\n Adjust the vertical gap between rows so the car matches the highlighted bay."
+        "explain": "The 'row-gap' property specifies the gap between the rows in a grid.\nExample: row-gap: 20px;\n\nKeep the car spanning rows 3 to 5 in column 3, then adjust the vertical gap to match the highlighted bay."
       },
       "ui": {
         "prompt": "Keep the car spanning rows 3 to 5 in column 3, then adjust the vertical gap to match the highlighted bay.",
@@ -98,10 +98,10 @@
     },
     {
       "id": "G3",
-      "title": "Level 9 — Row + Column Gaps",
+      "title": "Level 12 — Row + Column Gaps",
       "concept": {
         "name": "gap shorthand",
-        "explain": "The 'gap' property is a shorthand for setting both 'row-gap' and 'column-gap' in a grid.\nUse this property to adjust both horizontal and vertical gaps simultaneously."
+        "explain": "The 'gap' property is a shorthand for setting both 'row-gap' and 'column-gap' in a grid.\nIf a single value is provided, it applies the same gap to both rows and columns. If two values are provided, the first value sets the row-gap, and the second value sets the column-gap.\nExample: gap: 20px 10px;\nEquivalent to row-gap: 20px; column-gap: 10px;\n\nUse this property to adjust both horizontal and vertical gaps simultaneously."
       },
       "ui": {
         "prompt": "Keep the car spanning a 2×2 area at columns 4 to 6 and rows 4 to 6, then tune both gaps to match the highlighted bay.",

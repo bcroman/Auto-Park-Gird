@@ -14,10 +14,10 @@
   "levels": [
     {
       "id": "T1",
-      "title": "Level 4 — Column Tracks",
+      "title": "Level 7 — Column Tracks",
       "concept": {
         "name": "grid-template-columns",
-        "explain": "The grid-template-columns property defines the number and width of the columns in the grid.\nThe value is a space-separated-list, where each value defines the height of the respective column.\nResize the first column track so the car matches the wide highlighted bay."
+        "explain": "The 'grid-template-columns' property defines the number and width of the columns in the grid.\nThe value is a space-separated-list, where each value defines the width of the respective column.\nCommon values are pixels (100px), percentages (20%), fr unit (1fr), auto. You can use a mix of values to set the column widths.\nrepeat() function is used to repeat a set of columns or rows in a grid ‘repeat(3, 60px)'.\nExample: grid-template-columns: 150px repeat(5, 60px);\n\nKeep the car in column 1, row 2 and resize column tracks so it fully fills the highlighted wide bay."
       },
       "ui": {
         "prompt": "Keep the car in column 1, row 2 and resize column tracks so it fully fills the highlighted wide bay.",
@@ -56,10 +56,10 @@
     },
     {
       "id": "T2",
-      "title": "Level 5 — Row Tracks",
+      "title": "Level 8 — Row Tracks",
       "concept": {
         "name": "grid-template-rows",
-        "explain": "The grid-template-rows property defines the number and height of the rows in the grid.\nThe value is a space-separated-list, where each value defines the height of the respective row.\nResize the second row track so the car matches the tall highlighted bay."
+        "explain": "The 'grid-template-rows' property defines the number and height of the rows in the grid.\nThe value is a space-separated-list, where each value defines the height of the respective row.\nCommon values are pixels (100px), percentages (20%), fr unit (1fr), auto. You can use a mix of values to set the row heights.\nrepeat() function is used to repeat a set of columns or rows in a grid ‘repeat(3, 60px)'.\nExample: grid-template-rows: 60px 150px repeat(4, 60px);\n\nKeep the car in column 3, row 2 and resize row tracks so it fully fills the highlighted tall bay."
       },
       "ui": {
         "prompt": "Keep the car in column 3, row 2 and resize row tracks so it fully fills the highlighted tall bay.",
@@ -98,18 +98,18 @@
     },
     {
       "id": "T3",
-      "title": "Level 6 — Two-Axis Tracks",
+      "title": "Level 9 — Two-Axis Tracks",
       "concept": {
         "name": "combine columns and rows",
-        "explain": "Use both grid-template-columns and grid-template-rows to size one parking bay in both directions."
+        "explain": "Use both 'grid-template-columns' and 'grid-template-rows' to size one parking bay in both directions.\nKeep the car in column 2, row 2 and resize both column and row tracks to match the larger highlighted bay."
       },
       "ui": {
         "prompt": "Keep the car in column 2, row 2 and resize both column and row tracks to match the larger highlighted bay.",
         "starterCss": ".car {\n grid-column: 2 / 3;\n grid-row: 2 / 3;\n}\n\n.grid {\n \n}\n",
         "lockedCss": "/* Locked */\n.grid { display: grid; }\n",
         "hints": [
-          "Try columns: 60px 150px repeat(5, 60px);",
-          "Try rows: 60px 150px repeat(5, 60px);"
+          "Try: grid-template-columns: 60px 150px repeat(5, 60px);",
+          "Try: grid-template-rows: 60px 150px repeat(5, 60px);"
         ]
       },
       "grid": { "columns": 7, "rows": 7 },

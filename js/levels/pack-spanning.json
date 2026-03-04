@@ -17,7 +17,7 @@
       "title": "Level 1 — Grid Columns",
       "concept": {
         "name": "grid-column start and end",
-        "explain": "The 'grid-column-start' property specifies on which column-line the grid item will start.\nThe 'grid-column-end' property specifies on which column-line the grid item will end.\nThe 'grid-column' property is a shorthand property for the grid-column-start and the grid-column-end properties.\nUse these properties to move the car to the targeted parking spot and make it fit exactly."
+        "explain": "The 'grid-column-start' property specifies on which column-line the grid item will start.\nThe 'grid-column-end' property specifies on which column-line the grid item will end.\nThe 'grid-column' property is a shorthand property for the grid-column-start and the grid-column-end properties.\nExample: grid-column: 3 / 4;\n\nUse these properties to move the car to the targeted parking spot and make it fit exactly."
       },
       "ui": {
         "prompt": "Move the car into the highlighted spot using grid-column, while keeping it on row 1.",
@@ -59,7 +59,7 @@
       "title": "Level 2 — Grid Rows",
       "concept": {
         "name": "grid-row start and end",
-        "explain": "The 'grid-row-start' property specifies on which row-line the grid item will start.\nThe 'grid-row-end' property specifies on which row-line the grid item will end.\nThe 'grid-row' property is a shorthand property for the grid-row-start and the grid-row-end properties.\nUse these properties to move the car to the targeted parking spot and make it fit exactly."
+        "explain": "The 'grid-row-start' property specifies on which row-line the grid item will start.\nThe 'grid-row-end' property specifies on which row-line the grid item will end.\nThe 'grid-row' property is a shorthand property for the grid-row-start and the grid-row-end properties.\nExample: grid-row: 3 / span 3;\n\nUse these properties to move the car to the targeted parking spot and span the full targetheight."
       },
       "ui": {
         "prompt": "Move the car vertically and make it span the full highlighted spot using grid-row.",
@@ -96,7 +96,7 @@
       "title": "Level 3 — Two-Axis Spanning",
       "concept": {
         "name": "combine grid-column and grid-row",
-        "explain": "This spot is larger in both directions.\nCombine 'grid-column' with 'grid-row' so the car matches the target exactly."
+        "explain": "Use both 'grid-column' and 'grid-row' so the car covers the entire 2×2 spot."
       },
       "ui": {
         "prompt": "Use both grid-column and grid-row so the car covers the entire 2×2 spot.",
