@@ -9,10 +9,10 @@ import { clearFeedback, showCssErrors, showFeedback } from "./ui_feedback.js";
 // Game Page Elements
 const selectors = {
     levelTitle: ".content h1",
-    levelLead: ".content .lead",
     conceptTitle: ".instructions h2",
     conceptText: ".instructions p",
     cssInput: "#cssInput",
+    goal: "#goal",
     grid: ".grid",
     hintBtn: "#hint"
 }
@@ -191,7 +191,6 @@ export function renderGrid(level) {
 export function renderLevel(level) {
     // Update level title and lead
     must(selectors.levelTitle).textContent = level.title ?? "Untitled Level";
-    must(selectors.levelLead).textContent = level?.ui?.prompt ?? "";
 
     const conceptLabel = level?.concept?.name
         ? `Concept - ${level.concept.name}`
@@ -203,6 +202,7 @@ export function renderLevel(level) {
 
     // Update starter CSS input
     must(selectors.cssInput).value = level?.ui?.starterCss ?? "";
+    must(selectors.goal).textContent = level?.ui?.prompt ?? "";
 
     renderGrid(level); // Build Grid Preview
 
