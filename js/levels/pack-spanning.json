@@ -16,14 +16,25 @@
       "id": "L1",
       "title": "Level 1 — Grid Columns",
       "concept": {
+<<<<<<< Updated upstream
         "name": "grid-column start and end",
+<<<<<<< HEAD
         "explain": "The 'grid-column-start' property specifies on which column-line the grid item will start.\nThe 'grid-column-end' property specifies on which column-line the grid item will end.\nThe 'grid-column' property is a shorthand property for the grid-column-start and the grid-column-end properties.\nExample: grid-column: 3 / 4;\n\nUse these properties to move the car to the targeted parking spot and make it fit exactly."
+=======
+        "explain": "The 'grid-column-start' property specifies on which column-line the grid item will start.\nThe 'grid-column-end' property specifies on which column-line the grid item will end.\nThe 'grid-column' property is a shorthand property for the grid-column-start and the grid-column-end properties.\nUse these properties to move the car to the targeted parking spot and make it fit exactly."
+=======
+        "name": "grid-column",
+        "explain": "The grid-column property places an item between column grid lines.\n\nExample:\ngrid-column: 2 / 3;\n\nThis shorthand is equivalent to:\ngrid-column-start: 2;\ngrid-column-end: 3;\n\nThis moves the item from column line 3 to column line 4."
+>>>>>>> Stashed changes
+>>>>>>> Core/Patch-2
       },
       "ui": {
-        "prompt": "Move the car into the highlighted spot using grid-column, while keeping it on row 1.",
-        "starterCss": ".car {\n grid-row: 1 / 2;\n \n}\n",
+        "prompt": "Goal: Move the car horizontally into the highlighted parking spot.",
+        "starterCss": ".car {\n  grid-row: 1 / 2;\n  grid-column: ?;\n}\n",
         "lockedCss": "/* Locked */\n.grid { display: grid; }\n",
         "hints": [
+          "Use grid-column to move the car horizontally.",
+          "You need to move from column 3 to column 4.",
           "Try: grid-column: 3 / 4;"
         ]
       },
@@ -39,7 +50,7 @@
           "id": "spot",
           "type": "target",
           "className": "spot",
-          "baseCss": "background: rgba(200, 0, 0, 0.22); outline: 2px dashed rgba(200, 0, 0, 0.8); border-radius: 10px;"
+          "baseCss": "background: rgba(200,0,0,0.22); outline:2px dashed rgba(200,0,0,0.8); border-radius:10px;"
         }
       ],
       "layout": {
@@ -58,15 +69,26 @@
       "id": "L2",
       "title": "Level 2 — Grid Rows",
       "concept": {
+<<<<<<< Updated upstream
         "name": "grid-row start and end",
+<<<<<<< HEAD
         "explain": "The 'grid-row-start' property specifies on which row-line the grid item will start.\nThe 'grid-row-end' property specifies on which row-line the grid item will end.\nThe 'grid-row' property is a shorthand property for the grid-row-start and the grid-row-end properties.\nExample: grid-row: 3 / span 3;\n\nUse these properties to move the car to the targeted parking spot and span the full targetheight."
+=======
+        "explain": "The 'grid-row-start' property specifies on which row-line the grid item will start.\nThe 'grid-row-end' property specifies on which row-line the grid item will end.\nThe 'grid-row' property is a shorthand property for the grid-row-start and the grid-row-end properties.\nUse these properties to move the car to the targeted parking spot and make it fit exactly."
+=======
+        "name": "grid-row",
+        "explain": "The grid-row property places an item between row grid lines.\n\nExample:\ngrid-row: 3 / 6;\n\nThis shorthand is equivalent to:\ngrid-row-start: 3;\ngrid-row-end: 6;\n\nThis moves the item from row line 3 to row line 6."
+>>>>>>> Stashed changes
+>>>>>>> Core/Patch-2
       },
       "ui": {
-        "prompt": "Move the car vertically and make it span the full highlighted spot using grid-row.",
-        "starterCss": ".car {\n grid-column: 1 / 2;\n \n}\n",
+        "prompt": "Goal: Move the car vertically so it fills the highlighted parking spot.",
+        "starterCss": ".car {\n  grid-column: 1 / 2;\n  grid-row: ?;\n}\n",
         "lockedCss": "/* Locked */\n.grid { display: grid; }\n",
         "hints": [
-          "Try: grid-row: 3 / span 3;"
+          "Use grid-row to move the car vertically.",
+          "The spot starts at row 3 and ends at row 6.",
+          "Try: grid-row: 3 / 6;"
         ]
       },
       "grid": { "columns": 7, "rows": 7 },
@@ -76,7 +98,7 @@
           "id": "spot",
           "type": "target",
           "className": "spot",
-          "baseCss": "background: rgba(200, 0, 0, 0.22); outline: 2px dashed rgba(200, 0, 0, 0.8); border-radius: 10px;"
+          "baseCss": "background: rgba(200,0,0,0.22); outline:2px dashed rgba(200,0,0,0.8); border-radius:10px;"
         }
       ],
       "layout": {
@@ -93,16 +115,27 @@
 
     {
       "id": "L3",
-      "title": "Level 3 — Two-Axis Spanning",
+      "title": "Level 3 — Two-Axis Placement",
       "concept": {
+<<<<<<< Updated upstream
         "name": "combine grid-column and grid-row",
+<<<<<<< HEAD
         "explain": "Use both 'grid-column' and 'grid-row' so the car covers the entire 2×2 spot."
+=======
+        "explain": "This spot is larger in both directions.\nCombine 'grid-column' with 'grid-row' so the car matches the target exactly."
+=======
+        "name": "grid-column + grid-row",
+        "explain": "Grid items can be positioned on both axes using grid-column and grid-row.\n\nUse both properties together to place an item anywhere in the grid."
+>>>>>>> Stashed changes
+>>>>>>> Core/Patch-2
       },
       "ui": {
-        "prompt": "Use both grid-column and grid-row so the car covers the entire 2×2 spot.",
-        "starterCss": ".car {\n \n}\n",
+        "prompt": "Goal: Park the car so it covers the entire 2×2 highlighted space.",
+        "starterCss": ".car {\n  grid-column: ?;\n  grid-row: ?;\n}\n",
         "lockedCss": "/* Locked */\n.grid { display: grid; }\n",
         "hints": [
+          "You must move the car horizontally and vertically.",
+          "Look at the grid lines around the parking spot.",
           "Try: grid-column: 5 / 7;",
           "Try: grid-row: 2 / 4;"
         ]
@@ -114,13 +147,53 @@
           "id": "spot",
           "type": "target",
           "className": "spot",
-          "baseCss": "background: rgba(200, 0, 0, 0.22); outline: 2px dashed rgba(200, 0, 0, 0.8); border-radius: 10px;"
+          "baseCss": "background: rgba(200,0,0,0.22); outline:2px dashed rgba(200,0,0,0.8); border-radius:10px;"
         }
       ],
       "layout": {
         "initial": {
           "car": { "gridColumn": "1 / 2", "gridRow": "1 / 2" },
           "spot": { "gridColumn": "5 / 7", "gridRow": "2 / 4" }
+        }
+      },
+      "winCondition": {
+        "movingEntityId": "car",
+        "targetEntityId": "spot"
+      }
+    },
+
+    {
+      "id": "L4",
+      "title": "Level 4 — Span Keyword",
+      "concept": {
+        "name": "span",
+        "explain": "The span keyword lets an item stretch across multiple grid tracks.\n\nExample:\ngrid-column: 3 / span 2;\n\nThis starts at column line 3 and spans across 2 columns."
+      },
+      "ui": {
+        "prompt": "Goal: Start the car at column 3 and make it cover two parking spaces using span.",
+        "starterCss": ".car {\n  grid-row: 2 / 3;\n  grid-column: ?;\n}\n",
+        "lockedCss": "/* Locked */\n.grid { display: grid; }\n",
+        "hints": [
+          "Use span to stretch the car across columns.",
+          "The car should start at column 3.",
+          "It should cover 2 columns.",
+          "Try: grid-column: 3 / span 2;"
+        ]
+      },
+      "grid": { "columns": 7, "rows": 7 },
+      "entities": [
+        { "id": "car", "type": "player", "className": "car", "baseCss": "border-radius: 10px;" },
+        {
+          "id": "spot",
+          "type": "target",
+          "className": "spot",
+          "baseCss": "background: rgba(200,0,0,0.22); outline:2px dashed rgba(200,0,0,0.8); border-radius:10px;"
+        }
+      ],
+      "layout": {
+        "initial": {
+          "car": { "gridColumn": "1 / 2", "gridRow": "2 / 3" },
+          "spot": { "gridColumn": "3 / 5", "gridRow": "2 / 3" }
         }
       },
       "winCondition": {
