@@ -14,18 +14,19 @@
   "levels": [
     {
       "id": "T1",
-      "title": "Level 7 — Column Tracks",
+      "title": "Level 5 — Column Tracks",
       "concept": {
         "name": "grid-template-columns",
-        "explain": "The 'grid-template-columns' property defines the number and width of the columns in the grid.\nThe value is a space-separated-list, where each value defines the width of the respective column.\nCommon values are pixels (100px), percentages (20%), fr unit (1fr), auto. You can use a mix of values to set the column widths.\nrepeat() function is used to repeat a set of columns or rows in a grid ‘repeat(3, 60px)'.\nExample: grid-template-columns: 150px repeat(5, 60px);\n\nKeep the car in column 1, row 2 and resize column tracks so it fully fills the highlighted wide bay."
+        "explain": "Use grid-template-columns to control the width of each column in the grid.\n\nExample:\ngrid-template-columns: 180px 60px 60px 60px 60px 60px 60px;\n\nThis makes the first column wider while the other columns stay the same size."
       },
       "ui": {
-        "prompt": "Keep the car in column 1, row 2 and resize column tracks so it fully fills the highlighted wide bay.",
-        "starterCss": ".car {\n grid-column: 1 / 2;\n grid-row: 2 / 3;\n}\n\n.grid {\n \n}\n",
+        "prompt": "Goal: Keep the car in the same place and resize the first column so it fills the wide parking bay.",
+        "starterCss": ".car {\n  grid-column: 1 / 2;\n  grid-row: 2 / 3;\n}\n\n.grid {\n  grid-template-columns: ?;\n}\n",
         "lockedCss": "/* Locked */\n.grid { display: grid; }\n",
         "hints": [
-          "Try: grid-template-columns: 180px repeat(6, 60px);",
-          "Keep .car placement unchanged and adjust only the track widths."
+          "Use grid-template-columns to change column widths.",
+          "Only the first column needs to become wider.",
+          "Try: grid-template-columns: 180px 60px 60px 60px 60px 60px 60px;"
         ]
       },
       "grid": { "columns": 7, "rows": 7 },
@@ -45,7 +46,7 @@
       ],
       "layout": {
         "initial": {
-          "car": { "gridColumn": "1 / 2", "gridRow": "1 / 2" },
+          "car": { "gridColumn": "1 / 2", "gridRow": "2 / 3" },
           "spot": { "gridColumn": "1 / 2", "gridRow": "2 / 3" }
         }
       },
@@ -56,18 +57,19 @@
     },
     {
       "id": "T2",
-      "title": "Level 8 — Row Tracks",
+      "title": "Level 6 — Row Tracks",
       "concept": {
         "name": "grid-template-rows",
-        "explain": "The 'grid-template-rows' property defines the number and height of the rows in the grid.\nThe value is a space-separated-list, where each value defines the height of the respective row.\nCommon values are pixels (100px), percentages (20%), fr unit (1fr), auto. You can use a mix of values to set the row heights.\nrepeat() function is used to repeat a set of columns or rows in a grid ‘repeat(3, 60px)'.\nExample: grid-template-rows: 60px 150px repeat(4, 60px);\n\nKeep the car in column 3, row 2 and resize row tracks so it fully fills the highlighted tall bay."
+        "explain": "Use grid-template-rows to control the height of each row in the grid.\n\nExample:\ngrid-template-rows: 60px 170px 60px 60px 60px 60px;\n\nThis makes the second row taller while the other rows stay the same height."
       },
       "ui": {
-        "prompt": "Keep the car in column 3, row 2 and resize row tracks so it fully fills the highlighted tall bay.",
-        "starterCss": ".car {\n grid-column: 3 / 4;\n grid-row: 2 / 3;\n}\n\n.grid {\n \n}\n",
+        "prompt": "Goal: Keep the car in the same place and resize the second row so it fills the tall parking bay.",
+        "starterCss": ".car {\n  grid-column: 3 / 4;\n  grid-row: 2 / 3;\n}\n\n.grid {\n  grid-template-rows: ?;\n}\n",
         "lockedCss": "/* Locked */\n.grid { display: grid; }\n",
         "hints": [
-          "Try: grid-template-rows: 60px 170px repeat(5, 60px);",
-          "Leave .car grid-column and grid-row as they are."
+          "Use grid-template-rows to change row heights.",
+          "Only the second row needs to become taller.",
+          "Try: grid-template-rows: 60px 170px 60px 60px 60px 60px;"
         ]
       },
       "grid": { "columns": 7, "rows": 7 },
@@ -87,7 +89,7 @@
       ],
       "layout": {
         "initial": {
-          "car": { "gridColumn": "1 / 2", "gridRow": "1 / 2" },
+          "car": { "gridColumn": "3 / 4", "gridRow": "2 / 3" },
           "spot": { "gridColumn": "3 / 4", "gridRow": "2 / 3" }
         }
       },
@@ -98,16 +100,61 @@
     },
     {
       "id": "T3",
-      "title": "Level 9 — Two-Axis Tracks",
+      "title": "Level 7 — Repeat Tracks",
       "concept": {
-        "name": "combine columns and rows",
-        "explain": "Use both 'grid-template-columns' and 'grid-template-rows' to size one parking bay in both directions.\nKeep the car in column 2, row 2 and resize both column and row tracks to match the larger highlighted bay."
+        "name": "repeat()",
+        "explain": "Use repeat() to write repeated track sizes more easily.\n\nExample:\ngrid-template-columns: repeat(7, 60px);\n\nThis creates 7 equal columns without typing 60px seven times."
       },
       "ui": {
-        "prompt": "Keep the car in column 2, row 2 and resize both column and row tracks to match the larger highlighted bay.",
-        "starterCss": ".car {\n grid-column: 2 / 3;\n grid-row: 2 / 3;\n}\n\n.grid {\n \n}\n",
+        "prompt": "Goal: Build equal column tracks using repeat() while keeping the car where it is.",
+        "starterCss": ".car {\n  grid-column: 4 / 5;\n  grid-row: 2 / 3;\n}\n\n.grid {\n  grid-template-columns: ?;\n}\n",
         "lockedCss": "/* Locked */\n.grid { display: grid; }\n",
         "hints": [
+          "Use repeat() to create the same column size multiple times.",
+          "You need 7 equal columns.",
+          "Try: grid-template-columns: repeat(7, 60px);"
+        ]
+      },
+      "grid": { "columns": 7, "rows": 7 },
+      "entities": [
+        {
+          "id": "car",
+          "type": "player",
+          "className": "car",
+          "baseCss": "border-radius: 10px;"
+        },
+        {
+          "id": "spot",
+          "type": "target",
+          "className": "spot",
+          "baseCss": "background: rgba(200, 0, 0, 0.22); outline: 2px dashed rgba(200, 0, 0, 0.8); border-radius: 10px;"
+        }
+      ],
+      "layout": {
+        "initial": {
+          "car": { "gridColumn": "4 / 5", "gridRow": "2 / 3" },
+          "spot": { "gridColumn": "4 / 5", "gridRow": "2 / 3" }
+        }
+      },
+      "winCondition": {
+        "movingEntityId": "car",
+        "targetEntityId": "spot"
+      }
+    },
+    {
+      "id": "T4",
+      "title": "Level 8 — Two-Axis Tracks",
+      "concept": {
+        "name": "grid-template-columns + grid-template-rows",
+        "explain": "Use grid-template-columns and grid-template-rows together to control the size of the grid in both directions.\n\nThis lets one parking bay become wider and taller at the same time."
+      },
+      "ui": {
+        "prompt": "Goal: Keep the car in the same place and resize both columns and rows to match the larger parking bay.",
+        "starterCss": ".car {\n  grid-column: 2 / 3;\n  grid-row: 2 / 3;\n}\n\n.grid {\n  grid-template-columns: ?;\n  grid-template-rows: ?;\n}\n",
+        "lockedCss": "/* Locked */\n.grid { display: grid; }\n",
+        "hints": [
+          "Use both grid-template-columns and grid-template-rows.",
+          "The second column and second row should be larger.",
           "Try: grid-template-columns: 60px 150px repeat(5, 60px);",
           "Try: grid-template-rows: 60px 150px repeat(5, 60px);"
         ]
@@ -129,7 +176,7 @@
       ],
       "layout": {
         "initial": {
-          "car": { "gridColumn": "1 / 2", "gridRow": "1 / 2" },
+          "car": { "gridColumn": "2 / 3", "gridRow": "2 / 3" },
           "spot": { "gridColumn": "2 / 3", "gridRow": "2 / 3" }
         }
       },

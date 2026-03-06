@@ -14,18 +14,19 @@
   "levels": [
     {
       "id": "IE1",
-      "title": "Level 13 — Implicit Rows",
+      "title": "Level 15 — Implicit Rows",
       "concept": {
-        "name": "implicit grid row creation",
-        "explain": "The 'grid-row' property can be used to place an item in a row that doesn't exist yet.\nGrid will automatically create an implicit row to accommodate the item."
+        "name": "implicit rows",
+        "explain": "Grid can create new rows automatically when you place an item outside the current grid.\n\nExample:\ngrid-row: 8 / 9;\n\nThis places the car on a new implicit row."
       },
       "ui": {
-        "prompt": "Move the car to the highlighted bay on row 8. Use an implicit row while keeping it in column 2.",
-        "starterCss": ".car {\n grid-column: 2 / 3;\n \n}\n",
+        "prompt": "Goal: Move the car to row 8 while keeping it in column 2.",
+        "starterCss": ".car {\n  grid-column: 2 / 3;\n  grid-row: ?;\n}\n",
         "lockedCss": "/* Locked */\n.grid { display: grid; }\n",
         "hints": [
-          "Try: grid-row: 8 / 9;",
-          "Do not change grid-column."
+          "Use grid-row to place the car outside the current grid.",
+          "The target is on row 8.",
+          "Try: grid-row: 8 / 9;"
         ]
       },
       "grid": { "columns": 7, "rows": 7 },
@@ -45,7 +46,7 @@
       ],
       "layout": {
         "initial": {
-          "car": { "gridColumn": "1 / 2", "gridRow": "1 / 2" },
+          "car": { "gridColumn": "2 / 3", "gridRow": "1 / 2" },
           "spot": { "gridColumn": "2 / 3", "gridRow": "8 / 9" }
         }
       },
@@ -56,18 +57,19 @@
     },
     {
       "id": "IE2",
-      "title": "Level 14 — Implicit Columns",
+      "title": "Level 16 — Implicit Columns",
       "concept": {
-        "name": "implicit grid column creation",
-        "explain": "The 'grid-column' property can be used to place an item in a column that doesn't exist yet.\nGrid will automatically create an implicit column to accommodate the item."
+        "name": "implicit columns",
+        "explain": "Grid can create new columns automatically when you place an item outside the current grid.\n\nExample:\ngrid-column: 8 / 9;\n\nThis places the car on a new implicit column."
       },
       "ui": {
-        "prompt": "Move the car to the highlighted bay on column 8. Keep it on row 4.",
-        "starterCss": ".car {\n grid-row: 4 / 5;\n \n}\n",
+        "prompt": "Goal: Move the car to column 8 while keeping it on row 4.",
+        "starterCss": ".car {\n  grid-row: 4 / 5;\n  grid-column: ?;\n}\n",
         "lockedCss": "/* Locked */\n.grid { display: grid; }\n",
         "hints": [
-          "Try: grid-column: 8 / 9;",
-          "Do not change grid-row."
+          "Use grid-column to place the car outside the current grid.",
+          "The target is on column 8.",
+          "Try: grid-column: 8 / 9;"
         ]
       },
       "grid": { "columns": 7, "rows": 7 },
@@ -87,7 +89,7 @@
       ],
       "layout": {
         "initial": {
-          "car": { "gridColumn": "1 / 2", "gridRow": "1 / 2" },
+          "car": { "gridColumn": "1 / 2", "gridRow": "4 / 5" },
           "spot": { "gridColumn": "8 / 9", "gridRow": "4 / 5" }
         }
       },
@@ -98,21 +100,68 @@
     },
     {
       "id": "IE3",
-      "title": "Level 15 — Explicit Template Expansion",
+      "title": "Level 17 — Auto-Sized Implicit Tracks",
       "concept": {
-        "name": "explicit vs implicit tracks",
-        "explain": "When you place an item in an implicit row or column, that track will automatically expand to fit the item.\nHowever, if you define an explicit track that overlaps with the implicit one, the explicit track will take precedence and the item will be sized to fit it instead."
+        "name": "grid-auto-rows and grid-auto-columns",
+        "explain": "Use grid-auto-rows and grid-auto-columns to control the size of implicit tracks.\n\nExample:\ngrid-auto-rows: 80px;\n\nThis gives new implicit rows a fixed size instead of using the default."
       },
       "ui": {
-        "prompt": "Park in the highlighted bay at row 8 / column 8, then define an explicit 8×8 template on .grid.",
-        "starterCss": ".car {\n \n}\n\n.grid {\n \n}\n",
+        "prompt": "Goal: Keep the car on row 8 and make the new implicit row match the highlighted parking bay.",
+        "starterCss": ".car {\n  grid-column: 3 / 4;\n  grid-row: 8 / 9;\n}\n\n.grid {\n  grid-auto-rows: ?;\n}\n",
         "lockedCss": "/* Locked */\n.grid { display: grid; }\n",
         "hints": [
-          "Try: grid-column: 8 / 9; and grid-row: 8 / 9;",
-          "Then declare explicit tracks, try: grid-template-columns: repeat(8, 60px); grid-template-rows: repeat(8, 60px);"
+          "Use grid-auto-rows to size the new implicit row.",
+          "Only the new row needs to become taller.",
+          "Try: grid-auto-rows: 80px;"
         ]
       },
       "grid": { "columns": 7, "rows": 7 },
+      "entities": [
+        {
+          "id": "car",
+          "type": "player",
+          "className": "car",
+          "baseCss": "border-radius: 10px;"
+        },
+        {
+          "id": "spot",
+          "type": "target",
+          "className": "spot",
+          "baseCss": "background: rgba(200, 0, 0, 0.22); outline: 2px dashed rgba(200, 0, 0, 0.8); border-radius: 10px; min-height: 80px; align-self: start;"
+        }
+      ],
+      "layout": {
+        "initial": {
+          "car": { "gridColumn": "3 / 4", "gridRow": "8 / 9" },
+          "spot": { "gridColumn": "3 / 4", "gridRow": "8 / 9" }
+        }
+      },
+      "winCondition": {
+        "movingEntityId": "car",
+        "targetEntityId": "spot"
+      }
+    },
+    {
+      "id": "IE4",
+      "title": "Level 18 — Explicit Template Expansion",
+      "concept": {
+        "name": "explicit vs implicit tracks",
+        "explain": "Implicit tracks appear automatically when needed. Explicit tracks are the ones you define yourself with grid-template-columns and grid-template-rows.\n\nYou can turn an implicit layout into an explicit one by defining the full grid."
+      },
+      "ui": {
+        "prompt": "Goal: Park in row 8 / column 8, then define an explicit 8×8 grid.",
+        "starterCss": ".car {\n  grid-column: ?;\n  grid-row: ?;\n}\n\n.grid {\n  grid-template-columns: ?;\n  grid-template-rows: ?;\n}\n",
+        "lockedCss": "/* Locked */\n.grid { display: grid; }\n",
+        "hints": [
+          "First place the car at column 8 and row 8.",
+          "Then define 8 equal columns and 8 equal rows.",
+          "Try: grid-column: 8 / 9;",
+          "Try: grid-row: 8 / 9;",
+          "Try: grid-template-columns: repeat(8, 60px);",
+          "Try: grid-template-rows: repeat(8, 60px);"
+        ]
+      },
+      "grid": { "columns": 8, "rows": 8 },
       "entities": [
         {
           "id": "car",

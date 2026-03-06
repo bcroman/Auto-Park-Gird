@@ -1,7 +1,7 @@
 # Auto Park Grid
 Auto Park Grid is an educational web application designed to teach CSS Grid concepts through interactive gameplay.  
 Users control the placement of a vehicle within a parking grid by writing CSS. The system validates solutions based on the resulting layout geometry rather than text matching, allowing multiple correct answers.  
-This tool teach the user about topics of CSS grid: tracks, spanning, iten alignment, implicit vs explicit grid, auto-fill/auto-fit, gaps, grid alignment, are content templates. 
+This tool teachs the user about topics of CSS grid: spanning, tracks, gaps, iten alignment, implicit vs explicit grid and auto-fill/auto-fit.
 
 ## Features
 - Live CSS Preview
@@ -21,13 +21,13 @@ This tool teach the user about topics of CSS grid: tracks, spanning, iten alignm
 ### Steps
 1. Clone the repository:  `git clone https://github.com/bcroman/Auto-Park-Gird.git`
 2. Navigate into the project directory:  `cd Auto-Park-Grid`  
-3. Run a local server like VC Code Server  
+3. Run a local web server like 'VC Code Live Server'
 4. Open: `http://127.0.0.1:5500/index.html`
 
 ### How to Use
 1. Open the game page.
-2. Read the level instructions.
-3. Write CSS in the editor to position the vehicle.
+2. Read the level instructions then level goal.
+3. Write CSS in the editor to match the gaol requirements.
 4. Check the CSS and grid validation feedback.
 5. Use feedback to adjust your solution.
 6. Progress through all the levels.
@@ -35,5 +35,5 @@ This tool teach the user about topics of CSS grid: tracks, spanning, iten alignm
 ## Credits
 Author: Ben Collins  
 Module: Dissertation  
-Version: 1.0.0  
-Date: 20/02/2026  
+Version: 1.2.1  
+Date: 06/3/2026  

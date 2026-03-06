@@ -14,18 +14,19 @@
   "levels": [
     {
       "id": "G1",
-      "title": "Level 10 — Column Gap",
+      "title": "Level 9 — Column Gap",
       "concept": {
         "name": "column-gap",
-        "explain": "The 'column-gap' property specifies the gap between the columns in a grid.\nExample: column-gap: 20px;\n\nKeep the car spanning columns 2 to 4 on row 2, then adjust the horizontal gap so it matches the highlighted bay."
+        "explain": "Use column-gap to control the space between columns in the grid.\n\nExample:\ncolumn-gap: 12px;\n\nThis adds horizontal space between columns without changing the car's placement."
       },
       "ui": {
-        "prompt": "Keep the car spanning columns 2 to 4 on row 2, then adjust the horizontal gap so it matches the highlighted bay.",
-        "starterCss": ".car {\n grid-column: 2 / 4;\n grid-row: 2 / 3;\n}\n\n.grid {\n \n}\n",
+        "prompt": "Goal: Keep the car in the same place and adjust the horizontal gap to match the parking bay.",
+        "starterCss": ".car {\n  grid-column: 2 / 4;\n  grid-row: 2 / 3;\n}\n\n.grid {\n  column-gap: ?;\n}\n",
         "lockedCss": "/* Locked */\n.grid { display: grid; }\n",
         "hints": [
-          "Try: column-gap: 12px;",
-          "Also use: gap: 3px 12px;"
+          "Use column-gap to change the space between columns.",
+          "Only the horizontal space needs to change.",
+          "Try: column-gap: 12px;"
         ]
       },
       "grid": { "columns": 7, "rows": 7 },
@@ -45,7 +46,7 @@
       ],
       "layout": {
         "initial": {
-          "car": { "gridColumn": "1 / 2", "gridRow": "1 / 2" },
+          "car": { "gridColumn": "2 / 4", "gridRow": "2 / 3" },
           "spot": { "gridColumn": "2 / 4", "gridRow": "2 / 3" }
         }
       },
@@ -56,18 +57,19 @@
     },
     {
       "id": "G2",
-      "title": "Level 11 — Row Gap",
+      "title": "Level 10 — Row Gap",
       "concept": {
         "name": "row-gap",
-        "explain": "The 'row-gap' property specifies the gap between the rows in a grid.\nExample: row-gap: 20px;\n\nKeep the car spanning rows 3 to 5 in column 3, then adjust the vertical gap to match the highlighted bay."
+        "explain": "Use row-gap to control the space between rows in the grid.\n\nExample:\nrow-gap: 14px;\n\nThis adds vertical space between rows without changing the car's placement."
       },
       "ui": {
-        "prompt": "Keep the car spanning rows 3 to 5 in column 3, then adjust the vertical gap to match the highlighted bay.",
-        "starterCss": ".car {\n grid-column: 3 / 4;\n grid-row: 3 / 5;\n}\n\n.grid {\n \n}\n",
+        "prompt": "Goal: Keep the car in the same place and adjust the vertical gap to match the parking bay.",
+        "starterCss": ".car {\n  grid-column: 3 / 4;\n  grid-row: 3 / 5;\n}\n\n.grid {\n  row-gap: ?;\n}\n",
         "lockedCss": "/* Locked */\n.grid { display: grid; }\n",
         "hints": [
-          "Try: row-gap: 14px;",
-          "Also use: gap: 14px 3px;"
+          "Use row-gap to change the space between rows.",
+          "Only the vertical space needs to change.",
+          "Try: row-gap: 14px;"
         ]
       },
       "grid": { "columns": 7, "rows": 7 },
@@ -87,7 +89,7 @@
       ],
       "layout": {
         "initial": {
-          "car": { "gridColumn": "1 / 2", "gridRow": "1 / 2" },
+          "car": { "gridColumn": "3 / 4", "gridRow": "3 / 5" },
           "spot": { "gridColumn": "3 / 4", "gridRow": "3 / 5" }
         }
       },
@@ -98,18 +100,19 @@
     },
     {
       "id": "G3",
-      "title": "Level 12 — Row + Column Gaps",
+      "title": "Level 11 — Gap Shorthand",
       "concept": {
-        "name": "gap shorthand",
-        "explain": "The 'gap' property is a shorthand for setting both 'row-gap' and 'column-gap' in a grid.\nIf a single value is provided, it applies the same gap to both rows and columns. If two values are provided, the first value sets the row-gap, and the second value sets the column-gap.\nExample: gap: 20px 10px;\nEquivalent to row-gap: 20px; column-gap: 10px;\n\nUse this property to adjust both horizontal and vertical gaps simultaneously."
+        "name": "gap",
+        "explain": "Use gap as a shorthand for both row-gap and column-gap.\n\nExample:\ngap: 16px 10px;\n\nThe first value sets the row gap. The second value sets the column gap."
       },
       "ui": {
-        "prompt": "Keep the car spanning a 2×2 area at columns 4 to 6 and rows 4 to 6, then tune both gaps to match the highlighted bay.",
-        "starterCss": ".car {\n grid-column: 4 / 6;\n grid-row: 4 / 6;\n}\n\n.grid {\n \n}\n",
+        "prompt": "Goal: Keep the car in the same place and adjust both gaps to match the parking bay.",
+        "starterCss": ".car {\n  grid-column: 4 / 6;\n  grid-row: 4 / 6;\n}\n\n.grid {\n  gap: ?;\n}\n",
         "lockedCss": "/* Locked */\n.grid { display: grid; }\n",
         "hints": [
-          "Try: gap: 16px 10px;",
-          "Equivalent to row-gap: 16px; column-gap: 10px;"
+          "Use gap to control both row and column spacing.",
+          "The first value is for rows. The second value is for columns.",
+          "Try: gap: 16px 10px;"
         ]
       },
       "grid": { "columns": 7, "rows": 7 },
@@ -129,7 +132,7 @@
       ],
       "layout": {
         "initial": {
-          "car": { "gridColumn": "1 / 2", "gridRow": "1 / 2" },
+          "car": { "gridColumn": "4 / 6", "gridRow": "4 / 6" },
           "spot": { "gridColumn": "4 / 6", "gridRow": "4 / 6" }
         }
       },

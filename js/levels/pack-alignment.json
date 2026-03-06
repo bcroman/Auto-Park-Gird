@@ -14,18 +14,19 @@
   "levels": [
     {
       "id": "A1",
-      "title": "Level 4 — Horizontal Alignment",
+      "title": "Level 12 — Horizontal Alignment",
       "concept": {
         "name": "justify-self",
-        "explain": "The 'justify-self' property is used to align a grid item within its grid cell in the inline direction.\nThis property can have one of the following values: auto (default), normal, stretch, start, left, center, end, right.\nNote: For this property to have any alignment effect, the grid item needs available space around itself in the inline direction.\nExample: justify-self: start;\n\nUse this property to adjust the horizontal alignment of the car without changing its grid area."
+        "explain": "Use justify-self to align an item inside its grid area on the horizontal axis.\n\nCommon values:\nstart → left\ncenter → center\nend → right\n\nExample:\njustify-self: end;\n\nThis moves the item to the right side of its grid area without changing its grid-column or grid-row."
       },
       "ui": {
-        "prompt": "Keep the car in the same 3×2 area, then align it to the right edge using justify-self.",
-        "starterCss": ".car {\n grid-column: 2 / 5;\n grid-row: 2 / 4;\n \n}\n",
+        "prompt": "Goal: Keep the car in the same area and align it to the right edge using `justify-self`.",
+        "starterCss": ".car {\n  grid-column: 2 / 5;\n  grid-row: 2 / 4;\n  justify-self: ?;\n}\n",
         "lockedCss": "/* Locked */\n.grid { display: grid; }\n",
         "hints": [
-          "Try: justify-self: end;",
-          "Do not change grid-column or grid-row."
+          "Use justify-self to move the car horizontally inside its grid area.",
+          "The car should move to the right edge.",
+          "Try: justify-self: end;"
         ]
       },
       "grid": { "columns": 7, "rows": 7 },
@@ -45,7 +46,7 @@
       ],
       "layout": {
         "initial": {
-          "car": { "gridColumn": "1 / 2", "gridRow": "1 / 2" },
+          "car": { "gridColumn": "2 / 5", "gridRow": "2 / 4" },
           "spot": { "gridColumn": "2 / 5", "gridRow": "2 / 4" }
         }
       },
@@ -56,18 +57,19 @@
     },
     {
       "id": "A2",
-      "title": "Level 5 — Vertical Alignment",
+      "title": "Level 13 — Vertical Alignment",
       "concept": {
         "name": "align-self",
-        "explain": "The 'align-self' property is used to align a grid item within its grid cell in the block direction.\nThis property can have one of the following values: auto (default), normal, stretch, start, end, center.\nNote: For this property to have any alignment effect, the grid item needs available space around itself in the block direction.\nExample: align-self: left;\n\nUse this property to adjust the vertical alignment of the car without changing its grid area."
+        "explain": "Use align-self to align an item inside its grid area on the vertical axis.\n\nCommon values:\nstart → top\ncenter → middle\nend → bottom\n\nExample:\nalign-self: end;\n\nThis moves the item to the bottom of its grid area without changing its grid-column or grid-row."
       },
       "ui": {
-        "prompt": "Keep the car in the same 2×3 area, then align it to the bottom edge using align-self.",
-        "starterCss": ".car {\n grid-column: 4 / 6;\n grid-row: 2 / 5;\n \n}\n",
+        "prompt": "Goal: Keep the car in the same area and align it to the bottom edge using `align-self`.",
+        "starterCss": ".car {\n  grid-column: 4 / 6;\n  grid-row: 2 / 5;\n  align-self: ?;\n}\n",
         "lockedCss": "/* Locked */\n.grid { display: grid; }\n",
         "hints": [
-          "Try: align-self: end;",
-          "Do not change grid-column or grid-row."
+          "Use align-self to move the car vertically inside its grid area.",
+          "The car should move to the bottom edge.",
+          "Try: align-self: end;"
         ]
       },
       "grid": { "columns": 7, "rows": 7 },
@@ -87,7 +89,7 @@
       ],
       "layout": {
         "initial": {
-          "car": { "gridColumn": "1 / 2", "gridRow": "1 / 2" },
+          "car": { "gridColumn": "4 / 6", "gridRow": "2 / 5" },
           "spot": { "gridColumn": "4 / 6", "gridRow": "2 / 5" }
         }
       },
@@ -98,18 +100,19 @@
     },
     {
       "id": "A3",
-      "title": "Level 6 — Two-Axis Alignment",
+      "title": "Level 14 — Two-Axis Alignment",
       "concept": {
         "name": "place-self",
-        "explain": "The 'place-self' property is a shorthand for 'align-self' and 'justify-self'.\nThis property can have one of the following values: auto (default), normal, stretch, start, end, center.\nNote: For this property to have any alignment effect, the grid item needs available space around itself in both the inline and block directions.\nExample: place-self: start;\n\nUse this property to adjust both horizontal and vertical alignment of the car without changing its grid area."
+        "explain": "Use place-self as a shorthand for align-self and justify-self.\n\nCommon values:\nstart → top left\ncenter → center\nend → bottom right\n\nExample:\nplace-self: center;\n\nThis centers the item inside its grid area on both axes."
       },
       "ui": {
-        "prompt": "Match the target by centering the car inside the same 3×3 area using place-self.",
-        "starterCss": ".car {\n grid-column: 3 / 6;\n grid-row: 3 / 6;\n \n}\n",
+        "prompt": "Goal: Keep the car in the same area and center it inside the parking bay using `place-self`.",
+        "starterCss": ".car {\n  grid-column: 3 / 6;\n  grid-row: 3 / 6;\n  place-self: ?;\n}\n",
         "lockedCss": "/* Locked */\n.grid { display: grid; }\n",
         "hints": [
-          "Try: place-self: center;",
-          "Do not change grid-column or grid-row."
+          "Use place-self to align the car on both axes at once.",
+          "The car should sit in the center of its grid area.",
+          "Try: place-self: center;"
         ]
       },
       "grid": { "columns": 7, "rows": 7 },
@@ -129,7 +132,7 @@
       ],
       "layout": {
         "initial": {
-          "car": { "gridColumn": "1 / 2", "gridRow": "1 / 2" },
+          "car": { "gridColumn": "3 / 6", "gridRow": "3 / 6" },
           "spot": { "gridColumn": "3 / 6", "gridRow": "3 / 6" }
         }
       },

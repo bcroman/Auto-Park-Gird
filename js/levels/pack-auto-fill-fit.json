@@ -14,18 +14,19 @@
   "levels": [
     {
       "id": "AF1",
-      "title": "Level 16 — Auto-Fill Columns",
+      "title": "Level 19 — Auto-Fill Columns",
       "concept": {
         "name": "repeat(auto-fill, minmax())",
-        "explain": "The 'repeat(auto-fill, minmax())' function allows you to create as many columns or rows as will fit in the container, each with a minimum and maximum size.\n The '1fr' unit allows tracks to grow and fill available space, while 'minmax(80px, 1fr)' ensures tracks are at least 80px wide but can expand to fill the container."
+        "explain": "Use repeat(auto-fill, minmax()) to create responsive columns that automatically fill the grid.\n\nExample:\ngrid-template-columns: repeat(auto-fill, minmax(80px, 1fr));\n\nEach column will be at least 80px wide and expand to fill the available space."
       },
       "ui": {
-        "prompt": "Keep the car in column 1 / row 2 and resize tracks using auto-fill so it matches the highlighted wider bay.",
-        "starterCss": ".car {\n grid-column: 1 / 2;\n grid-row: 2 / 3;\n}\n\n.grid {\n \n}\n",
+        "prompt": "Goal: Keep the car in column 1 / row 2 and resize the columns using auto-fill.",
+        "starterCss": ".car {\n  grid-column: 1 / 2;\n  grid-row: 2 / 3;\n}\n\n.grid {\n  grid-template-columns: ?;\n}\n",
         "lockedCss": "/* Locked */\n.grid { display: grid; }\n",
         "hints": [
-          "Try: grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));",
-          "Do not change grid-row and grid-column."
+          "Use repeat(auto-fill, minmax()).",
+          "Each column should be at least 80px wide.",
+          "Try: grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));"
         ]
       },
       "preview": { "fixedWidthPx": 450, "fixedHeightPx": 450 },
@@ -41,12 +42,12 @@
           "id": "spot",
           "type": "target",
           "className": "spot",
-          "baseCss": "background: rgba(200, 0, 0, 0.22); outline: 2px dashed rgba(200, 0, 0, 0.8); border-radius: 10px; min-width: 80px; justify-self: stretch;"
+          "baseCss": "background: rgba(200,0,0,0.22); outline:2px dashed rgba(200,0,0,0.8); border-radius:10px; min-width:80px; justify-self:stretch;"
         }
       ],
       "layout": {
         "initial": {
-          "car": { "gridColumn": "1 / 2", "gridRow": "1 / 2" },
+          "car": { "gridColumn": "1 / 2", "gridRow": "2 / 3" },
           "spot": { "gridColumn": "1 / 2", "gridRow": "2 / 3" }
         }
       },
@@ -57,18 +58,19 @@
     },
     {
       "id": "AF2",
-      "title": "Level 17 — Auto-Fill Rows",
+      "title": "Level 20 — Auto-Fill Rows",
       "concept": {
-        "name": "auto-fill with row tracks",
-        "explain": "The 'repeat(auto-fill, minmax())' function can also be applied to rows, allowing you to create as many rows as will fit in the container, each with a minimum and maximum size."
+        "name": "auto-fill rows",
+        "explain": "auto-fill can also be used for rows.\n\nExample:\ngrid-template-rows: repeat(auto-fill, minmax(80px, 1fr));\n\nThis creates rows that automatically fill the available space."
       },
       "ui": {
-        "prompt": "Keep the car in column 3 / row 1 and use auto-fill on rows so it matches the highlighted taller bay.",
-        "starterCss": ".car {\n grid-column: 3 / 4;\n grid-row: 1 / 2;\n}\n\n.grid {\n \n}\n",
+        "prompt": "Goal: Keep the car in column 3 / row 1 and create responsive rows using auto-fill.",
+        "starterCss": ".car {\n  grid-column: 3 / 4;\n  grid-row: 1 / 2;\n}\n\n.grid {\n  grid-template-rows: ?;\n}\n",
         "lockedCss": "/* Locked */\n.grid { display: grid; }\n",
         "hints": [
-          "Try: grid-template-rows: repeat(auto-fill, minmax(80px, 1fr));",
-          "Do not change grid-column and grid-row."
+          "Use repeat(auto-fill, minmax()).",
+          "Each row should be at least 80px tall.",
+          "Try: grid-template-rows: repeat(auto-fill, minmax(80px, 1fr));"
         ]
       },
       "preview": { "fixedWidthPx": 450, "fixedHeightPx": 450 },
@@ -84,12 +86,12 @@
           "id": "spot",
           "type": "target",
           "className": "spot",
-          "baseCss": "background: rgba(200, 0, 0, 0.22); outline: 2px dashed rgba(200, 0, 0, 0.8); border-radius: 10px; min-height: 80px; align-self: stretch;"
+          "baseCss": "background: rgba(200,0,0,0.22); outline:2px dashed rgba(200,0,0,0.8); border-radius:10px; min-height:80px; align-self:stretch;"
         }
       ],
       "layout": {
         "initial": {
-          "car": { "gridColumn": "1 / 2", "gridRow": "1 / 2" },
+          "car": { "gridColumn": "3 / 4", "gridRow": "1 / 2" },
           "spot": { "gridColumn": "3 / 4", "gridRow": "1 / 2" }
         }
       },
@@ -100,19 +102,20 @@
     },
     {
       "id": "AF3",
-      "title": "Level 18 — Auto-Fit vs Auto-Fill",
+      "title": "Level 21 — Auto-Fit vs Auto-Fill",
       "concept": {
-        "name": "auto-fit behavior",
-        "explain": "The 'repeat(auto-fit, minmax())' function allows you to create as many columns or rows as will fit in the container, each with a minimum and maximum size.\nThe difference between auto-fit and auto-fill is that auto-fit will collapse empty tracks, while auto-fill will keep them."
+        "name": "auto-fit",
+        "explain": "auto-fit works like auto-fill but collapses empty tracks.\n\nExample:\ngrid-template-columns: repeat(auto-fit, minmax(80px, 1fr));\n\nThis allows the tracks to expand and fill the grid when space is available."
       },
       "ui": {
-        "prompt": "Keep the car in column 2 / row 2 and size both axes responsively to match the highlighted bay. Try auto-fit on columns and rows.",
-        "starterCss": ".car {\n grid-column: 2 / 3;\n grid-row: 2 / 3;\n}\n\n.grid {\n \n}\n",
+        "prompt": "Goal: Keep the car in column 2 / row 2 and make the grid responsive using auto-fit.",
+        "starterCss": ".car {\n  grid-column: 2 / 3;\n  grid-row: 2 / 3;\n}\n\n.grid {\n  grid-template-columns: ?;\n  grid-template-rows: ?;\n}\n",
         "lockedCss": "/* Locked */\n.grid { display: grid; }\n",
         "hints": [
+          "Use repeat(auto-fit, minmax()).",
+          "Both rows and columns should adapt to the container.",
           "Try: grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));",
-          "Try: grid-template-rows: repeat(auto-fit, minmax(80px, 1fr));",
-          "Do not change grid-column and grid-row."
+          "Try: grid-template-rows: repeat(auto-fit, minmax(80px, 1fr));"
         ]
       },
       "preview": { "fixedWidthPx": 450, "fixedHeightPx": 450 },
@@ -128,12 +131,12 @@
           "id": "spot",
           "type": "target",
           "className": "spot",
-          "baseCss": "background: rgba(200, 0, 0, 0.22); outline: 2px dashed rgba(200, 0, 0, 0.8); border-radius: 10px; min-width: 80px; min-height: 80px; justify-self: stretch; align-self: stretch;"
+          "baseCss": "background: rgba(200,0,0,0.22); outline:2px dashed rgba(200,0,0,0.8); border-radius:10px; min-width:80px; min-height:80px; justify-self:stretch; align-self:stretch;"
         }
       ],
       "layout": {
         "initial": {
-          "car": { "gridColumn": "1 / 2", "gridRow": "1 / 2" },
+          "car": { "gridColumn": "2 / 3", "gridRow": "2 / 3" },
           "spot": { "gridColumn": "2 / 3", "gridRow": "2 / 3" }
         }
       },
