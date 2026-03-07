@@ -67,6 +67,19 @@ const GRID_PLACEMENT_PROPERTIES = new Set([
     "grid-row-end"
 ]);
 
+const GRID_TEMPLATE_LENGTH_PROPERTIES = new Set([
+    "grid-template-columns",
+    "grid-template-rows",
+    "grid-auto-rows",
+    "grid-auto-columns"
+]);
+
+const GAP_PROPERTIES = new Set([
+    "gap",
+    "column-gap",
+    "row-gap"
+]);
+
 // Helper: Parse CSS rules from input
 function parseCSSRules(css) {
     const rules = [];
@@ -142,9 +155,69 @@ function isGridInBounds(property, value, maxLine = 7) {
     return true;
 }
 
+// Helper: Validate px values used in grid-template-* are within range
+function isTemplatePxInBounds(value, minPx = 1, maxPx = 200) {
+    const pxValueRegex = /(-?\d*\.?\d+)px\b/gi;
+    let match;
+
+    while ((match = pxValueRegex.exec(value)) !== null) {
+        const px = parseFloat(match[1]);
+        if (!Number.isFinite(px) || px < minPx || px > maxPx) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+// Helper: Validate numeric repeat() counts are within range
+function isTemplateRepeatCountInBounds(value, minCount = 1, maxCount = 12) {
+    const repeatRegex = /repeat\(\s*([^,]+?)\s*,/gi;
+    let match;
+
+    while ((match = repeatRegex.exec(value)) !== null) {
+        const firstArg = match[1].trim();
+
+        // Allow keyword counts like auto-fill / auto-fit
+        if (!/^[-+]?\d+(?:\.\d+)?$/.test(firstArg)) {
+            continue;
+        }
+
+        const count = Number(firstArg);
+        if (!Number.isInteger(count) || count < minCount || count > maxCount) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+// Helper: Validate gap values as px units within range
+function isGapPxInBounds(value, minPx = 5, maxPx = 20) {
+    const gapValueRegex = /^\s*(-?\d*\.?\d+px)(?:\s+(-?\d*\.?\d+px))?\s*$/i;
+    const match = value.match(gapValueRegex);
+    if (!match) return false;
+
+    const values = [match[1], match[2]].filter(Boolean);
+    for (const token of values) {
+        const px = parseFloat(token);
+        if (!Number.isFinite(px) || px < minPx || px > maxPx) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
 // Helper: Validate a single property-value pair
 function validateProperty(property, value, maxLine = 7) {
     const errors = [];
+    const TEMPLATE_MIN_PX = 1;
+    const TEMPLATE_MAX_PX = 200;
+    const TEMPLATE_REPEAT_MIN = 3;
+    const TEMPLATE_REPEAT_MAX = 12;
+    const GAP_MIN_PX = 5;
+    const GAP_MAX_PX = 20;
 
     // Check if value uses !important flag (not allowed)
     if (value.includes('!important')) {
@@ -170,6 +243,23 @@ function validateProperty(property, value, maxLine = 7) {
     if (GRID_PLACEMENT_PROPERTIES.has(property)) {
         if (!isGridInBounds(property, value, maxLine)) {
             errors.push(`${property} value must be within grid lines (1-${maxLine}). Got: ${value}`);
+        }
+    }
+
+    // Enforce a reasonable px range for template track sizes.
+    if (GRID_TEMPLATE_LENGTH_PROPERTIES.has(property)) {
+        if (!isTemplatePxInBounds(value, TEMPLATE_MIN_PX, TEMPLATE_MAX_PX)) {
+            errors.push(`${property} px values must be between ${TEMPLATE_MIN_PX}px and ${TEMPLATE_MAX_PX}px. Got: ${value}`);
+        }
+
+        if (!isTemplateRepeatCountInBounds(value, TEMPLATE_REPEAT_MIN, TEMPLATE_REPEAT_MAX)) {
+            errors.push(`${property} repeat() count must be between ${TEMPLATE_REPEAT_MIN} and ${TEMPLATE_REPEAT_MAX}. Got: ${value}`);
+        }
+    }
+
+    if (GAP_PROPERTIES.has(property)) {
+        if (!isGapPxInBounds(value, GAP_MIN_PX, GAP_MAX_PX)) {
+            errors.push(`${property} must be set in px between ${GAP_MIN_PX}px and ${GAP_MAX_PX}px. Got: ${value}`);
         }
     }
 
