@@ -12,7 +12,8 @@ This tool teachs the user about topics of CSS grid: spanning, tracks, gaps, iten
 - Level Progressionn
 - CSS Input Validation
 - Progression Save/Load
-- Grid Value Limitations 
+- Grid Value Limitations
+- Achievement Flash  
 
 ## Installation
 ### Requirements
@@ -36,5 +37,5 @@ This tool teachs the user about topics of CSS grid: spanning, tracks, gaps, iten
 ## Credits
 Author: Ben Collins  
 Module: Dissertation  
-Version: 1.2.1  
+Version: 1.2.2  
 Date: 07/3/2026  

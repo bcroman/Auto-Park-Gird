@@ -405,6 +405,57 @@
   text-align: center;
 }
 
+/* =====================
+   Pack Transition Popup
+   ===================== */
+.pack-transition {
+  position: fixed;
+  inset: 0;
+  z-index: 1150;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.42);
+  pointer-events: auto;
+}
+
+.pack-transition.hidden {
+  display: none;
+}
+
+.pack-transition-card {
+  width: min(92vw, 480px);
+  background: var(--primary);
+  border: 1px solid var(--highlight);
+  border-radius: 18px;
+  padding: 26px 22px;
+  text-align: center;
+}
+
+.pack-transition-card h2 {
+  margin: 0 0 8px;
+  font-size: 26px;
+  text-align: center;
+}
+
+.pack-transition-card p {
+  margin: 8px 0;
+  text-align: center;
+}
+
+#packTransitionClose {
+  margin-top: 16px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: rgba(255, 255, 255, 0.14);
+  color: var(--text);
+}
+
+#packTransitionClose:hover {
+  filter: brightness(1.08);
+}
+
 .achievement-percent {
   font-weight: 700;
   color: var(--highlight);

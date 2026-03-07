@@ -52,6 +52,119 @@ function hideAchievementFlash() {
     elements.flash.setAttribute("aria-hidden", "true");
 }
 
+// Function: Get pack transition popup elements
+function getPackTransitionElements() {
+    const panel = document.querySelector("#packTransition");
+    const titleEl = document.querySelector("#packTransitionTitle");
+    const messageEl = document.querySelector("#packTransitionMessage");
+    const closeBtn = document.querySelector("#packTransitionClose");
+
+    if (!panel || !titleEl || !messageEl || !closeBtn) return null;
+    return { panel, titleEl, messageEl, closeBtn };
+}
+
+// Function: Hide pack transition popup
+function hidePackTransition() {
+    const elements = getPackTransitionElements();
+    if (!elements) return;
+
+    elements.panel.classList.add("hidden");
+    elements.panel.setAttribute("aria-hidden", "true");
+}
+
+// Function: Show pack transition popup until player closes it
+function showPackTransition(topic, message) {
+    const elements = getPackTransitionElements();
+    if (!elements || !topic || !message) return;
+
+    elements.titleEl.textContent = `Achievement: ${topic}`;
+    elements.messageEl.textContent = message;
+    elements.panel.classList.remove("hidden");
+    elements.panel.setAttribute("aria-hidden", "false");
+}
+
+// Function: Build pack index ranges from loaded packs
+function buildPackRanges(packs = []) {
+    const ranges = [];
+    let start = 0;
+
+    for (const pack of packs) {
+        const count = Array.isArray(pack?.levels) ? pack.levels.length : 0;
+        if (count <= 0) continue;
+
+        ranges.push({
+            start,
+            end: start + count - 1,
+            source: String(pack?.source || "")
+        });
+
+        start += count;
+    }
+
+    return ranges;
+}
+
+// Function: Resolve pack index from flattened level index
+function getPackIndexForLevel(levelIndex, packRanges = []) {
+    for (let i = 0; i < packRanges.length; i++) {
+        const range = packRanges[i];
+        if (levelIndex >= range.start && levelIndex <= range.end) {
+            return i;
+        }
+    }
+
+    return -1;
+}
+
+// Function: Provide transition message based on destination pack
+function getPackTransitionMessage(destinationPack = {}) {
+    const source = String(destinationPack?.source || "").toLowerCase();
+
+    // Customize messages based on pack source
+    if (source.includes("pack-tracks")) {
+        return "So far you've been placing items in the grid. Now let's control the size of the grid itself using grid tracks.";
+    }
+    if (source.includes("pack-gaps")) {
+        return "Great work with grid tracks! Now let's add some space between those tracks using gaps.";
+    }
+    if (source.includes("pack-alignment")) {
+        return "Looking good! Now let's align items within the grid and control how they stretch.";
+    }
+    if (source.includes("pack-implicit-explicit")) {
+        return "Awesome! So far you've been working with an explicit grid. Now let's explore how the grid can grow implicitly as you place items.";
+    }
+    if (source.includes("pack-auto-fill-fit")) {
+        return "Great job! Now let's master the powerful auto-fill and auto-fit features to create dynamic grids that adapt to their content.";
+    }
+
+    return "Great work. Next levels unlocks a new grid concept."; // Default message for unknown packs
+}
+
+// Function: Map pack source path to player-facing topic title
+function getPackTopic(destinationPack = {}) {
+    const source = String(destinationPack?.source || "").toLowerCase();
+
+    // Customize topics based on pack source
+    if (source.includes("pack-spanning")) return "Spanning";
+    if (source.includes("pack-tracks")) return "Tracks";
+    if (source.includes("pack-gaps")) return "Gaps";
+    if (source.includes("pack-alignment")) return "Alignment";
+    if (source.includes("pack-implicit-explicit")) return "Implicit vs Explicit";
+    if (source.includes("pack-auto-fill-fit")) return "Auto-Fill and Auto-Fit";
+
+    return "New Topic";
+}
+
+// Function: Wire popup close interaction
+function wirePackTransitionClose() {
+    const elements = getPackTransitionElements();
+    if (!elements) return;
+
+    elements.closeBtn.onclick = () => {
+        hidePackTransition();
+    };
+}
+
 // Function: Show achievement flash for 100% completion
 function showAchievementFlash(levels, state) {
     const elements = getAchievementElements();
@@ -69,10 +182,14 @@ function showAchievementFlash(levels, state) {
     if (achievementFlashTimer) {
         clearTimeout(achievementFlashTimer);
     }
+
+    achievementFlashTimer = setTimeout(() => {
+        hideAchievementFlash();
+    }, ACHIEVEMENT_FLASH_DURATION_MS);
 }
 
 // Function: Reset all progress, lock levels, and return to level 1
-function resetAllProgress(levels, state) {
+function resetAllProgress(levels, state, packRanges) {
     // Clear saved progress from localStorage
     try {
         localStorage.removeItem(`${STORAGE_PREFIX}${state.gameId || "default"}`);
@@ -92,7 +209,8 @@ function resetAllProgress(levels, state) {
     );
 
     hideAchievementFlash();
-    renderCurrent(levels, state);
+    hidePackTransition();
+    renderCurrent(levels, state, { previousIndex: state.index, packRanges });
     clearFeedback();
 }
 
@@ -148,35 +266,51 @@ function updateProgressUI(levels, state) {
 }
 
 // Function: Render the current level based on the state index
-function renderCurrent(levels, state) {
+function renderCurrent(levels, state, options = {}) {
+    const previousIndex = Number.isInteger(options.previousIndex) ? options.previousIndex : state.index;
+    const packRanges = Array.isArray(options.packRanges) ? options.packRanges : [];
+
     const level = levels[clamp(state.index, levels.length)];
     renderLevel(level);
     wireHints(level);
     updateNavigationButtons(levels, state);
     updateProgressUI(levels, state);
+
+    const prevPackIndex = getPackIndexForLevel(clamp(previousIndex, levels.length), packRanges);
+    const currentPackIndex = getPackIndexForLevel(clamp(state.index, levels.length), packRanges);
+    const movedBetweenPacks = prevPackIndex !== -1 && currentPackIndex !== -1 && prevPackIndex !== currentPackIndex;
+
+    if (movedBetweenPacks) {
+        const completedPack = packRanges[prevPackIndex];
+        const destinationPack = packRanges[currentPackIndex];
+        const topic = getPackTopic(completedPack);
+        const message = getPackTransitionMessage(destinationPack);
+        showPackTransition(topic, message);
+    }
 }
 
 // Function: Wire reset button to reset the level
-function wireReset(levels, state) {
+function wireReset(levels, state, packRanges) {
     const resetBtn = document.querySelector("#reset");
     if (!resetBtn) return;
 
     resetBtn.onclick = () => {
-        renderCurrent(levels, state);
+        renderCurrent(levels, state, { previousIndex: state.index, packRanges });
         clearFeedback();
     };
 }
 
 // Function: Wire the Previous and Next buttons to navigate levels
-function wirePrevNext(levels, state) {
+function wirePrevNext(levels, state, packRanges) {
     const prevBtn = document.querySelector("#prev");
     const nextBtn = document.querySelector("#next");
 
     // Previous Button Click Handler
     if (prevBtn) {
         prevBtn.onclick = () => {
+            const previousIndex = state.index;
             state.index = clamp(state.index - 1, levels.length);
-            renderCurrent(levels, state);
+            renderCurrent(levels, state, { previousIndex, packRanges });
             ensureStartAtTop();
             clearFeedback();
         };
@@ -186,8 +320,9 @@ function wirePrevNext(levels, state) {
     if (nextBtn) {
         nextBtn.onclick = () => {
             if (nextBtn.disabled) return;
+            const previousIndex = state.index;
             state.index = clamp(state.index + 1, levels.length);
-            renderCurrent(levels, state);
+            renderCurrent(levels, state, { previousIndex, packRanges });
             ensureStartAtTop();
             clearFeedback();
         };
@@ -230,14 +365,14 @@ function wireLevelUnlocking(levels, state) {
 }
 
 // Function: Wire reset progress button to clear saved progress and return to level 1
-function wireResetProgress(levels, state) {
+function wireResetProgress(levels, state, packRanges) {
     const btn = document.querySelector("#resetProgress");
     const flashBtn = document.querySelector("#achievementResetProgress");
 
     const handleReset = () => {
         const shouldReset = window.confirm("Reset all progress? This will lock levels again and return to Level 1.");
         if (!shouldReset) return;
-        resetAllProgress(levels, state);
+        resetAllProgress(levels, state, packRanges);
     };
 
     if (btn) btn.onclick = handleReset;
@@ -262,13 +397,15 @@ document.addEventListener("DOMContentLoaded", async () => {
         const { levels, packs } = await loadAllLevelPacks(packsURLs);
         if (!levels.length) { //Error handling for no levels found
             throw new Error("No levels found!");
-        };
+        }
+
+        const packRanges = buildPackRanges(packs);
 
         // Determine game ID for progress storage
         const gameId = packs?.[0]?.meta?.gameId || "css-grid-tool";
         const progress = loadProgress(levels, gameId); // Load progress from localStorage
         const startIndex = clamp(progress.highestUnlockedIndex ?? 0, levels.length);
-        
+
         // Initialize game state
         const state = {
             index: startIndex,
@@ -277,25 +414,22 @@ document.addEventListener("DOMContentLoaded", async () => {
             gameId
         };
 
-        // Get Current Level based on the state index 
-        const getCurrentLevel = () =>
-            levels[clamp(state.index, levels.length)];
-
         // Initial render
-        renderCurrent(levels, state);
+        renderCurrent(levels, state, { previousIndex: state.index, packRanges });
 
         // Wire UI controls
-        wirePrevNext(levels, state);
-        wireReset(levels, state);
-        wireResetProgress(levels, state);
+        wirePrevNext(levels, state, packRanges);
+        wireReset(levels, state, packRanges);
+        wireResetProgress(levels, state, packRanges);
         wireLevelUnlocking(levels, state);
+        wirePackTransitionClose();
 
         if ((state.completedCount ?? 0) >= levels.length) {
             showAchievementFlash(levels, state);
         }
 
         // Debug access in DevTools
-        window.__GAME__ = { levels, state, renderLevel };
+        window.__GAME__ = { levels, packs, state, renderLevel };
     } catch (err) {
         console.error(err);
         alert(`Failed to start game: ${err.message}`);
