@@ -19,6 +19,14 @@ function safeParse(json) {
     }
 }
 
+// Function: Keep only non-empty string entries from a transitions list
+function normalizeSeenPackTransitions(seenPackTransitions) {
+    return (seenPackTransitions || [])
+        .filter(item => typeof item === "string")
+        .map(item => item.trim())
+        .filter(Boolean);
+}
+
 // Function: Ensure unlocked IDs are valid and at least the first level is unlocked
 function normalizeUnlockedIds(levels, unlockedIds) {
     const levelIds = new Set(levels.map(level => level?.id ?? level?.title ?? ""));
@@ -50,7 +58,12 @@ function unlockedIdsToHighestIndex(levels, unlockedIds) {
 export function loadProgress(levels, gameId) {
     // Validate levels input
     if (!Array.isArray(levels) || levels.length === 0) {
-        return { unlockedIds: [], highestUnlockedIndex: 0, completedCount: 0 };
+        return {
+            unlockedIds: [],
+            highestUnlockedIndex: 0,
+            completedCount: 0,
+            seenPackTransitions: []
+        };
     }
 
     const key = storageKey(gameId);
@@ -66,11 +79,13 @@ export function loadProgress(levels, gameId) {
         const completedCount = Number.isFinite(parsedCompleted)
             ? Math.max(0, Math.min(parsedCompleted, levels.length))
             : Math.max(0, Math.min(highestUnlockedIndex, levels.length));
+        const seenPackTransitions = normalizeSeenPackTransitions(data?.seenPackTransitions);
 
         return {
             unlockedIds,
             highestUnlockedIndex,
-            completedCount
+            completedCount,
+            seenPackTransitions
         };
     } catch {
         // On error, default to unlocking the first level
@@ -78,13 +93,14 @@ export function loadProgress(levels, gameId) {
         return {
             unlockedIds: firstId ? [firstId] : [],
             highestUnlockedIndex: 0,
-            completedCount: 0
+            completedCount: 0,
+            seenPackTransitions: []
         };
     }
 }
 
 // Function: Save progress to localStorage
-export function saveProgress(levels, highestUnlockedIndex, gameId, completedCount) {
+export function saveProgress(levels, highestUnlockedIndex, gameId, completedCount, seenPackTransitions = []) {
     if (!Array.isArray(levels) || levels.length === 0) return;
 
     const key = storageKey(gameId);
@@ -100,6 +116,7 @@ export function saveProgress(levels, highestUnlockedIndex, gameId, completedCoun
     const payload = {
         unlockedIds,
         completedCount: Math.max(0, Math.min(Number(completedCount) || 0, levels.length)),
+        seenPackTransitions: normalizeSeenPackTransitions(seenPackTransitions),
         updatedAt: new Date().toISOString()
     };
 

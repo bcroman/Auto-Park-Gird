@@ -116,6 +116,13 @@ function getPackIndexForLevel(levelIndex, packRanges = []) {
     return -1;
 }
 
+// Function: Build a stable transition key for first-time pack popup display
+function getPackTransitionKey(destinationPack = {}) {
+    const source = String(destinationPack?.source || "").trim().toLowerCase();
+    if (!source) return "";
+    return `pack:${source}`;
+}
+
 // Function: Provide transition message based on destination pack
 function getPackTransitionMessage(destinationPack = {}) {
     const source = String(destinationPack?.source || "").toLowerCase();
@@ -200,12 +207,14 @@ function resetAllProgress(levels, state, packRanges) {
     state.highestUnlockedIndex = 0;
     state.completedCount = 0;
     state.index = 0;
+    state.seenPackTransitions = [];
 
     saveProgress(
         levels,
         state.highestUnlockedIndex,
         state.gameId,
-        state.completedCount
+        state.completedCount,
+        state.seenPackTransitions
     );
 
     hideAchievementFlash();
@@ -283,9 +292,26 @@ function renderCurrent(levels, state, options = {}) {
     if (movedBetweenPacks) {
         const completedPack = packRanges[prevPackIndex];
         const destinationPack = packRanges[currentPackIndex];
-        const topic = getPackTopic(completedPack);
-        const message = getPackTransitionMessage(destinationPack);
-        showPackTransition(topic, message);
+        const transitionKey = getPackTransitionKey(destinationPack);
+        const seenTransitions = Array.isArray(state.seenPackTransitions) ? state.seenPackTransitions : [];
+        const hasSeenTransition = transitionKey && seenTransitions.includes(transitionKey);
+
+        if (!hasSeenTransition) {
+            const topic = getPackTopic(completedPack);
+            const message = getPackTransitionMessage(destinationPack);
+            showPackTransition(topic, message);
+
+            if (transitionKey) {
+                state.seenPackTransitions = [...seenTransitions, transitionKey];
+                saveProgress(
+                    levels,
+                    state.highestUnlockedIndex,
+                    state.gameId,
+                    state.completedCount,
+                    state.seenPackTransitions
+                );
+            }
+        }
     }
 }
 
@@ -352,7 +378,8 @@ function wireLevelUnlocking(levels, state) {
             levels,
             state.highestUnlockedIndex,
             state.gameId,
-            state.completedCount
+            state.completedCount,
+            state.seenPackTransitions
         );
         updateNavigationButtons(levels, state);
         updateProgressUI(levels, state);
@@ -411,6 +438,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             index: startIndex,
             highestUnlockedIndex: progress.highestUnlockedIndex,
             completedCount: progress.completedCount,
+            seenPackTransitions: progress.seenPackTransitions || [],
             gameId
         };
 

@@ -37,5 +37,5 @@ This tool teachs the user about topics of CSS grid: spanning, tracks, gaps, iten
 ## Credits
 Author: Ben Collins  
 Module: Dissertation  
-Version: 1.2.2  
-Date: 07/3/2026  
+Version: 1.2.3  
+Date: 09/3/2026  

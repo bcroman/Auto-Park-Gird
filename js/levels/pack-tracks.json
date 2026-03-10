@@ -17,16 +17,16 @@
       "title": "Level 5 — Column Tracks",
       "concept": {
         "name": "grid-template-columns",
-        "explain": "Use grid-template-columns to control the width of each column in the grid.\n\nExample:\ngrid-template-columns: 180px 60px 60px 60px 60px 60px 60px;\n\nThis makes the first column wider while the other columns stay the same size."
+        "explain": "Use grid-template-columns to control the width of each column in the grid.\n\nExample:\ngrid-template-columns: 180px 120px 100px 80px 60px 40px 20px;\n\nThis makes each column a different width, with the first column being the widest and the last column being the narrowest."
       },
       "ui": {
-        "prompt": "Goal: Keep the car in the same place and resize the first column so it fills the wide parking bay.",
-        "starterCss": ".car {\n  grid-column: 1 / 2;\n  grid-row: 2 / 3;\n}\n\n.grid {\n  grid-template-columns: ?;\n}\n",
+        "prompt": "Goal: Keep the car in the same place and resize all columns so they are the same width.",
+        "starterCss": ".car {\n  grid-column: 1 / 2;\n  grid-row: 2 / 3;\n}\n\n.grid {\n  grid-template-columns: 180px 120px 100px 80px 60px 40px 20px;;\n}\n",
         "lockedCss": "/* Locked */\n.grid { display: grid; }\n",
         "hints": [
           "Use grid-template-columns to change column widths.",
           "Only the first column needs to become wider.",
-          "Try: grid-template-columns: 180px 60px 60px 60px 60px 60px 60px;"
+          "Try: grid-template-columns: 180px 120px 100px 80px 60px 40px 20px;"
         ]
       },
       "grid": { "columns": 7, "rows": 7 },
@@ -103,7 +103,7 @@
       "title": "Level 7 — Repeat Tracks",
       "concept": {
         "name": "repeat()",
-        "explain": "Use repeat() to write repeated track sizes more easily.\n\nExample:\ngrid-template-columns: repeat(7, 60px);\n\nThis creates 7 equal columns without typing 60px seven times."
+        "explain": "Use repeat() to write repeated track sizes more easily.\n\nExample:\ngrid-template-columns: 120px repeat(7, 80px);\n\nThis creates 7 equal columns without typing 80px seven times."
       },
       "ui": {
         "prompt": "Goal: Build equal column tracks using repeat() while keeping the car where it is.",
@@ -112,7 +112,7 @@
         "hints": [
           "Use repeat() to create the same column size multiple times.",
           "You need 7 equal columns.",
-          "Try: grid-template-columns: repeat(7, 60px);"
+          "Try: grid-template-columns: repeat(7, 80px);"
         ]
       },
       "grid": { "columns": 7, "rows": 7 },
@@ -149,7 +149,7 @@
         "explain": "Use grid-template-columns and grid-template-rows together to control the size of the grid in both directions.\n\nThis lets one parking bay become wider and taller at the same time."
       },
       "ui": {
-        "prompt": "Goal: Keep the car in the same place and resize both columns and rows to match the larger parking bay.",
+        "prompt": "Goal: Keep the car in the same place and resize the second column and second row to match the larger parking bay.",
         "starterCss": ".car {\n  grid-column: 2 / 3;\n  grid-row: 2 / 3;\n}\n\n.grid {\n  grid-template-columns: ?;\n  grid-template-rows: ?;\n}\n",
         "lockedCss": "/* Locked */\n.grid { display: grid; }\n",
         "hints": [
